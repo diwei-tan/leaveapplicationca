@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>   
+    
+     <table>      
+      <tr th:if="${users.empty}">
+            <td colspan="2"> No Users Available </td>
+        </tr>
+        <tr th:each="user : ${users}">        
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.role}">Role</td>
+        <td th:text="${user.leaveEntitled}">Leave</td>
+        <td th:text="${user.contact}">Contact</td>
+        <td th:text="${user.email}">email</td>
+        <td th:text="${user.compensationhours}">comphours</td>
+        <td th:text="${user.reportsTo}">rt</td>
+         <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a></td>
+         <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a></td>
+      </tr>
+    </table>
+</body>
+</html>
