@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style> 
+input[type=text] {
+  width: 25%;
+  padding: 5px 10px;
+  margin: 4px 0;
+  box-sizing: border-box;
+}
+</style>
+</head>
+<body>	 
+	<form action="#" th:action="@{/adduser}" th:object="${user}" method="post">
+    <p>Name: <input type="text" th:field="*{name}" />      
+    <p>Role: <select name="role">
+    <option value="">None</option>
+    <option value="Admin">Admin</option>
+    <option value="Staff">Staff</option>
+    <option value="Manager">Manager</option>    
+  </select>
+    <p>Leave Entitled: <input type="text"  th:field="*{leaveEntitled}" /></p>    
+    <p>Contact: <input type="text" th:field="*{contact}" /></p> 
+    <p>Email: <input type="email" th:field="*{email}" /></p>    
+    <p>Compensation Hours: <input type="text" th:field="*{compensationhours}" /></p>
+    <p>Reports To: <select th:field="*{reportsTo}">
+    <option value=""> Choose option</option>    
+  	<option th:each="user : ${roles}" 
+          th:value="${user.id}" 
+          th:text="${user.name}"></option>
+	</select> </p> 	    
+     
+    <input type="submit" value="Add user">   
+</form>
+</body>
+</html>
