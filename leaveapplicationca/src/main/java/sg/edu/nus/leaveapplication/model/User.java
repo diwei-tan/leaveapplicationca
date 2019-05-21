@@ -13,17 +13,17 @@ import javax.validation.constraints.Size;
 public class User {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;	
 	@NotNull
 	@Size(min=2,max=100)
 	private String name;	
 	private String role;	
-	private Integer leaveEntitled;	
+	private int leaveEntitled;	
 	private long contact;	
 	private String email;
 	private double compensationhours;	
-	private String reportsTo;
+	private long reportsTo;
 	
 	
 	
@@ -33,7 +33,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}	
 	
-	public User(String name, String role, Integer leaveEntitled, String email, String reportsTo) {
+	public User(String name, String role, int leaveEntitled, String email, long reportsTo) {
 		super();
 		this.name = name;
 		this.role = role;
@@ -65,11 +65,11 @@ public class User {
 		this.role = role;
 	}	
 
-	public Integer getLeaveEntitled() {
+	public int getLeaveEntitled() {
 		return leaveEntitled;
 	}
 
-	public void setLeaveEntitled(Integer leaveEntitled) {
+	public void setLeaveEntitled(int leaveEntitled) {
 		this.leaveEntitled = leaveEntitled;
 	}
 
@@ -92,11 +92,11 @@ public class User {
 		this.compensationhours = compensationhours;
 	}
 	
-	public String getReportsTo() {
+	public long getReportsTo() {
 		return reportsTo;
 	}
 
-	public void setReportsTo(String reportsTo) {
+	public void setReportsTo(long reportsTo) {
 		this.reportsTo = reportsTo;
 	}
 

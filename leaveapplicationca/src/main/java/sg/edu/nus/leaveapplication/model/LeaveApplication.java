@@ -15,11 +15,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name="LEAVETABLE")
 public class LeaveApplication {
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="ID")
-	private int id;
+	private long id;
 	@Column(name="USERID")
-	private int userId; // employee that took leave. foreign key to employee
+	private long userId; // employee that took leave. foreign key to employee
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@Column(name="START_DATE")
 	private LocalDateTime startDate;
@@ -73,10 +73,10 @@ public class LeaveApplication {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public LocalDateTime getStartDate() {
@@ -91,7 +91,7 @@ public class LeaveApplication {
 	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	public String getReason() {
