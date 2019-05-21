@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Leave Application</title>
+</head>
+<body>
+	<h1>Hello!</h1>
+	<table>
+		<tr>
+			<th>USER ID </th>
+			<th>LEAVE START DATE</th>
+			<th>LEAVE END DATE</th>
+			<th>LEAVE TYPE</th>
+			<th>LEAVE STATUS</th>
+		</tr>
+		<tr th:each="leave : ${leaveList}">
+			<td th:text="${leave.userId}">no ID found</td>
+			<td th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no start date found</td>
+			<td th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no end date found</td>
+			<td th:text="${leave.type}">no type found</td>
+			<td th:text="${leave.status}">no status found</td>
+		</tr>
+	</table>
+	<a th:href="@{/leaveapplication/create}">Create New Leave Application</a>
+</body>
+</html>
