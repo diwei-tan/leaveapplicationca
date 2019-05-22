@@ -29,7 +29,7 @@ public class LeaveApplicationController {
 		this.leaveRepo=leaveRepo;
 	}
 	
-	@GetMapping(path="/leaveapplication/home")
+	@GetMapping(path="/home")
 	public String leaveMainPage(Model model) {
 		//Should anyone be able to login, directed to this page to show the leave information of themselves
 		//should show approved list of leave application that are not yet past
@@ -37,12 +37,23 @@ public class LeaveApplicationController {
 		model.addAttribute("leaveList", leaveList);
 		return "home";
 	}
-	@GetMapping(path="/leaveapplication/create")
+	
+	@RequestMapping(path="/home",method=RequestMethod.POST)
+	public String returnMainPage(Model model)
+	{
+		List<LeaveApplication>leaveList = leaveRepo.findAll();
+		model.addAttribute("leaveList", leaveList);
+		return "home";
+	}
+	
+	@GetMapping(path="/create")
 	public String loadMethod(Model model) {
 		model.addAttribute("leaveApplication", new LeaveApplication());
 		return "leaveform";
 		
 	}
+	
+
 	@PostMapping(path="/leaveapplication/submit")
 	public String processStupidForm(@ModelAttribute("form") LeaveApplication form) {
 		LeaveServices service = new LeaveServices();
@@ -56,7 +67,7 @@ public class LeaveApplicationController {
 		
 		leaveRepo.save(leaveApplication);
 		
-		return "redirect:/leaveapplication/home";
+		return "redirect:/home";
 		
 	}
 }

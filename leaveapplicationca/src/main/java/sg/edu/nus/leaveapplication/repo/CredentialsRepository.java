@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import sg.edu.nus.CA.model.Credentials;
+import sg.edu.nus.leaveapplication.model.Credentials;
 
 public interface CredentialsRepository extends JpaRepository<Credentials,String>{
 

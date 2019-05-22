@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import sg.edu.nus.CA.model.Credentials;
-import sg.edu.nus.CA.repos.CredentialsRepository;
+import sg.edu.nus.leaveapplication.model.Credentials;
+import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 
 @Controller
 public class LoginController {
