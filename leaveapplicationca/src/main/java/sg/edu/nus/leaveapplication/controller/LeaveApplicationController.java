@@ -63,8 +63,7 @@ public class LeaveApplicationController {
 		}
 		catch(Exception e) {
 			LOG.info(e.getMessage());
-		}
-		
+		}		
 		leaveRepo.save(leaveApplication);
 		
 		return "redirect:/home";
