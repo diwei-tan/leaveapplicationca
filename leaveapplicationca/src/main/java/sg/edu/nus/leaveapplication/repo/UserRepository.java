@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.User;
 
-public interface userRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 	@Query(value = "Select u from User u where u.role = 'Manager'")
 	List<User> findByRole();
+	List<User> findByName(String name);
 }

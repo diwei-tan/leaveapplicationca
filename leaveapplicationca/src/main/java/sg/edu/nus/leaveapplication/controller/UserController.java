@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import sg.edu.nus.leaveapplication.model.User;
-import sg.edu.nus.leaveapplication.repo.userRepository;
+import sg.edu.nus.leaveapplication.repo.UserRepository;
 @Controller
 
-public class userController {
+public class UserController {
 	
-	private  userRepository userRepo;
+	private  UserRepository userRepo;
 
 	@Autowired
-	public void setUserRepo(userRepository userRepo) {
+	public void setUserRepo(UserRepository userRepo) {
 		this.userRepo = userRepo;
 	}
 	

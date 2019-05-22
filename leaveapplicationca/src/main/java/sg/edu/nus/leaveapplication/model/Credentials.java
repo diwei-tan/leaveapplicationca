@@ -1,14 +1,19 @@
 package sg.edu.nus.leaveapplication.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Credentials {
-	@Id
 	private String username;
 	private String password;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long userId;
 	
+
 	public Credentials() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -17,6 +22,12 @@ public class Credentials {
 		super();
 		this.username = username;
 		this.password = password;
+	}
+	public long getUserId() {
+		return userId;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	public String getUsername() {
 		return username;
