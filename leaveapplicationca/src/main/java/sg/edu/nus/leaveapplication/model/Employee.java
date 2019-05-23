@@ -24,7 +24,7 @@ public class Employee {
 	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Credentials credential;
-	private String role;	
+	private String designation;	
 	private int leaveEntitled;	
 	private long contact;	
 	private String email;
@@ -39,10 +39,10 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}	
 	
-	public Employee(String name, String role, int leaveEntitled, String email, long reportsTo) {
+	public Employee(String name, String designation, int leaveEntitled, String email, long reportsTo) {
 		super();
 		this.name = name;
-		this.role = role;
+		this.designation = designation;
 		this.leaveEntitled = leaveEntitled;
 		this.email = email;
 		this.reportsTo = reportsTo;
@@ -65,10 +65,10 @@ public class Employee {
 		this.name = name;
 	}
 	public String getRole() {
-		return role;
+		return designation;
 	}
 	public void setRole(String role) {
-		this.role = role;
+		this.designation = role;
 	}	
 
 	public int getLeaveEntitled() {

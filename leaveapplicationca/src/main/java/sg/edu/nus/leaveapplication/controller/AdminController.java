@@ -32,10 +32,11 @@ public class AdminController {
 		
 	}
 	
-	@GetMapping("/https://github.com/tanddoubleu/leaveapplicationca.git")	
-	public String showadduserform(Employee user,Model model) {
+	@GetMapping("/adduser")	
+	public String showadduserform(Model model) {
 		List<Employee> u = employeeRepo.findByRole(); 
 		model.addAttribute("roles", u);
+		model.addAttribute("form", new Employee());
 		return "adduser";
 	}
 	
