@@ -157,7 +157,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<input type="password" placeholder="password"
 							name="password" id="password" />
 						<input type="submit" value="login" /> <input type="reset" name="reset" value="cancel"> 
-						<span><a href="register.jsp">/////SOMETHING</a></span>
+						 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<span><a th:href="@{/registration}">Create an account</a></span>
 					</form>
 					<br>
 					<br>

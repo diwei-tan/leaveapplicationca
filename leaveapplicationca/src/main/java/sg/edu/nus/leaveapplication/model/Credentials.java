@@ -1,19 +1,34 @@
 package sg.edu.nus.leaveapplication.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 
 @Entity
 public class Credentials {
-	private String username;
-	private String password;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
+	private String username;
+	private String password;
+	@Transient
+	private String passwordConfirm;
+	@ManyToMany
+    private Set<Role> roles;
+	@OneToOne(mappedBy="credential", cascade = CascadeType.ALL)
+	Employee employee;
 	
-
 	public Credentials() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -41,34 +56,23 @@ public class Credentials {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((password == null) ? 0 : password.hashCode());
-//		result = prime * result + ((username == null) ? 0 : username.hashCode());
-//		return result;
-//	}
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		User other = (User) obj;
-//		if (password == null) {
-//			if (other.password != null)
-//				return false;
-//		} else if (!password.equals(other.password))
-//			return false;
-//		if (username == null) {
-//			if (other.username != null)
-//				return false;
-//		} else if (!username.equals(other.username))
-//			return false;
-//		return true;
-//	}	
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
+	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> role) {
+		this.roles = roles;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 }

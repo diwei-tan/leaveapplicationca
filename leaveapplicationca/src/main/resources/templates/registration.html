@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Create an account</title>
+</head>
+<body>
+	<form th:object="${userForm}" th:action="@{/registration}" method="post">
+    	<fieldset>
+    		Username: <input type="text" th:field="*{username}">
+    		<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+    	</fieldset>
+    	<fieldset>
+    		Password: <input type="text" th:field="*{password}">
+    		<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+    	</fieldset>     
+    	<fieldset>
+    		Confirm Password: <input type="text" th:field="*{passwordConfirm}">
+    		<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></p>
+    	</fieldset>
+    	<fieldset>
+    		Name: <input type="text" th:field="*{employee.name}">
+    	</fieldset>
+    	<fieldset>
+    		Role: <select th:field="*{employee.role}">
+  				<option th:value="Staff">Staff</option>
+  				<option th:value="Manager">Manager</option>
+  				<option th:value="Admin">Admin</option>
+			</select>
+    	</fieldset> 
+    	<fieldset>
+    		Authorised Rights: <select th:field="*{role.name}">
+  				<option th:value="Staff">Staff</option>
+  				<option th:value="Manager">Manager</option>
+  				<option th:value="Admin">Admin</option>
+			</select>
+    	</fieldset>
+    	<fieldset>
+    		Leave Entitled: <input type="number" th:field="*{employee.leaveEntitled}">
+    	</fieldset>   
+    	<fieldset>
+    		Contact Number: <input type="text" th:field="*{employee.contact}">
+    	</fieldset>   
+    	<fieldset>
+    		Email: <input type="text" th:field="*{employee.email}">
+    	</fieldset>   
+    	<fieldset>
+    		Reports To: <input type="number" th:field="*{employee.reportsTo}">
+    	</fieldset>
+    	<fieldset> 
+    		<input type="hidden" value="0" name="employee.compensationhours" id="compensationhours"/>
+		</fieldset>     
+    	<fieldset> 
+    		<button type="submit">Save</button> 
+		</fieldset>           
+    </form>
+</body>
+</html>

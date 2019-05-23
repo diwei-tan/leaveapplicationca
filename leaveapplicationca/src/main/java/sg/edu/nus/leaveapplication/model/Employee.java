@@ -4,36 +4,42 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 
 @Entity
-public class User {
+public class Employee {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;	
 	@NotNull
 	@Size(min=2,max=100)
-	private String name;	
+	private String name;
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private Credentials credential;
 	private String role;	
 	private int leaveEntitled;	
 	private long contact;	
 	private String email;
-	private double compensationhours;	
+	private long compensationhours;	
 	private long reportsTo;
 	
 	
 	
 
-	public User() {
+	public Employee() {
 		super();
 		// TODO Auto-generated constructor stub
 	}	
 	
-	public User(String name, String role, int leaveEntitled, String email, long reportsTo) {
+	public Employee(String name, String role, int leaveEntitled, String email, long reportsTo) {
 		super();
 		this.name = name;
 		this.role = role;
@@ -85,10 +91,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public double getCompensationhours() {
+	public long getCompensationhours() {
 		return compensationhours;
 	}
-	public void setCompensationhours(double compensationhours) {
+	public void setCompensationhours(long compensationhours) {
 		this.compensationhours = compensationhours;
 	}
 	
@@ -99,7 +105,13 @@ public class User {
 	public void setReportsTo(long reportsTo) {
 		this.reportsTo = reportsTo;
 	}
+	public Credentials getCredential() {
+		return credential;
+	}
 
+	public void setCredential(Credentials credential) {
+		this.credential = credential;
+	}
 	
 	
 }

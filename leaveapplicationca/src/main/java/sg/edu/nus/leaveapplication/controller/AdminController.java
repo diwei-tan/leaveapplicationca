@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import sg.edu.nus.leaveapplication.model.User;
-import sg.edu.nus.leaveapplication.repo.UserRepository;
+import sg.edu.nus.leaveapplication.model.Employee;
+import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 @Controller
 
-public class UserController {
+public class AdminController {
 	
-	private  UserRepository userRepo;
+	private  EmployeeRepository employeeRepo;
 
 	@Autowired
-	public void setUserRepo(UserRepository userRepo) {
-		this.userRepo = userRepo;
+	public void setEmployeeRepo(EmployeeRepository employeeRepo) {
+		this.employeeRepo = employeeRepo;
 	}
 	
 	@RequestMapping("/adminhome")
@@ -33,42 +33,42 @@ public class UserController {
 	}
 	
 	@GetMapping("/https://github.com/tanddoubleu/leaveapplicationca.git")	
-	public String showadduserform(User user,Model model) {
-		List<User> u = userRepo.findByRole(); 
+	public String showadduserform(Employee user,Model model) {
+		List<Employee> u = employeeRepo.findByRole(); 
 		model.addAttribute("roles", u);
 		return "adduser";
 	}
 	
 	@PostMapping("/adduser")
-	public String addUser(@Valid User user, BindingResult result, Model model) {
+	public String addUser(@Valid Employee user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "adduser";
         }    
             
-        model.addAttribute("users", userRepo.findAll());
-        userRepo.save(user);       
+        model.addAttribute("users", employeeRepo.findAll());
+        employeeRepo.save(user);       
         return "adminhome";
     }
 	
 	@RequestMapping(path="/viewusers" ,method = RequestMethod.GET)
 	public String listmethod(Model model) {		
-		model.addAttribute("users", userRepo.findAll());
+		model.addAttribute("users", employeeRepo.findAll());
 		return "viewusers";
 	
 	}
 	
 	@GetMapping("/users/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
-	    User user = userRepo.findById(id)
+	    Employee user = employeeRepo.findById(id)
 	      .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-	    List<User> u = userRepo.findByRole(); 
+	    List<Employee> u = employeeRepo.findByRole(); 
 		model.addAttribute("roles", u);
 	    model.addAttribute("user", user);
 	    return "edituser";
 	}
 	
 	@PostMapping("/users/update/{id}")
-	public String updateUser(@PathVariable("id") long id, @Valid User user, 
+	public String updateUser(@PathVariable("id") long id, @Valid Employee user, 
 	  BindingResult result, Model model) {
 	    if (result.hasErrors()) {
 	        user.setId(id);
@@ -76,16 +76,16 @@ public class UserController {
 	    }
 	         
 	    
-	    List<User> u = userRepo.findByRole(); 
+	    List<Employee> u = employeeRepo.findByRole(); 
 		model.addAttribute("roles", u);
-	    model.addAttribute("users", userRepo.findAll());
-	    userRepo.save(user);
+	    model.addAttribute("users", employeeRepo.findAll());
+	    employeeRepo.save(user);
 	    return "adminhome";
 	}
 	
 	@RequestMapping(path = "/users/delete/{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable(name = "id") long id) {
-        userRepo.delete(userRepo.findById(id).orElse(null));
+        employeeRepo.delete(employeeRepo.findById(id).orElse(null));
         return "adminhome";
     }
 	
