@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
+import sg.edu.nus.leaveapplication.model.LeaveApplication;
+
 public class LeaveServices {
 	
 	public LeaveServices() {
@@ -84,6 +86,11 @@ public class LeaveServices {
 			return true;
 		else
 			return false;
+	}
+	//extra methods overlap to check if dates overlap
+	public boolean overlaps(LeaveApplication leaveApplication1, LeaveApplication leaveApplication2) {
+		//Checks if two leave application coincide
+		return(leaveApplication1.getEndDate().isAfter(leaveApplication2.getStartDate()) && leaveApplication1.getStartDate().isBefore(leaveApplication2.getEndDate()));
 	}
 
 }

@@ -88,9 +88,10 @@ public class LoginController {
 		else if(u.getPassword().equals(user.getPassword())) { 
 			//Pass User and Leave by user to view //definitely one UserId(one to one between credentials and user) 
 			Employee loginUser = employeeRepos.findById(u.getUserId()).get();
-			List<LeaveApplication> leaveList = leaveRepos.findByUserId(loginUser.getId()); 
+			List<LeaveApplication> leaveList = leaveRepos.findByEmployee(loginUser); 
 			model.addAttribute("loginUser", loginUser); 
-			model.addAttribute("leaveList", leaveList); return "home"; 
+			model.addAttribute("leaveList", leaveList); 
+			return "home"; 
 		} 
 		else 
 			return "login";

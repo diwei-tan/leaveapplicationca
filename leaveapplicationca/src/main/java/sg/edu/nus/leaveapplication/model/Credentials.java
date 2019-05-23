@@ -65,7 +65,7 @@ public class Credentials {
 	public Set<Role> getRoles() {
 		return roles;
 	}
-	public void setRoles(Set<Role> role) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 	public Employee getEmployee() {
