@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import sg.edu.nus.leaveapplication.model.PublicHoliday;
 import sg.edu.nus.leaveapplication.repo.PHRepository;
 
+import sg.edu.nus.leaveapplication.model.LeaveApplication;
+
 public class LeaveServices {
 	
 	private PHRepository phRepo;
@@ -98,6 +100,13 @@ public class LeaveServices {
 		else
 			return false;
 	}
+<<<<<<< HEAD
+	//extra methods overlap to check if dates overlap
+	public boolean overlaps(LeaveApplication leaveApplication1, LeaveApplication leaveApplication2) {
+		//Checks if two leave application coincide
+		return(leaveApplication1.getEndDate().isAfter(leaveApplication2.getStartDate()) && leaveApplication1.getStartDate().isBefore(leaveApplication2.getEndDate()));
+	}
+=======
 	
 	// method to generate leave application dates into a list
 			public int excludePH(LocalDate startDate, LocalDate endDate) {
@@ -120,5 +129,6 @@ public class LeaveServices {
 				return tempList.size();
 					
 			}
+>>>>>>> branch 'master' of https://github.com/tanddoubleu/leaveapplicationca.git
 
 }

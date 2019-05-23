@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,8 +20,9 @@ public class LeaveApplication {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="ID")
 	private long id;
-	@Column(name="USERID")
-	private long userId; // employee that took leave. foreign key to employee
+	@ManyToOne
+	@JoinColumn
+	Employee employee;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	@Column(name="START_DATE")
 	private LocalDateTime startDate;
@@ -37,9 +40,9 @@ public class LeaveApplication {
 	
 
 	//constructors
-	public LeaveApplication(int userId, LocalDateTime startDate, LocalDateTime endDate) {
+	public LeaveApplication(Employee employee, LocalDateTime startDate, LocalDateTime endDate) {
 		super();
-		this.userId = userId;
+		this.employee = employee;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
@@ -51,7 +54,7 @@ public class LeaveApplication {
 	//tostring
 	@Override
 	public String toString() {
-		return "LeaveApplication [userId=" + userId + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+		return "LeaveApplication [employee=" + employee.getName() + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
 	
 	//getters and setters
@@ -73,11 +76,11 @@ public class LeaveApplication {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public long getUserId() {
-		return userId;
+	public Employee getEmployee() {
+		return employee;
 	}
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	public LocalDateTime getStartDate() {
 		return startDate;
@@ -101,9 +104,4 @@ public class LeaveApplication {
 		this.reason = reason;
 	}
 	
-	//extra methods overlap to check if dates overlap
-	public boolean overlaps(LeaveApplication leaveApplication) {
-		//Checks if two leave application coincide
-		return(endDate.isAfter(leaveApplication.getStartDate()) && startDate.isBefore(leaveApplication.getEndDate()));
-	}
 }

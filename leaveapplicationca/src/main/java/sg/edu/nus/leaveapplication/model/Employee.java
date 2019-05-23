@@ -1,11 +1,15 @@
 package sg.edu.nus.leaveapplication.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
@@ -30,8 +34,8 @@ public class Employee {
 	private String email;
 	private long compensationhours;	
 	private long reportsTo;
-	
-	
+	@OneToMany(mappedBy="employee")
+	List<LeaveApplication> leaveList;
 	
 
 	public Employee() {
@@ -39,13 +43,21 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}	
 	
+<<<<<<< HEAD
 	public Employee(String name, String designation, int leaveEntitled, String email, long reportsTo) {
+=======
+	public Employee(String name, String role, int leaveEntitled, long contact, String email, long compensationhours, 
+			long reportsTo, List<LeaveApplication> leaveList) {
+>>>>>>> branch 'master' of https://github.com/tanddoubleu/leaveapplicationca.git
 		super();
 		this.name = name;
 		this.designation = designation;
 		this.leaveEntitled = leaveEntitled;
+		this.contact=contact;
 		this.email = email;
+		this.compensationhours=compensationhours;
 		this.reportsTo = reportsTo;
+		this.leaveList=leaveList;
 	}
 
 	
@@ -112,6 +124,12 @@ public class Employee {
 	public void setCredential(Credentials credential) {
 		this.credential = credential;
 	}
-	
+	public List<LeaveApplication> getLeaveList() {
+		return leaveList;
+	}
+
+	public void setLeaveList(List<LeaveApplication> leaveList) {
+		this.leaveList = leaveList;
+	}
 	
 }
