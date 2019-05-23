@@ -1,5 +1,6 @@
 package sg.edu.nus.leaveapplication.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -16,8 +17,24 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
-	@ManyToMany
-	private Set<Credentials> users;
+	@ManyToMany(mappedBy = "roles")
+	private List<Credentials> credentials;
+	
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Role(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	public List<Credentials> getCredentials() {
+		return credentials;
+	}
+	public void setCredentials(List<Credentials> credentials) {
+		this.credentials = credentials;
+	}
 	public long getId() {
 		return id;
 	}
@@ -29,12 +46,6 @@ public class Role {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Set<Credentials> getUsers() {
-		return users;
-	}
-	public void setUsers(Set<Credentials> users) {
-		this.users = users;
 	}
 	
 }

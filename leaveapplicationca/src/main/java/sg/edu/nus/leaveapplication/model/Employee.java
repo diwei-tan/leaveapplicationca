@@ -21,12 +21,12 @@ import javax.validation.constraints.Size;
 public class Employee {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;	
 	@NotNull
 	@Size(min=2,max=100)
 	private String name;
 	@OneToOne
-	@PrimaryKeyJoinColumn
 	private Credentials credential;
 	private String designation;	
 	private int leaveEntitled;	
@@ -43,12 +43,8 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}	
 	
-<<<<<<< HEAD
-	public Employee(String name, String designation, int leaveEntitled, String email, long reportsTo) {
-=======
 	public Employee(String name, String role, int leaveEntitled, long contact, String email, long compensationhours, 
-			long reportsTo, List<LeaveApplication> leaveList) {
->>>>>>> branch 'master' of https://github.com/tanddoubleu/leaveapplicationca.git
+		long reportsTo, List<LeaveApplication> leaveList) {
 		super();
 		this.name = name;
 		this.designation = designation;

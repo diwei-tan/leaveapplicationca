@@ -80,21 +80,21 @@ public class LoginController {
 	}
 	
 	
-	@PostMapping("/login") 
-	public String login(@ModelAttribute("cred") Credentials user, Model model) { 
-		Credentials u =credRepos.findByUsername(user.getUsername()); 
-		if(u == null) 
-			return "login";
-		else if(u.getPassword().equals(user.getPassword())) { 
-			//Pass User and Leave by user to view //definitely one UserId(one to one between credentials and user) 
-			Employee loginUser = employeeRepos.findById(u.getUserId()).get();
-			List<LeaveApplication> leaveList = leaveRepos.findByEmployee(loginUser); 
-			model.addAttribute("loginUser", loginUser); 
-			model.addAttribute("leaveList", leaveList); 
-			return "home"; 
-		} 
-		else 
-			return "login";
-	}
+//	@PostMapping("/login") 
+//	public String login(@ModelAttribute("cred") Credentials user, Model model) { 
+//		Credentials u =credRepos.findByUsername(user.getUsername()); 
+//		if(u == null) 
+//			return "login";
+//		else if(u.getPassword().equals(user.getPassword())) { 
+//			//Pass User and Leave by user to view //definitely one UserId(one to one between credentials and user) 
+//			Employee loginUser = employeeRepos.findById(u.getUserId()).get();
+//			List<LeaveApplication> leaveList = leaveRepos.findByEmployee(loginUser); 
+//			model.addAttribute("loginUser", loginUser); 
+//			model.addAttribute("leaveList", leaveList); 
+//			return "home"; 
+//		} 
+//		else 
+//			return "login";
+//	}
 	
 }

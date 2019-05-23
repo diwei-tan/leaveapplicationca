@@ -148,7 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<h3>WELCOME TO LOG IN PAGE</h3>
 				<div class="contact-form">
 		
-		<form th:attr="action=@{/login}" th:object= "${Credentials}" method="post"
+		<form th:attr="action=@{/j_spring_security_check}" th:object= "${Credentials}" method="post"
 						onSubmit="return userCheck()">
 						<p>UserName</p>
 						<input type="text" placeholder="username"

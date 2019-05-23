@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(Credentials user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.setRoles(roleRepository.findAll());
         credRepository.save(user);
     }
 
