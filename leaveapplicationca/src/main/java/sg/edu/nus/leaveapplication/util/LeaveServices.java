@@ -4,10 +4,23 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import sg.edu.nus.leaveapplication.model.PublicHoliday;
+import sg.edu.nus.leaveapplication.repo.PHRepository;
 
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 
 public class LeaveServices {
+	
+	private PHRepository phRepo;
+	@Autowired
+	public void setPhRepo(PHRepository phRepo) {
+		this.phRepo = phRepo;
+	}
 	
 	public LeaveServices() {
 		super();
@@ -87,10 +100,35 @@ public class LeaveServices {
 		else
 			return false;
 	}
+<<<<<<< HEAD
 	//extra methods overlap to check if dates overlap
 	public boolean overlaps(LeaveApplication leaveApplication1, LeaveApplication leaveApplication2) {
 		//Checks if two leave application coincide
 		return(leaveApplication1.getEndDate().isAfter(leaveApplication2.getStartDate()) && leaveApplication1.getStartDate().isBefore(leaveApplication2.getEndDate()));
 	}
+=======
+	
+	// method to generate leave application dates into a list
+			public int excludePH(LocalDate startDate, LocalDate endDate) {
+				//generate list based on application
+				List<LocalDate> listLeave = new ArrayList<>();
+				while (!startDate.isAfter(endDate)) {
+					listLeave.add(startDate);
+					startDate = startDate.plusDays(1);
+				}
+				//retrieve public holidays from database
+				ArrayList<PublicHoliday> phList = phRepo.findAll();
+				//compare two lists for identical dates & add to new temporary list for counting
+				ArrayList<PublicHoliday> tempList = new ArrayList<PublicHoliday>();
+						for (PublicHoliday temp : phList) {
+					if (listLeave.contains(temp)) {
+						tempList.add(temp);
+					}
+				}
+				//count size of new list
+				return tempList.size();
+					
+			}
+>>>>>>> branch 'master' of https://github.com/tanddoubleu/leaveapplicationca.git
 
 }
