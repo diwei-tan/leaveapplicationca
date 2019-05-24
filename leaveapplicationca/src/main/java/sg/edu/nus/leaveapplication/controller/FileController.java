@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 import sg.edu.nus.leaveapplication.model.Credentials;
+import sg.edu.nus.leaveapplication.model.Employee;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
+import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.util.FileService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,16 +26,16 @@ public class FileController {
 	 @Autowired
 	private FileService fileService;
 	 
-	private CredentialsRepository credRepo;
+	private EmployeeRepository empRepo;
 	@Autowired
-	public void setEmployeeRepo(CredentialsRepository credRepo) {
-		this.credRepo = credRepo;
+	public void setEmployeeRepo(EmployeeRepository empRepo) {
+		this.empRepo = empRepo;
 	}
 
 	 @GetMapping("/csv")
 	    public void exportCsv(HttpServletResponse response, HttpServletRequest request) throws IOException {
-		 List<Credentials> users = credRepo.findAll();
-		 String fileName = "ListREooo.csv";
+		 List<Employee> users = empRepo.findAll();
+		 String fileName = "RecordList.csv";
 	  
 	        fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString());
 	        response.setContentType(MediaType.APPLICATION_OCTET_STREAM.toString());

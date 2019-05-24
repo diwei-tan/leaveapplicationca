@@ -46,7 +46,8 @@ ul {
 }
 
 .logo a img {
-	width: 10.27%;
+	top: 25px;
+	width: 17%;
 	z-index: 9999;
 	position: absolute;
 }
@@ -1802,6 +1803,18 @@ p.sngl {
 }
 
 #select {
+	padding: 10px 15px;
+	width: 50%;
+	color: #302e2e;
+	font-size: 1em;
+	border: 1px solid #302e2e;
+	outline: none;
+	display: block;
+	margin: 10px auto;
+	border-radius: 0.3em;
+}
+
+#number {
 	padding: 10px 15px;
 	width: 50%;
 	color: #302e2e;
@@ -3594,6 +3607,7 @@ div#portfoliolist {
 	text-decoration: none;
 }
 
+
 .tal {
 	color: #339966;
 	margin-top: 20px;
@@ -3699,6 +3713,50 @@ div#portfoliolist {
 	line-height: 100px;
 }
 
+.ta12 {
+	float: left;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
+}
+
+.ta32 {
+	float: left;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
+}
+
+.ta42 {
+	float: left;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
+}
+
+.ta52 {
+	float: left;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
+}
+
+.ta62 {
+	float: left;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
+}
 .orderta6 {
 	float: left;
 	width: 15.7%;
@@ -3764,7 +3822,47 @@ div#portfoliolist {
 	line-height: 30px;
 }
 
-.ta88 {
+.ta99 {
+	float: left;
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta21 {
+	float: left;
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta31 {
+	float: left;
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta41 {
+	float: left;
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta51 {
+	float: left;
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta61 {
 	float: left;
 	width: 20%;
 	overflow: hidden;

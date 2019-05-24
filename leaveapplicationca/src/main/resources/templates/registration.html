@@ -107,53 +107,80 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>	
+
+<!-- register -->
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<h3>Please input your info</h3>
+				<div class="contact-form">
+				
 	<form th:object="${userForm}" th:action="@{/adduser}" method="post">
-    	<fieldset>
-    		Username: <input type="text" th:field="*{username}">
+    	<p>
+    		Username: <input type="text" th:field="*{username}"></p>
     		<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-    	</fieldset>
-    	<fieldset>
-    		Password: <input type="text" th:field="*{password}">
+  
+    	<p>
+    		Password: <input type="text" th:field="*{password}"></p>
     		<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-    	</fieldset>     
-    	<fieldset>
-    		Confirm Password: <input type="text" th:field="*{passwordConfirm}">
+   
+    	<p>
+    		Confirm Password: <input type="text" th:field="*{passwordConfirm}"></p>
     		<p th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></p>
-    	</fieldset>
-    	<fieldset>
+   
+    	<p>
     		Name: <input type="text" th:field="*{employee.name}">
-    	</fieldset>
-    	<fieldset>
-    		Role: <select th:field="*{employee.designation}">
+    	</p>
+    	
+    	<p>Role: 
+    		<div id=select>
+    		   <select th:field="*{employee.designation}">
   				<option th:value="Staff">Staff</option>
   				<option th:value="Manager">Manager</option>
   				<option th:value="Admin">Admin</option>
 			</select>
-    	</fieldset> 
-    	<fieldset>
-    		Leave Entitled: <input type="number" th:field="*{employee.leaveEntitled}">
-    	</fieldset>   
-    	<fieldset>
+			</div>
+    	</p> 
+    	
+    	<p>    	
+    		Leave Entitled:
+    		<div id="number">
+    		 <input type="number" th:field="*{employee.leaveEntitled}">
+    		</div>
+    	</p>   
+    	
+    	<p>
     		Contact Number: <input type="text" th:field="*{employee.contact}">
-    	</fieldset>   
-    	<fieldset>
+    	</p>   
+    	
+    	<p>
     		Email: <input type="text" th:field="*{employee.email}">
-    	</fieldset>   
-    	<fieldset>
+    	</p>   
+    	
+    	<p>
+    	   Reports To:
+    	   <div id="select">
     		    <select th:field="*{employee.reportsTo}">
-    <option th:value="0"> Choose option</option>-->  
+    <option th:value="0"> Choose option</option>
   	<option th:each="user : ${managers}" 
           th:value="${user.id}" 
           th:text="${user.name}"></option>
 	</select>  	  
-    	</fieldset>
-    	<fieldset> 
-    		<input type="hidden" value="0" name="employee.compensationhours" id="compensationhours"/>
-		</fieldset>     
-    	<fieldset> 
-    		<button type="submit">Save</button> 
-		</fieldset>           
+	</div>
+    	</p>
+    	
+    	<p> 
+        		<input type="hidden" value="0" name="employee.compensationhours" id="compensationhours"/>
+		</p>     
+    	<p> 
+    		<input type="submit" value="Save"/>
+		</p>           
     </form>
+    </div>
+    </div>
+    </div>
+    </div>
+  
     <div class="footer">
 		<div class="container">
 			<div class="footer-main">
