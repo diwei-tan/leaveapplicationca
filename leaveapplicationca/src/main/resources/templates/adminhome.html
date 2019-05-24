@@ -131,12 +131,15 @@
 						<div class="ta3"
 							th:text="${user.employee.leaveEntitled}">no
 							end date found</div>
+
 						<div class="ta4" th:text="${user.employee.contact}">no type found</div>
 						<div class="ta5" th:text="${user.employee.email}">no status found</div>
 						<div class="ta6" th:text="${user.employee.compensationhours}">no status found</div>
 						<div class="ta7" th:text="${user.employee.reportsTo}">no status found</div>
 						<div class="ta8" ><a th:href="@{edit{id}(id=${user.userId})}">Edit</a>
      					<a th:href="@{delete/{id}(id=${user.userId})}">Delete</a>
+
+						
 					</div>
 				</div>
 			</div>
