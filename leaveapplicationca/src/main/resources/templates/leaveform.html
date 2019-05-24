@@ -110,7 +110,7 @@
 
 	<form th:attr="action=@{/leaveapplication/submit}" th:object= "${leaveApplication}" method="post">
 		<fieldset>
-			<input type="text" th:field="*{userId}"/>
+			<!--  <input type="text" th:field="*{userId}"/>-->
 			<input type="datetime-local" th:id="startDate" th:name="startDate"/>
 			<input type="datetime-local" th:id="endDate" th:name="endDate"/>
 			<select th:field="*{type}">

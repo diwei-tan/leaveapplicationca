@@ -52,7 +52,7 @@ public class LeaveApplicationController {
 		return "leaveform";
 		
 	}
-	
+
 
 	@PostMapping(path="/leaveapplication/submit")
 	public String processStupidForm(@ModelAttribute("form") LeaveApplication form) {

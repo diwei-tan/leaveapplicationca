@@ -27,10 +27,10 @@ public class AdminController {
 		this.employeeRepo = employeeRepo;
 	}
 	
-	@RequestMapping("/adminhome")
-	public void homepage() {
-		
-	}
+//	@RequestMapping("/adminhome")
+//	public void homepage() {
+//		
+//	}
 	
 	@GetMapping("/adduser")	
 	public String showadduserform(Model model) {
@@ -45,20 +45,20 @@ public class AdminController {
         if (result.hasErrors()) {
             return "adduser";
         }    
-            
+        employeeRepo.save(user);   
         model.addAttribute("users", employeeRepo.findAll());
-        employeeRepo.save(user);       
+        
         return "adminhome";
     }
 	
-	@RequestMapping(path="/viewusers" ,method = RequestMethod.GET)
+	@RequestMapping(path="/adminhome" ,method = RequestMethod.GET)
 	public String listmethod(Model model) {		
 		model.addAttribute("users", employeeRepo.findAll());
-		return "viewusers";
+		return "adminhome";
 	
 	}
 	
-	@GetMapping("/users/edit/{id}")
+	@GetMapping("/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 	    Employee user = employeeRepo.findById(id)
 	      .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
@@ -68,7 +68,7 @@ public class AdminController {
 	    return "edituser";
 	}
 	
-	@PostMapping("/users/update/{id}")
+	@PostMapping("/update/{id}")
 	public String updateUser(@PathVariable("id") long id, @Valid Employee user, 
 	  BindingResult result, Model model) {
 	    if (result.hasErrors()) {
@@ -78,13 +78,13 @@ public class AdminController {
 	         
 	    
 	    List<Employee> u = employeeRepo.findByRole(); 
-		model.addAttribute("roles", u);
+		model.addAttribute("roles", u);		
 	    model.addAttribute("users", employeeRepo.findAll());
 	    employeeRepo.save(user);
 	    return "adminhome";
 	}
 	
-	@RequestMapping(path = "/users/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/delete{id}", method = RequestMethod.GET)
     public String deleteProduct(@PathVariable(name = "id") long id) {
         employeeRepo.delete(employeeRepo.findById(id).orElse(null));
         return "adminhome";

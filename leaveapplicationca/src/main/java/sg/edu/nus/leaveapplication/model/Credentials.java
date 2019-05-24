@@ -1,6 +1,5 @@
 package sg.edu.nus.leaveapplication.model;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -27,7 +25,8 @@ public class Credentials {
 	@Transient
 	private String passwordConfirm;
 	@ManyToMany
-    private List<Role> roles;
+    private Set<Role> roles;
+	//@OneToOne(mappedBy="credential", cascade = CascadeType.ALL)
 	@OneToOne(mappedBy="credential")
 	Employee employee;
 	
@@ -64,10 +63,10 @@ public class Credentials {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 	public Employee getEmployee() {

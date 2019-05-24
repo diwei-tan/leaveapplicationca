@@ -1789,6 +1789,30 @@ p.sngl {
 	border-radius: 0.3em;
 }
 
+.contact-form form input[type="email"] {
+	padding: 10px 15px;
+	width: 50%;
+	color: #302e2e;
+	font-size: 1em;
+	border: 1px solid #302e2e;
+	outline: none;
+	display: block;
+	margin: 10px auto;
+	border-radius: 0.3em;
+}
+
+#select {
+	padding: 10px 15px;
+	width: 50%;
+	color: #302e2e;
+	font-size: 1em;
+	border: 1px solid #302e2e;
+	outline: none;
+	display: block;
+	margin: 10px auto;
+	border-radius: 0.3em;
+}
+
 .contact-form form textarea {
 	padding: 10px 15px;
 	width: 50%;
@@ -2109,6 +2133,7 @@ div#portfoliolist {
 	font-size: 12px;
 	text-transform: uppercase;
 }
+
 /* Self Clearing Goodness */
 .container:after {
 	content: "\0020";
@@ -3613,7 +3638,7 @@ div#portfoliolist {
 
 .ta2 {
 	float: left;
-	width: 25%;
+	width: 10%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3622,7 +3647,7 @@ div#portfoliolist {
 
 .ta3 {
 	float: left;
-	width: 19%;
+	width: 15%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3640,7 +3665,7 @@ div#portfoliolist {
 
 .ta5 {
 	float: left;
-	width: 19%;
+	width: 10%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3649,9 +3674,29 @@ div#portfoliolist {
 
 .ta6 {
 	float: left;
-	width: 15.7%;
+	width: 15%;
+	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
+	line-height: 100px;
+}
+
+.ta7 {
+	float: left;
+	width: 10%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
+}
+
+.ta8 {
+	float: left;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
 }
 
 .orderta6 {
@@ -3665,7 +3710,7 @@ div#portfoliolist {
 
 .ta22 {
 	float: left;
-	width: 35%;
+	width: 10%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3673,7 +3718,7 @@ div#portfoliolist {
 
 .ta33 {
 	float: left;
-	width: 19%;
+	width: 10%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3681,7 +3726,7 @@ div#portfoliolist {
 
 .ta44 {
 	float: left;
-	width: 10%;
+	width: 15%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3689,7 +3734,7 @@ div#portfoliolist {
 
 .ta55 {
 	float: left;
-	width: 19%;
+	width: 10%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3697,7 +3742,31 @@ div#portfoliolist {
 
 .ta66 {
 	float: left;
-	width: 15.7%;
+	width: 10%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta77 {
+	float: left;
+	width: 15%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta88 {
+	float: left;
+	width: 10%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
+
+.ta88 {
+	float: left;
+	width: 20%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;

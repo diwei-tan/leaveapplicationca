@@ -106,6 +106,7 @@ public class LeaveServices {
 		//Checks if two leave application coincide
 		return(leaveApplication1.getEndDate().isAfter(leaveApplication2.getStartDate()) && leaveApplication1.getStartDate().isBefore(leaveApplication2.getEndDate()));
 	}
+
 	
 	// method to generate leave application dates into a list
 			public int excludePH(LocalDate startDate, LocalDate endDate) {

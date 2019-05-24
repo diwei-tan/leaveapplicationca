@@ -1,4 +1,4 @@
-package sg.edu.nus.leaveapplication.model;
+	package sg.edu.nus.leaveapplication.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,12 @@ import javax.validation.constraints.Size;
 public class Employee {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;	
 	@NotNull
 	@Size(min=2,max=100)
 	private String name;
 	@OneToOne
+	@PrimaryKeyJoinColumn
 	private Credentials credential;
 	private String designation;	
 	private int leaveEntitled;	
@@ -43,8 +43,11 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}	
 	
+
+
+
 	public Employee(String name, String role, int leaveEntitled, long contact, String email, long compensationhours, 
-		long reportsTo, List<LeaveApplication> leaveList) {
+			long reportsTo, List<LeaveApplication> leaveList) {
 		super();
 		this.name = name;
 		this.designation = designation;
