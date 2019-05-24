@@ -137,7 +137,7 @@
 						<div class="ta5" th:text="${user.email}">no status found</div>
 						<div class="ta6" th:text="${user.compensationhours}">no status found</div>
 						<div class="ta7" th:text="${user.reportsTo}">no status found</div>
-						<div class="ta8" ><a th:href="@{edit/{id}(id=${user.id})}">Edit</a>
+						<div class="ta8" ><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a>
      <a th:href="@{delete{id}(id=${user.id})}">Delete</a>
 					</div>
 				</div>
