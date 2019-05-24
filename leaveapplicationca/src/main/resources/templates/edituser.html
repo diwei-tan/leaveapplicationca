@@ -107,27 +107,41 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>	
+
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<h3>Please Update Your Info</h3>
+				<div class="contact-form">
 	<form action="#" th:action="@{/update{id}(id=${user.userId})}" th:object="${user}" method="post">
    <p>Name: <input type="text" th:field="*{employee.name}" />      
-    <p>Role: <select th:field="*{employee.designation}">
+    <p>Role: <div id="select">
+    <select th:field="*{employee.designation}">
     <option th:value="Admin">Admin</option>
     <option th:value="Staff">Staff</option>
     <option th:value="Manager">Manager</option>    
   </select>
+  </div>
+  </p>
     <p>Leave Entitled: <input type="text"  th:field="*{employee.leaveEntitled}" /></p>    
     <p>contact: <input type="text" th:field="*{employee.contact}" /></p> 
     <p>Email: <input type="email" th:field="*{employee.email}" /></p>    
     <p>Compensation Hours: <input type="text" th:field="*{employee.compensationhours}" /></p>
+    <p> Reports To:<div id="select">
     <select th:field="*{employee.reportsTo}">
-    <!--  <option value=""> Choose option</option>-->  
+    <!--  <option value=""> Choose option</option>--> 
   	<option th:each="user : ${managers}" 
           th:value="${user.id}" 
           th:text="${user.name}"></option>
-	</select>  	    
-     
+	</select> 
+	</div>
+	</p> 	    
     <input type="submit" value="Update user">   
   </form>
-    
+</div>
+</div>
+</div>
+</div>    
     <div class="footer">
 		<div class="container">
 			<div class="footer-main">

@@ -107,6 +107,14 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>	
+
+<ul class="nav">
+<li>
+<a href="/adduser">Add user</a></li>
+<li>
+<a href="/csv">Downlod the Details</a></li>
+</ul>
+
 <div class="blog">
 		<div class="container">
 			<div class="reply heading">
@@ -116,12 +124,12 @@
 					<div class="ta44">LEAVE Entitled</div>
 					<div class="ta55">Contact</div>
 					<div class="ta66">Email</div>
-					<div class="ta77">compensationhours</div>
-					<div class="ta88">reports to</div>
+					<div class="ta77">Compensationhours</div>
+					<div class="ta88">Reports to</div>
 					<div class="ta99">Something</div>
 				</div>
 				<div class="tal1"></div>
-				<div th:if="${users.empty}"><p style="color: gray;">no users</p></div>
+				<div class="lai" th:if="${users.empty}"> no users</div>
 				<div th:each="user : ${users}">	
 					<div class="tal2">
 						<div class="ta1" th:text="${user.employee.name}">no ID found</div>
@@ -164,10 +172,6 @@
 <!--       </tr> -->
 <!--     </table> -->
  
-<ul class="nav">
-<li>
-<a href="/adduser">Add user</a></li>
-</ul>
 
 <!--footer-starts-->
 <div class="footer">
