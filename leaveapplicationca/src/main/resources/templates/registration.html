@@ -107,7 +107,7 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>	
-	<form th:object="${userForm}" th:action="@{/registration}" method="post">
+	<form th:object="${userForm}" th:action="@{/adduser}" method="post">
     	<fieldset>
     		Username: <input type="text" th:field="*{username}">
     		<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
@@ -124,29 +124,12 @@
     		Name: <input type="text" th:field="*{employee.name}">
     	</fieldset>
     	<fieldset>
-    		Role: <select th:field="*{employee.role}">
+    		Role: <select th:field="*{employee.designation}">
   				<option th:value="Staff">Staff</option>
   				<option th:value="Manager">Manager</option>
   				<option th:value="Admin">Admin</option>
 			</select>
     	</fieldset> 
-<<<<<<< HEAD
-    	<fieldset>
-    		<!--  Authorised Rights: <select th:field="*{role.name}">-->
-  				<option th:value="Staff">Staff</option>
-  				<option th:value="Manager">Manager</option>
-  				<option th:value="Admin">Admin</option>
-			</select>
-    	</fieldset>
-=======
-<!--     	<fieldset> -->
-<!--     		Authorised Rights: <select th:field="*{role.name}"> -->
-<!--   				<option th:value="Staff">Staff</option> -->
-<!--   				<option th:value="Manager">Manager</option> -->
-<!--   				<option th:value="Admin">Admin</option> -->
-<!-- 			</select> -->
-<!--     	</fieldset> -->
->>>>>>> branch 'master' of https://github.com/tanddoubleu/leaveapplicationca.git
     	<fieldset>
     		Leave Entitled: <input type="number" th:field="*{employee.leaveEntitled}">
     	</fieldset>   
@@ -157,7 +140,12 @@
     		Email: <input type="text" th:field="*{employee.email}">
     	</fieldset>   
     	<fieldset>
-    		Reports To: <input type="number" th:field="*{employee.reportsTo}">
+    		    <select th:field="*{employee.reportsTo}">
+    <option th:value="0"> Choose option</option>-->  
+  	<option th:each="user : ${managers}" 
+          th:value="${user.id}" 
+          th:text="${user.name}"></option>
+	</select>  	  
     	</fieldset>
     	<fieldset> 
     		<input type="hidden" value="0" name="employee.compensationhours" id="compensationhours"/>

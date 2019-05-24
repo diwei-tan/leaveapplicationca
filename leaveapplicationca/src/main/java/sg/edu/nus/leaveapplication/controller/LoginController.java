@@ -47,28 +47,7 @@ public class LoginController {
 	@Autowired
 	public void setLeaveRepos(LeaveRepository leaveRepos) {
 		this.leaveRepos = leaveRepos;
-	}
-
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new Credentials());
-
-        return "registration";
-    }
-
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") Credentials userForm, BindingResult bindingResult) {
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-
-        userService.save(userForm);
-        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
-        return "redirect:/login";
-    }
-	
+	}	
 	
 	@GetMapping({"/", "/login"})
 	public String login(Model model, String error, String logout) {

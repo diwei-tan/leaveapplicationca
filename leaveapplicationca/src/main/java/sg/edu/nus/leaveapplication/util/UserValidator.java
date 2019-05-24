@@ -11,7 +11,7 @@ import sg.edu.nus.leaveapplication.model.Credentials;
 @Component
 public class UserValidator implements Validator {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Override
     public boolean supports(Class<?> aClass) {

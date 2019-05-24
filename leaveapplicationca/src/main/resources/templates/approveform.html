@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+	<tr th:each="user : ${approve}"> 
+	
+			 <td th:text="${user.id}">Name</td>
+			 <td th:text="${user.startDate}">Name</td>
+			 <td th:text="${user.endDate}">Name</td>
+			 <td th:text="${user.status}">Name</td>
+			 <td><a th:href="@{/manager/approve/{id}(id=${user.id})}">Accept</a></td>
+			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>
+
+		
+		
+		</tr>
+
+
+
+</table>
+	
+</body>
+</html>

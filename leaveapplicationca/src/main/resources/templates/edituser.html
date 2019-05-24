@@ -107,21 +107,20 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>	
-	<form action="#" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
-   <p>Name: <input type="text" th:field="*{name}" />      
-    <p>Role: <select name="role">
-    <option value="">None</option>
-    <option value="Admin">Admin</option>
-    <option value="Staff">Staff</option>
-    <option value="Manager">Manager</option>    
+	<form action="#" th:action="@{/update{id}(id=${user.userId})}" th:object="${user}" method="post">
+   <p>Name: <input type="text" th:field="*{employee.name}" />      
+    <p>Role: <select th:field="*{employee.designation}">
+    <option th:value="Admin">Admin</option>
+    <option th:value="Staff">Staff</option>
+    <option th:value="Manager">Manager</option>    
   </select>
-    <p>Leave Entitled: <input type="text"  th:field="*{leaveEntitled}" /></p>    
-    <p>contact: <input type="text" th:field="*{contact}" /></p> 
-    <p>Email: <input type="email" th:field="*{email}" /></p>    
-    <p>Compensation Hours: <input type="text" th:field="*{compensationhours}" /></p>
-    <select th:field="*{reportsTo}">
+    <p>Leave Entitled: <input type="text"  th:field="*{employee.leaveEntitled}" /></p>    
+    <p>contact: <input type="text" th:field="*{employee.contact}" /></p> 
+    <p>Email: <input type="email" th:field="*{employee.email}" /></p>    
+    <p>Compensation Hours: <input type="text" th:field="*{employee.compensationhours}" /></p>
+    <select th:field="*{employee.reportsTo}">
     <!--  <option value=""> Choose option</option>-->  
-  	<option th:each="user : ${roles}" 
+  	<option th:each="user : ${managers}" 
           th:value="${user.id}" 
           th:text="${user.name}"></option>
 	</select>  	    

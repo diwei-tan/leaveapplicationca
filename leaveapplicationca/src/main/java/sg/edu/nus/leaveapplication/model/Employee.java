@@ -21,6 +21,7 @@ import javax.validation.constraints.Size;
 public class Employee {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;	
 	@NotNull
 	@Size(min=2,max=100)
@@ -46,7 +47,7 @@ public class Employee {
 
 
 
-	public Employee(String name, String role, int leaveEntitled, long contact, String email, long compensationhours, 
+	public Employee(String name, String designation, int leaveEntitled, long contact, String email, long compensationhours, 
 			long reportsTo, List<LeaveApplication> leaveList) {
 		super();
 		this.name = name;
@@ -75,12 +76,21 @@ public class Employee {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getRole() {
+	
+
+	public String getDesignation() {
 		return designation;
 	}
-	public void setRole(String role) {
-		this.designation = role;
-	}	
+
+
+
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+
+
 
 	public int getLeaveEntitled() {
 		return leaveEntitled;

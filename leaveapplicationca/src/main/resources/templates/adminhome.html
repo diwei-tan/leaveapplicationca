@@ -121,24 +121,22 @@
 					<div class="ta99">Something</div>
 				</div>
 				<div class="tal1"></div>
-				
-				<div th:each="user : ${users}">
-								<div th:if="${users.empty}">
-				<p>no users</p></div>
+				<div th:if="${users.empty}"><p style="color: gray;">no users</p></div>
+				<div th:each="user : ${users}">	
 					<div class="tal2">
-						<div class="ta1" th:text="${user.name}">no ID found</div>
+						<div class="ta1" th:text="${user.employee.name}">no ID found</div>
 						<div class="ta2"
-							th:text="${user.role}">no
+							th:text="${user.employee.designation}">no
 							start date found</div>
 						<div class="ta3"
-							th:text="${user.leaveEntitled}">no
+							th:text="${user.employee.leaveEntitled}">no
 							end date found</div>
-						<div class="ta4" th:text="${user.contact}">no type found</div>
-						<div class="ta5" th:text="${user.email}">no status found</div>
-						<div class="ta6" th:text="${user.compensationhours}">no status found</div>
-						<div class="ta7" th:text="${user.reportsTo}">no status found</div>
-						<div class="ta8" ><a th:href="@{edit/{id}(id=${user.id})}">Edit</a>
-     <a th:href="@{delete{id}(id=${user.id})}">Delete</a>
+						<div class="ta4" th:text="${user.employee.contact}">no type found</div>
+						<div class="ta5" th:text="${user.employee.email}">no status found</div>
+						<div class="ta6" th:text="${user.employee.compensationhours}">no status found</div>
+						<div class="ta7" th:text="${user.employee.reportsTo}">no status found</div>
+						<div class="ta8" ><a th:href="@{edit{id}(id=${user.userId})}">Edit</a>
+     					<a th:href="@{delete/{id}(id=${user.userId})}">Delete</a>
 					</div>
 				</div>
 			</div>
