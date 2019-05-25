@@ -14,7 +14,7 @@ import sg.edu.nus.leaveapplication.model.LeaveApplication;
 public interface LeaveRepository extends JpaRepository<LeaveApplication, Integer>{
 	List<LeaveApplication> findByEmployee(Employee e);
 	
-	@Query(value="select  lt from LeaveApplication lt,Employee e where lt.employee.reportsTo = ?1 and lt.status='applied'")
+	@Query(value="select  lt from Employee e join e.leaveList lt where e.reportsTo = ?1 and lt.status= 'Applied'")
 	List<LeaveApplication> findByManagerId(long id);
 
 

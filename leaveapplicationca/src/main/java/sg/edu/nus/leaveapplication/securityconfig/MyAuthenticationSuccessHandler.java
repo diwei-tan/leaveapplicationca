@@ -54,7 +54,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         Collection<? extends GrantedAuthority> authorities
          = authentication.getAuthorities();
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+            if (grantedAuthority.getAuthority().equals("ROLE_STAFF")) {
                 isUser = true;
                 break;
             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {

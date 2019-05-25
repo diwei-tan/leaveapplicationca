@@ -112,7 +112,7 @@
 			<div class="reply heading">
 				<h3>Please Apply For Your Leave</h3>
 				<div class="contact-form">
-	<form th:attr="action=@{/leaveapplication/submit}" th:object= "${leaveApplication}" method="post">
+	<form th:attr="action=@{/leaveapplication/submit{id}(id=${id})}" th:object= "${leaveApplication}" method="post">
 		<fieldset>
 
 			<!--  <input type="text" th:field="*{userId}"/>-->

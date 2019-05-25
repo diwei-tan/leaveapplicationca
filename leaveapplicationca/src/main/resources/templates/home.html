@@ -118,7 +118,6 @@
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta21">USER ID</div>
 					<div class="ta31">LEAVE START DATE</div>
 					<div class="ta41">LEAVE END DATE</div>
 					<div class="ta51">LEAVE TYPE</div>
@@ -126,9 +125,8 @@
 				</div>
 				<div class="tal1"></div>
 				<div th:each="leave : ${leaveList}">
-
+					
 					<div class="tal2">
-						<!--  <div class="ta12" th:text="${leave.userId}">no ID found</div>-->
 						<div class="ta32"
 							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
 							start date found</div>
@@ -142,7 +140,10 @@
 			</div>
 		</div>
 	</div>
-	<a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a>
+	<p>
+	<a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a> |
+	<a th:href="@{/logout}">Log Out</a>
+	</p>
 	<br>
 	<br>
 	<br>

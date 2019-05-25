@@ -54,7 +54,6 @@ public class LeaveApplicationController {
 		//should show approved list of leave application that are not yet past
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		Credentials user = credRepo.findByUsername(name);
-		System.out.print("ERROR GETTING USER" + user);
 		model.addAttribute("user", user);
 		List<LeaveApplication>leaveList = leaveRepo.findByUserId(user.getUserId());
 		model.addAttribute("leaveList", leaveList);
@@ -71,17 +70,15 @@ public class LeaveApplicationController {
 	
 	@GetMapping(path="/create{id}")
 	public String loadMethod(@PathVariable("id") long id, Model model) {
-		Employee e = employeeRepo.findById(id).orElse(null);
-		LeaveApplication leaveApplication = new LeaveApplication();
-		leaveApplication.setEmployee(e);
-		model.addAttribute("leaveApplication", leaveApplication);
+		model.addAttribute("leaveApplication", new LeaveApplication());
 		return "leaveform";
 		
 	}
 
 
-	@PostMapping(path="/leaveapplication/submit")
-	public String processStupidForm(@ModelAttribute("form") LeaveApplication form) {
+	@PostMapping(path="/leaveapplication/submit{id}")
+	public String processStupidForm(@PathVariable("id") long id, @ModelAttribute("form") LeaveApplication form) {
+		Employee emp = employeeRepo.findById(id).orElse(null);
 		LeaveServices service = new LeaveServices();
 		LeaveApplication leaveApplication = form;
 		try {
@@ -89,7 +86,8 @@ public class LeaveApplicationController {
 		}
 		catch(Exception e) {
 			LOG.info(e.getMessage());
-		}		
+		}
+		leaveApplication.setEmployee(emp);
 		leaveRepo.save(leaveApplication);
 		
 		return "redirect:/home";
@@ -98,15 +96,17 @@ public class LeaveApplicationController {
 	
 	@RequestMapping(path="/manager/approve",method=RequestMethod.GET)
 	public String approveleave(@ModelAttribute("form") LeaveApplication form,Model model) {
-//		List<LeaveApplication> l = leaveRepo.findByManagerId();		
-//		model.addAttribute("approve", leaveRepo.findByManagerId());
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		Credentials user = credRepo.findByUsername(name);
+		List<LeaveApplication> l = leaveRepo.findByManagerId(user.getUserId());		
+		model.addAttribute("approve", l);
 		return"approveform";
 	}
 	
 	@RequestMapping(path="/manager/approve/{id}",method=RequestMethod.GET)
 	public String acceptleave(@PathVariable(name = "id") long id,LeaveApplication leaveApplication) {
 	 leaveApplication = leaveRepo.findById (id).orElse(null);		
-	leaveApplication.setStatus("approved");
+	leaveApplication.setStatus("Approved");
 	leaveRepo.save(leaveApplication);		
 		return"afterform";
 	}
@@ -114,7 +114,7 @@ public class LeaveApplicationController {
 	@RequestMapping(path="/manager/reject/{id}",method=RequestMethod.GET)
 	public String rejectleave(@PathVariable(name = "id") long id,LeaveApplication leaveApplication) {
 	 leaveApplication = leaveRepo.findById(id).orElse(null);	
-	leaveApplication.setStatus("rejected");
+	leaveApplication.setStatus("Rejected");
 	leaveRepo.save(leaveApplication);		
 		return"afterform";
 	}
