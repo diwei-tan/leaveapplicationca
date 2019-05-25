@@ -113,7 +113,7 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<h1>Hello <!-- <span th:text="${loginUser.name}"></span>-->!</h1>
+	<h1>Hello <span th:text="${user.employee.name}"></span>!</h1>
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">
@@ -142,7 +142,7 @@
 			</div>
 		</div>
 	</div>
-	<a th:href="@{/create{id}(id=${userId})}">Create New Leave Application</a>
+	<a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a>
 	<br>
 	<br>
 	<br>

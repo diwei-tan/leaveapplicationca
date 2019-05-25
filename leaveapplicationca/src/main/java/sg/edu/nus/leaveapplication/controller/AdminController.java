@@ -42,7 +42,6 @@ public class AdminController {
 	}
 
 
-
 	@Autowired
 	public void setEmployeeRepo(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
@@ -51,7 +50,7 @@ public class AdminController {
     @GetMapping("/adduser")
     public String registration(Model model) {
         model.addAttribute("userForm", new Credentials());
-	    List<Employee> u = employeeRepo.findManagers(); 
+	    List<Employee> u = employeeRepo.findManagers();
 		model.addAttribute("managers", u);
         return "registration";
     }
@@ -118,7 +117,8 @@ public class AdminController {
 	    	oldUser.getEmployee().setEmail(updateUser.getEmployee().getEmail());
 	    	oldUser.getEmployee().setLeaveEntitled(updateUser.getEmployee().getLeaveEntitled());
 	    	oldUser.getEmployee().setName(updateUser.getEmployee().getName());
-	    	oldUser.getEmployee().setReportsTo(updateUser.getEmployee().getReportsTo());    	
+	    	oldUser.getEmployee().setReportsTo(updateUser.getEmployee().getReportsTo());
+	    	oldUser.setRole(updateUser.getRole());
 	    	credRepo.save(oldUser);
 	    }
 	    return "redirect:/adminhome";

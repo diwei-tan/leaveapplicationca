@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.nus.leaveapplication.model.Credentials;
-import sg.edu.nus.leaveapplication.model.Role;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
-import sg.edu.nus.leaveapplication.repo.RoleRepository;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,8 +22,6 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     private CredentialsRepository credRepo;
-    @Autowired
-    private RoleRepository roleRepo;
 
     @Override
     @Transactional
@@ -37,10 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         
         //grant authority accordingly to user roles. if null, then user has no roles
         List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-        if(!user.getRoles().isEmpty()) {
-        	for (Role role : user.getRoles()){
-        		grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-        	}
+        if(!user.getRole().isEmpty()) {
+        		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }

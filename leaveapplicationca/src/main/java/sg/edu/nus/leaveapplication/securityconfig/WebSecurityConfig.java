@@ -58,12 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
 
         auth.jdbcAuthentication().dataSource(dataSource)
-		.usersByUsernameQuery(
-			"select username,password,1 from credentials where username = ? ")
-		.authoritiesByUsernameQuery(
-			"SELECT c.username, r.name from credentials c "
-			+ "join credentials_roles cr on c.user_id=credentials_user_id " + 
-			"join role r on r.id=cr.roles_id where username = ? ")
+		.usersByUsernameQuery("select username,password,1 from credentials where username = ? ")
+		.authoritiesByUsernameQuery("SELECT username, role from credentials where username = ? ")
 		.passwordEncoder(passwordEncoder());
         
     }
@@ -74,10 +70,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	http.csrf().disable();
         http
         	.authorizeRequests()
-        	.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**", 
-        			"/registration").permitAll() 
-        	.antMatchers("/adminhome","/home","/leaveapplication/**").hasRole("ADMIN")
-        	.anyRequest().authenticated()
+        	.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
+        	.and()
+        	.authorizeRequests().antMatchers("/home","/create**","/edit**").hasRole("STAFF")
+        	.and()
+        	.authorizeRequests().antMatchers("/home", "/create**","/edit**").hasRole("MANAGER")
+        	.and()
+        	.authorizeRequests().antMatchers("/adminhome").hasRole("ADMIN")
         	.and()
         	.formLogin()
         	.loginProcessingUrl("/j_spring_security_check")
@@ -85,10 +84,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.permitAll()
         	.defaultSuccessUrl("/home")
         	.failureUrl("/login?error=true")
-        	//.successHandler(myAuthenticationSuccessHandler())
+        	.successHandler(myAuthenticationSuccessHandler())
         	.and()
-        	.logout()
-        	.logoutUrl("/logout")
+        	.logout().invalidateHttpSession(true).clearAuthentication(true)
+        	.logoutSuccessUrl("/login")
         	.permitAll();
     }
 

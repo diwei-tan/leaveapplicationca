@@ -25,8 +25,7 @@ public class Credentials {
 	private String password;
 	@Transient
 	private String passwordConfirm;
-	@ManyToMany
-    private List<Role> roles;
+    private String role;
 	@OneToOne(mappedBy="credential", cascade=CascadeType.ALL)
 	Employee employee;
 	
@@ -63,11 +62,12 @@ public class Credentials {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
-	public List<Role> getRoles() {
-		return roles;
+	
+	public String getRole() {
+		return role;
 	}
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	public Employee getEmployee() {
 		return employee;

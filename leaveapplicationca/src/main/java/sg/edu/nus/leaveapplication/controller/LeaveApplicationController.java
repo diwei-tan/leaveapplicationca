@@ -52,11 +52,10 @@ public class LeaveApplicationController {
 	public String leaveMainPage(Model model,Principal principal) {
 		//Should anyone be able to login, directed to this page to show the leave information of themselves
 		//should show approved list of leave application that are not yet past
-//		 Credentials credentials = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String name = principal.getName();
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		Credentials user = credRepo.findByUsername(name);
 		System.out.print("ERROR GETTING USER" + user);
-		model.addAttribute("userId", user);
+		model.addAttribute("user", user);
 		List<LeaveApplication>leaveList = leaveRepo.findByUserId(user.getUserId());
 		model.addAttribute("leaveList", leaveList);
 		return "home";

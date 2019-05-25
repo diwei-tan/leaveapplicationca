@@ -114,8 +114,9 @@
 				<h3>Please Update Your Info</h3>
 				<div class="contact-form">
 	<form action="#" th:action="@{/update{id}(id=${user.userId})}" th:object="${user}" method="post">
-   <p>Name: <input type="text" th:field="*{employee.name}" />      
-    <p>Role: <div id="select">
+   <p>Name: <input type="text" th:field="*{employee.name}"></p>    
+    <p>Designation: 
+    <div id="select">
     <select th:field="*{employee.designation}">
     <option th:value="Admin">Admin</option>
     <option th:value="Staff">Staff</option>
@@ -123,6 +124,16 @@
   </select>
   </div>
   </p>
+  <p>Admin Authority:
+    <div id="select">
+    <select th:field="*{role}">
+    <option th:value="ROLE_STAFF">USER RIGHTS ONLY</option>
+    <option th:value="ROLE_MANAGER">USER AND APPROVER RIGHTS</option>
+    <option th:value="ROLE_ADMIN">ADMIN RIGHTS</option>    
+  </select>
+  </div>
+  </p>
+  
     <p>Leave Entitled: <input type="text"  th:field="*{employee.leaveEntitled}" /></p>    
     <p>contact: <input type="text" th:field="*{employee.contact}" /></p> 
     <p>Email: <input type="email" th:field="*{employee.email}" /></p>    
