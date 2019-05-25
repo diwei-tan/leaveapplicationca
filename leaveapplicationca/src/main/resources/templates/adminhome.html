@@ -112,7 +112,66 @@
 <li>
 <a href="/adduser">Add user</a></li>
 <li>
-<a href="/viewusers">View Users</a></li></ul>
+<a href="/csv">Downlod the Details</a></li>
+</ul>
+
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta22">USER NAME</div>
+					<div class="ta33">ROLE</div>
+					<div class="ta44">LEAVE Entitled</div>
+					<div class="ta55">Contact</div>
+					<div class="ta66">Email</div>
+					<div class="ta77">Compensationhours</div>
+					<div class="ta88">Reports to</div>
+					<div class="ta99">Something</div>
+				</div>
+				<div class="tal1"></div>
+				<div class="lai" th:if="${users.empty}"> no users</div>
+				<div th:each="user : ${users}">	
+					<div class="tal2">
+						<div class="ta1" th:text="${user.employee.name}">no ID found</div>
+						<div class="ta2"
+							th:text="${user.employee.designation}">no
+							start date found</div>
+						<div class="ta3"
+							th:text="${user.employee.leaveEntitled}">no
+							end date found</div>
+
+						<div class="ta4" th:text="${user.employee.contact}">no type found</div>
+						<div class="ta5" th:text="${user.employee.email}">no status found</div>
+						<div class="ta6" th:text="${user.employee.compensationhours}">no status found</div>
+						<div class="ta7" th:text="${user.employee.reportsTo}">no status found</div>
+						<div class="ta8" ><a th:href="@{edit{id}(id=${user.userId})}">Edit</a>
+     					<a th:href="@{delete/{id}(id=${user.userId})}">Delete</a>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br><br>
+<!--  <table>       -->
+<!--       <tr th:if="${users.empty}"> -->
+<!--             <td colspan="2"> No Users Available </td> -->
+<!--         </tr> -->
+<!--         <tr th:each="user : ${users}">         -->
+<!--         <td th:text="${user.name}">Name</td> -->
+<!--         <td th:text="${user.role}">Role</td> -->
+<!--         <td th:text="${user.leaveEntitled}">Leave</td> -->
+<!--         <td th:text="${user.contact}">Contact</td> -->
+<!--         <td th:text="${user.email}">email</td> -->
+<!--         <td th:text="${user.compensationhours}">comphours</td> -->
+<!--         <td th:text="${user.reportsTo}">rt</td> -->
+<!--          <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a></td> -->
+<!--          <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a></td> -->
+<!--       </tr> -->
+<!--     </table> -->
+ 
 
 <!--footer-starts-->
 <div class="footer">

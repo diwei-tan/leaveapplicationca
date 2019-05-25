@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>admin home</title>
+<meta charset="UTF-8">
+<title>Afer Form</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!--fonts-->
@@ -32,7 +32,7 @@
 </script>
 </head>
 <body>
-		<div class="header-nav">
+<div class="header-nav">
 			<div class="container">
 				<div class="logo">
 					<a href="index.jsp"><img src="images/logo.png" /></a>
@@ -52,7 +52,7 @@
 						<ul class="nav navbar-nav">
 							<li><a href="index.jsp">home <span
 									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=éã©å´">search</a></li>
+							<li><a href="findByType.action?type=鍏ㄩ儴">search</a></li>
 							<li><a href="myShoppingcar.action">cart</a></li>
 							<li><a href="myOrders.action">my info</a></li>
 							<li><a href="myInformation.jsp">details</a></li>
@@ -108,41 +108,9 @@
 	</div>
 </div>	
 
-<div class="blog">
-		<div class="container">
-			<div class="reply heading">
-				<h3>Please Update Your Info</h3>
-				<div class="contact-form">
-	<form action="#" th:action="@{/update{id}(id=${user.userId})}" th:object="${user}" method="post">
-   <p>Name: <input type="text" th:field="*{employee.name}" />      
-    <p>Role: <div id="select">
-    <select th:field="*{employee.designation}">
-    <option th:value="Admin">Admin</option>
-    <option th:value="Staff">Staff</option>
-    <option th:value="Manager">Manager</option>    
-  </select>
-  </div>
-  </p>
-    <p>Leave Entitled: <input type="text"  th:field="*{employee.leaveEntitled}" /></p>    
-    <p>contact: <input type="text" th:field="*{employee.contact}" /></p> 
-    <p>Email: <input type="email" th:field="*{employee.email}" /></p>    
-    <p>Compensation Hours: <input type="text" th:field="*{employee.compensationhours}" /></p>
-    <p> Reports To:<div id="select">
-    <select th:field="*{employee.reportsTo}">
-    <!--  <option value=""> Choose option</option>--> 
-  	<option th:each="user : ${managers}" 
-          th:value="${user.id}" 
-          th:text="${user.name}"></option>
-	</select> 
-	</div>
-	</p> 	    
-    <input type="submit" value="Update user">   
-  </form>
-</div>
-</div>
-</div>
-</div>    
-    <div class="footer">
+<h1> Request approved</h1>
+<!--footer-starts-->
+<div class="footer">
 		<div class="container">
 			<div class="footer-main">
 				<div class="col-md-3 footet-left">
@@ -188,5 +156,3 @@
 	</div>
 </body>
 </html>
-    
-

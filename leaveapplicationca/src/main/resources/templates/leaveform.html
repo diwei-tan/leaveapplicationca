@@ -106,22 +106,36 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>	
-<br><br><br>
 
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<h3>Please Apply For Your Leave</h3>
+				<div class="contact-form">
 	<form th:attr="action=@{/leaveapplication/submit}" th:object= "${leaveApplication}" method="post">
 		<fieldset>
-			<input type="text" th:field="*{userId}"/>
-			<input type="datetime-local" th:id="startDate" th:name="startDate"/>
-			<input type="datetime-local" th:id="endDate" th:name="endDate"/>
+
+			<!--  <input type="text" th:field="*{userId}"/>-->
+			<p>Leave Date<input type="datetime-local" th:id="startDate" th:name="startDate"/> 
+			Back Date<input type="datetime-local" th:id="endDate" th:name="endDate"/>
+			 Leave Type
+
 			<select th:field="*{type}">
-  				<option th:value="ANNL">Annual Leave</option>
-  				<option th:value="MDCL">Medical Leave</option>
-  				<option th:value="COMP">Compensation Leave</option>
+
+  				<option th:value="Annualleave">Annual Leave</option>
+  				<option th:value="Medicinalleave">Medical Leave</option>
+  				<option th:value="Compensationleave">Compensation Leave</option>
 			</select>
-			<input type="hidden" value="PND" name="status" id="status"/>
+			<input type="hidden" value="Applied" name="status" id="status"/>
 			<input type="submit" value="Submit"/>
+
+  				
 		</fieldset>
 	</form>
+	</div>
+	</div>
+	</div>
+	</div>
 	
 	<br><br><br><br>
 	

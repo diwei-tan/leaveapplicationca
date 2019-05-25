@@ -118,31 +118,31 @@
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta22">USER ID</div>
-					<div class="ta33">LEAVE START DATE</div>
-					<div class="ta44">LEAVE END DATE</div>
-					<div class="ta55">LEAVE TYPE</div>
-					<div class="ta66">LEAVE STATUS</div>
+					<div class="ta21">USER ID</div>
+					<div class="ta31">LEAVE START DATE</div>
+					<div class="ta41">LEAVE END DATE</div>
+					<div class="ta51">LEAVE TYPE</div>
+					<div class="ta61">LEAVE STATUS</div>
 				</div>
 				<div class="tal1"></div>
 				<div th:each="leave : ${leaveList}">
 
 					<div class="tal2">
-						<div class="ta1" th:text="${leave.userId}">no ID found</div>
-						<div class="ta2"
+						<!--  <div class="ta12" th:text="${leave.userId}">no ID found</div>-->
+						<div class="ta32"
 							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
 							start date found</div>
-						<div class="ta3"
+						<div class="ta42"
 							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no
 							end date found</div>
-						<div class="ta4" th:text="${leave.type}">no type found</div>
-						<div class="ta5" th:text="${leave.status}">no status found</div>
+						<div class="ta52" th:text="${leave.type}">no type found</div>
+						<div class="ta62" th:text="${leave.status}">no status found</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<a th:href="@{/create}">Create New Leave Application</a>
+	<a th:href="@{/create{id}(id=${userId})}">Create New Leave Application</a>
 	<br>
 	<br>
 	<br>

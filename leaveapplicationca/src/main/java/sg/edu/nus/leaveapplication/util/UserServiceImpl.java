@@ -1,15 +1,13 @@
 package sg.edu.nus.leaveapplication.util;
 
 
-import sg.edu.nus.leaveapplication.model.Credentials;
-import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
-import sg.edu.nus.leaveapplication.repo.RoleRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import sg.edu.nus.leaveapplication.model.Credentials;
+import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
+import sg.edu.nus.leaveapplication.repo.RoleRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,4 +29,5 @@ public class UserServiceImpl implements UserService {
     public Credentials findByUsername(String username) {
         return credRepository.findByUsername(username);
     }
+
 }

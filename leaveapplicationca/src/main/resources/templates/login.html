@@ -1,20 +1,22 @@
-<!DOCTYPE html>
+f<!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script language="JavaScript" type="text/javascript">
+
+<script type="text/javascript">
         function userCheck(){
-        var username=document.getElementById("loginuser.loginname");
-        var password=document.getElementById("loginuser.password");
+        var username=document.getElementById("username");
+        var password=document.getElementById("password");
         if (username.value.length==0 ){ 
-            alert("提示：n\n\用户名不能为空");
+            alert("warn：please input your username");
             return false;
         }else if(password.value==""){ 
-            alert("提示：n\n\密码不能为空");
+            alert("warn：please input your password");
             return false;
         }
     }
 </script>
+
 <title>This is log in page</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -61,7 +63,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header-top">
 			<div class="container">
 				<div class="header-right-text">
-					<a href="login.jsp">LogIn</a>&nbsp;&nbsp;&nbsp;<a href="register.jsp">Register</a>
+					<a href="login">LogIn</a>&nbsp;&nbsp;&nbsp;<a href="registration">Register</a>
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -167,20 +169,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 	<!--footer-starts-->
-	<div class="footer">
+	<!--footer-starts-->
+<div class="footer">
 		<div class="container">
 			<div class="footer-main">
 				<div class="col-md-3 footet-left">
-					<h3>my info</h3>
+					<h3>something </h3>
 					<ul>
 						<li><a href="myShoppingcar.action">shopping cart</a></li>
-						<li><a href="myOrders.action">鎴戠殑璁㈠崟</a></li>
-						<li><a href="myInformation.jsp">涓汉淇℃伅</a></li>
+						<li><a href="myOrders.action">my orders</a></li>
+						<li><a href="myInformation.jsp">differnt things</a></li>
 					</ul>
-				</div>
-				
+				</div>	
 				<div class="col-md-3 footet-left">
-					<h3>search</h3>
+					<h3>Search</h3>
 					<div class="sub-text">
 					<form action="searchBook.action" method="post">
 						<input type="text" value="Search..." onFocus="this.value = '';"
@@ -192,11 +194,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"></div>
 			</div>
 			<div class="copy-rights">
-				<p>Copyright &copy; 2016.whitestar</p>
+				<p>Copyright &copy; 2019 white star</p>
 			</div>
 		</div>
-		<!---->
-		<script type="text/javascript">
+<!---->
+<script type="text/javascript">
 		$(document).ready(function() {
 				/*
 				var defaults = {
@@ -209,19 +211,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$().UItoTop({ easingType: 'easeOutQuart' });
 });
 </script>
-		<a href="#to-top" id="toTop" style="display: block;"> <span
-			id="toTopHover" style="opacity: 1;"> </span></a>
-		<!---->
-	</div>		
-<!-- -- -
-	<%if(session.getAttribute("loginmessage")!=null)
-	{
-		String message=(String)session.getAttribute("loginmessage");
-		session.setAttribute("loginmessage", null);
-		out.print("<script>alert('"+message+"');window.location.href='/myOnlineBookstore/login.jsp'</script>");
-	}%>
-	>
-	
-	<!--footer-starts-->
-    
+<a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+<!----> 
+	</div>
+</body>
 </html>

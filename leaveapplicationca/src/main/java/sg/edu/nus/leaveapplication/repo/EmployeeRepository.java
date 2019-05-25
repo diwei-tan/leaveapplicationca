@@ -11,6 +11,6 @@ import sg.edu.nus.leaveapplication.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 	@Query(value = "Select e from Employee e where e.designation = 'Manager'")
-	List<Employee> findByRole();
+	List<Employee> findManagers();
 	List<Employee> findByName(String name);
 }

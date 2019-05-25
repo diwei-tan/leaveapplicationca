@@ -1,4 +1,4 @@
-package sg.edu.nus.leaveapplication.model;
+	package sg.edu.nus.leaveapplication.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,7 @@ public class Employee {
 	@Size(min=2,max=100)
 	private String name;
 	@OneToOne
+	@PrimaryKeyJoinColumn
 	private Credentials credential;
 	private String designation;	
 	private int leaveEntitled;	
@@ -43,8 +44,11 @@ public class Employee {
 		// TODO Auto-generated constructor stub
 	}	
 	
-	public Employee(String name, String role, int leaveEntitled, long contact, String email, long compensationhours, 
-		long reportsTo, List<LeaveApplication> leaveList) {
+
+
+
+	public Employee(String name, String designation, int leaveEntitled, long contact, String email, long compensationhours, 
+			long reportsTo, List<LeaveApplication> leaveList) {
 		super();
 		this.name = name;
 		this.designation = designation;
@@ -72,12 +76,21 @@ public class Employee {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getRole() {
+	
+
+	public String getDesignation() {
 		return designation;
 	}
-	public void setRole(String role) {
-		this.designation = role;
-	}	
+
+
+
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+
+
 
 	public int getLeaveEntitled() {
 		return leaveEntitled;
