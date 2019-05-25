@@ -50,6 +50,7 @@ public class LeaveServices {
 				return days+1;
 			}
 		}
+		else {
 		//iterate from start(using checkdate) to end date, adding days/half day that are not weekends or public holidays
 		while(!checkDate.isAfter(endDate)) {
 			//if not more than 14, exclude weekends and public holidays
@@ -68,6 +69,7 @@ public class LeaveServices {
 			}
 			//shift startdate by 1, continue until it is past enddate
 			checkDate = checkDate.plusDays(1);
+		}
 		}
 		//after loop, number of 
 		return numOfDays;

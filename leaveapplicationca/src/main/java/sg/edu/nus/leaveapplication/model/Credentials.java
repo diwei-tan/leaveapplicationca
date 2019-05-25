@@ -28,7 +28,7 @@ public class Credentials {
 	private String passwordConfirm;
 	@ManyToMany
     private List<Role> roles;
-	@OneToOne(mappedBy="credential")
+	@OneToOne(mappedBy="credential", cascade=CascadeType.ALL)
 	Employee employee;
 	
 	public Credentials() {
