@@ -71,7 +71,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         } else if (isAdmin) {
             return "/adminhome";
         } else if (isManager) {
-        	return "/home";
+        	return "/managerhome";
         } else {
             throw new IllegalStateException();
         }

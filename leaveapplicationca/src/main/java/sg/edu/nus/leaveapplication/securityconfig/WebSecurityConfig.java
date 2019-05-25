@@ -87,8 +87,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.successHandler(myAuthenticationSuccessHandler())
         	.and()
         	.logout().invalidateHttpSession(true).clearAuthentication(true)
-        	.logoutSuccessUrl("/login")
-        	.permitAll();
+        	.logoutSuccessUrl("/login?logout=true")
+        	.permitAll()
+        	.and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }
 
     @Bean

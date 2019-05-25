@@ -2,6 +2,9 @@ package sg.edu.nus.leaveapplication.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +60,8 @@ public class LeaveApplicationController {
 		Credentials user = credRepo.findByUsername(name);
 		model.addAttribute("user", user);
 		List<LeaveApplication>leaveList = leaveRepo.findByUserId(user.getUserId());
+		leaveList = leaveList.stream().filter(x->x.getStatus().equals("Applied")||
+				x.getStatus().equals("Approved")).collect(Collectors.toList());
 		model.addAttribute("leaveList", leaveList);
 		return "home";
 	}
@@ -93,19 +99,56 @@ public class LeaveApplicationController {
 		return "redirect:/home";
 		
 	}
+	@GetMapping("/leaveedit{id}")
+	public String showUpdateForm(@PathVariable("id") long id, Model model) {
+	    LeaveApplication leaveApplication = leaveRepo.findById(id);
+		model.addAttribute("leaveApplication", leaveApplication);
+	    return "editleave";
+	}
 	
-	@RequestMapping(path="/manager/approve",method=RequestMethod.GET)
+	@PostMapping("/leaveupdate{id}")
+	public String updateUser(@ModelAttribute("leaveApplication") LeaveApplication updateLeave, @PathVariable(name="id") long id, 
+	  BindingResult result, Model model) {
+	    if (result.hasErrors()) {
+	        return "/leaveedit"+id;
+	    } else {
+	    	LeaveServices service = new LeaveServices();
+	    	LeaveApplication oldLeave= leaveRepo.findById(id);
+	    	oldLeave.setStartDate(updateLeave.getStartDate());
+	    	oldLeave.setEndDate(updateLeave.getEndDate());
+	    	try {
+	    	oldLeave.setNumDays(service.calculateNumOfLeaveDays(updateLeave.getStartDate(), updateLeave.getEndDate()));
+	    	} catch(Exception e) {
+	    		LOG.info(e.getMessage());
+	    	}
+	    	oldLeave.setReason(updateLeave.getReason());
+	    	oldLeave.setStatus(updateLeave.getStatus());
+	    	oldLeave.setType(updateLeave.getType());
+	    	leaveRepo.save(oldLeave);
+	    }
+	    return "redirect:/home";
+	}
+	
+	@RequestMapping(path = "/cancel{id}", method = RequestMethod.GET)
+    public String deleteProduct(@ModelAttribute("LeaveApplicaiton") LeaveApplication deleteLeave, @PathVariable(name = "id") long id, Model model) {
+		LeaveApplication leave = leaveRepo.findById(id);
+		leave.setStatus("Cancelled");
+		leaveRepo.save(leave);
+        return "redirect:/home";
+    }
+	
+	@RequestMapping(path="/managerhome",method=RequestMethod.GET)
 	public String approveleave(@ModelAttribute("form") LeaveApplication form,Model model) {
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		Credentials user = credRepo.findByUsername(name);
-		List<LeaveApplication> l = leaveRepo.findByManagerId(user.getUserId());		
+		List<LeaveApplication> l = leaveRepo.findByManagerId(user.getUserId());
 		model.addAttribute("approve", l);
 		return"approveform";
 	}
 	
 	@RequestMapping(path="/manager/approve/{id}",method=RequestMethod.GET)
 	public String acceptleave(@PathVariable(name = "id") long id,LeaveApplication leaveApplication) {
-	 leaveApplication = leaveRepo.findById (id).orElse(null);		
+	 leaveApplication = leaveRepo.findById(id);		
 	leaveApplication.setStatus("Approved");
 	leaveRepo.save(leaveApplication);		
 		return"afterform";
@@ -113,7 +156,7 @@ public class LeaveApplicationController {
 	
 	@RequestMapping(path="/manager/reject/{id}",method=RequestMethod.GET)
 	public String rejectleave(@PathVariable(name = "id") long id,LeaveApplication leaveApplication) {
-	 leaveApplication = leaveRepo.findById(id).orElse(null);	
+	 leaveApplication = leaveRepo.findById(id);	
 	leaveApplication.setStatus("Rejected");
 	leaveRepo.save(leaveApplication);		
 		return"afterform";

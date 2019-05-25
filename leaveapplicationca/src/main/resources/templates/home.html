@@ -62,8 +62,8 @@
 							<li><a href="findByType.action?type=鍏ㄩ儴">two</a></li>
 							<li><a href="myShoppingcar.action">three</a></li>
 							<li class="active"><a href="myOrders.action">four</a></li>
-							<li><a href="myInformation.jsp">five</a></li>
-							<li><a href="about.jsp">six</a></li>
+							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>
+							<li><a href="/logout">Log Out</a></li>
 						</ul>
 						<div class="clearfix"></div>
 					</div>
@@ -113,7 +113,12 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<h1>Hello <span th:text="${user.employee.name}"></span>!</h1>
+	<h3>Hello <span th:text="${user.employee.name}"></span>!</h3>
+	<br>
+	<br>
+	<p>
+	<a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a>
+	</p>
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">
@@ -135,15 +140,14 @@
 							end date found</div>
 						<div class="ta52" th:text="${leave.type}">no type found</div>
 						<div class="ta62" th:text="${leave.status}">no status found</div>
+						<div class="ta72"><a th:href="@{/leaveedit{id}(id=${leave.id})}">Edit</a> | 
+						<a th:href="@{/cancel{id}(id=${leave.id})}">Cancel</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<p>
-	<a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a> |
-	<a th:href="@{/logout}">Log Out</a>
-	</p>
 	<br>
 	<br>
 	<br>
@@ -157,7 +161,7 @@
 					<ul>
 						<li><a href="myShoppingcar.action">shopping cart</a></li>
 						<li><a href="myOrders.action">my orders</a></li>
-						<li><a href="myInformation.jsp">differnt things</a></li>
+						<li><a href="myInformation.jsp">different things</a></li>
 					</ul>
 				</div>
 

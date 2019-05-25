@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Leave Application Form</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>admin home</title>
 <link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!--fonts-->
 <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
 <link href='http://fonts.useso.com/css?family=Metamorphous' rel='stylesheet' type='text/css'>
@@ -16,7 +16,7 @@
 	<!-- js -->
 		 <script src="js/bootstrap.js"></script>
 	<!-- js -->
-<link rel="stylesheet" type="text/css" href="css/common.css" />
+	<link rel="stylesheet" type="text/css" href="css/common.css" />
 <link rel="stylesheet" type="text/css" href="css/style4.css" />
 <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 <script type="text/javascript" src="js/move-top.js"></script>
@@ -32,7 +32,7 @@
 </script>
 </head>
 <body>
-<div class="header-nav">
+		<div class="header-nav">
 			<div class="container">
 				<div class="logo">
 					<a href="index.jsp"><img src="images/logo.png" /></a>
@@ -50,13 +50,13 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">one <span
+							<li><a href="index.jsp">home <span
 									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">two</a></li>
-							<li><a href="myShoppingcar.action">three</a></li>
-							<li class="active"><a href="myOrders.action">four</a></li>
-							<li><a href="myInformation.jsp">five</a></li>
-							<li><a href="about.jsp">six</a></li>
+							<li><a href="findByType.action?type=éã©å´">search</a></li>
+							<li><a href="myShoppingcar.action">cart</a></li>
+							<li><a href="myOrders.action">my info</a></li>
+							<li><a href="myInformation.jsp">details</a></li>
+							<li><a href="about.jsp">about</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
 			</div><!-- /.navbar-collapse -->
@@ -64,7 +64,8 @@
 	</div>
 	</div>
 	</div>
-	<script>
+			  <!-- script-for-menu -->
+		 <script>
 				$("span.menu").click(function(){
 					$(".top-nav ul").slideToggle("slow" , function(){
 					});
@@ -110,14 +111,14 @@
 <div class="blog">
 		<div class="container">
 			<div class="reply heading">
-				<h3>Please Apply For Your Leave</h3>
+				<h3>Please Update Your Leave Info</h3>
 				<div class="contact-form">
-	<form th:attr="action=@{/leaveapplication/submit{id}(id=${id})}" th:object= "${leaveApplication}" method="post">
-		<fieldset>
+	<form action="#" th:action="@{/leaveupdate{id}(id=${leaveApplication.id})}" th:object="${leaveApplication}" method="post">
+   <fieldset>
 
 			<!--  <input type="text" th:field="*{userId}"/>-->
-			<p>Start Date<input type="datetime-local" th:id="startDate" th:name="startDate"/></p> 
-			<p>End Date<input type="datetime-local" th:id="endDate" th:name="endDate"/></p>
+			<p>Start Date<input type="datetime-local" th:field="*{startDate}"/></p> 
+			<p>End Date<input type="datetime-local" th:field="*{endDate}"/></p>
 			 <p>Leave Type
 			<select th:field="*{type}">
 
@@ -131,18 +132,16 @@
 			</p>
 			<input type="hidden" value="Applied" name="status" id="status"/>
 			<input type="submit" value="Submit"/>
-
-  				
 		</fieldset>
-	</form>
-	</div>
-	</div>
-	</div>
-	</div>
-	
-	<br><br><br><br>
-	
-	<div class="footer">
+  </form>
+  			<form action="@{/home}" method="get">
+    			<input type="submit" value="Back" />
+			</form>
+</div>
+</div>
+</div>
+</div>    
+    <div class="footer">
 		<div class="container">
 			<div class="footer-main">
 				<div class="col-md-3 footet-left">
@@ -188,3 +187,5 @@
 	</div>
 </body>
 </html>
+    
+
