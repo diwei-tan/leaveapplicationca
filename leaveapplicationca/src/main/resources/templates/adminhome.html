@@ -144,8 +144,8 @@
 						<div class="ta5" th:text="${user.employee.email}">no status found</div>
 						<div class="ta6" th:text="${user.employee.compensationhours}">no status found</div>
 						<div class="ta7" th:text="${user.employee.reportsTo}">no status found</div>
-						<div class="ta8" ><a th:href="@{edit{id}(id=${user.userId})}">Edit</a>
-     					<a th:href="@{delete/{id}(id=${user.userId})}">Delete</a>
+						<div class="ta8" ><a th:href="@{/edit{id}(id=${user.userId})}">Edit</a>
+     					<a th:href="@{/delete/{id}(id=${user.userId})}">Delete</a>
 
 						
 					</div>

@@ -1,6 +1,7 @@
 package sg.edu.nus.leaveapplication.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -94,8 +95,7 @@ public class AdminController {
 	
 	@GetMapping("/edit{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
-	    Credentials user = credRepo.findById(id)
-	      .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	    Credentials user = credRepo.findByUserId(id);
 	    List<Employee> u = employeeRepo.findManagers(); 
 		model.addAttribute("managers", u);
 	    model.addAttribute("user", user);
