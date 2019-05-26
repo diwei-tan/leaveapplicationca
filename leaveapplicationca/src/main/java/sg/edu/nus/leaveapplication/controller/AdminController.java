@@ -22,6 +22,7 @@ import sg.edu.nus.leaveapplication.model.Employee;
 import sg.edu.nus.leaveapplication.model.LeaveType;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
+import sg.edu.nus.leaveapplication.repo.LeaveTypeRepository;
 import sg.edu.nus.leaveapplication.util.SecurityService;
 import sg.edu.nus.leaveapplication.util.UserService;
 import sg.edu.nus.leaveapplication.util.UserValidator;
@@ -31,6 +32,7 @@ public class AdminController {
 	
 	private  EmployeeRepository employeeRepo;
 	private CredentialsRepository credRepo;
+	private LeaveTypeRepository leaveTypeRepo;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -48,6 +50,10 @@ public class AdminController {
 	public void setEmployeeRepo(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
 	}
+	@Autowired
+	public void setLeaveTypeRepo(LeaveTypeRepository leaveTypeRepo) {
+		this.leaveTypeRepo = leaveTypeRepo;
+	}
 	
     @GetMapping("/adduser")
     public String registration(Model model) {
@@ -57,7 +63,10 @@ public class AdminController {
         return "registration";
     }
 
-    @PostMapping("/adduser")
+    
+
+
+	@PostMapping("/adduser")
     public String addRegistration(@ModelAttribute("userForm") Credentials userForm, BindingResult bindingResult) {
     	userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {

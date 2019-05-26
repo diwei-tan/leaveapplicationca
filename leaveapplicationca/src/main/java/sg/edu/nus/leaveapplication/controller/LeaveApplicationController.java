@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+
 import sg.edu.nus.leaveapplication.LeaveapplicationcaApplication;
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.Employee;
@@ -28,6 +30,7 @@ import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.repo.LeaveRepository;
 import sg.edu.nus.leaveapplication.util.LeaveServices;
+import sg.edu.nus.leaveapplication.util.NotificationService;
 
 @Controller
 public class LeaveApplicationController {
@@ -49,7 +52,9 @@ public class LeaveApplicationController {
 	public void setEmployeeRepo(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
 	}
-
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	
 	@GetMapping(path="/home")
@@ -95,7 +100,10 @@ public class LeaveApplicationController {
 		}
 		leaveApplication.setEmployee(emp);
 		leaveRepo.save(leaveApplication);
-		
+		long managerid = emp.getReportsTo();
+		Employee emp1 = employeeRepo.findById(managerid).orElse(null);
+		String manageremail = emp1.getEmail();
+		notificationService.sendAppliedNotification(manageremail);
 		return "redirect:/home";
 		
 	}
@@ -150,8 +158,9 @@ public class LeaveApplicationController {
 	public String acceptleave(@PathVariable(name = "id") long id,LeaveApplication leaveApplication) {
 	 leaveApplication = leaveRepo.findById(id);		
 	leaveApplication.setStatus("Approved");
-	leaveRepo.save(leaveApplication);		
-		return"afterform";
+	leaveRepo.save(leaveApplication);
+	notificationService.sendNotification(leaveApplication);
+		return"redirect:/home";
 	}
 	
 	@RequestMapping(path="/manager/reject/{id}",method=RequestMethod.GET)
@@ -159,6 +168,7 @@ public class LeaveApplicationController {
 	 leaveApplication = leaveRepo.findById(id);	
 	leaveApplication.setStatus("Rejected");
 	leaveRepo.save(leaveApplication);		
-		return"afterform";
+	notificationService.sendRejectNotification(leaveApplication);
+	return"redirect:/home";
 	}
 }
