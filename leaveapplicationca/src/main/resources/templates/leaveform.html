@@ -50,13 +50,8 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">one <span
-									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">two</a></li>
-							<li><a href="myShoppingcar.action">three</a></li>
-							<li class="active"><a href="myOrders.action">four</a></li>
-							<li><a href="myInformation.jsp">five</a></li>
-							<li><a href="about.jsp">six</a></li>
+							<!-- <li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>-->
+							<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
 			</div><!-- /.navbar-collapse -->

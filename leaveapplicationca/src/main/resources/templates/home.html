@@ -58,10 +58,7 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">one <span class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">two</a></li>
-							<li><a href="myShoppingcar.action">three</a></li>
-							<li class="active"><a href="myOrders.action">four</a></li>
+							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
 							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
@@ -114,32 +111,30 @@
 		</div>
 	</div>
 	<h3>Hello <span th:text="${user.employee.name}"></span>!</h3>
-	<br>
-	<br>
-	<p>
-	<a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a>
-	</p>
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta31">LEAVE START DATE</div>
-					<div class="ta41">LEAVE END DATE</div>
-					<div class="ta51">LEAVE TYPE</div>
-					<div class="ta61">LEAVE STATUS</div>
+					<div class="ta21">LEAVE START DATE</div>
+					<div class="ta31">LEAVE END DATE</div>
+					<div class="ta41">LEAVE TYPE</div>
+					<div class="ta51">LEAVE STATUS</div>
+					<div class="ta61">LEAVE REASON</div>
+					<div class="ta71">FUNCTION</div>
 				</div>
 				<div class="tal1"></div>
 				<div th:each="leave : ${leaveList}">
 					
 					<div class="tal2">
-						<div class="ta32"
+						<div class="ta12"
 							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
 							start date found</div>
-						<div class="ta42"
+						<div class="ta32"
 							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no
 							end date found</div>
-						<div class="ta52" th:text="${leave.type}">no type found</div>
-						<div class="ta62" th:text="${leave.status}">no status found</div>
+						<div class="ta42" th:text="${leave.type}">no type found</div>
+						<div class="ta52" th:text="${leave.status}">no status found</div>
+						<div class="ta62" th:text="${leave.reason}">no status found</div>
 						<div class="ta72"><a th:href="@{/leaveedit{id}(id=${leave.id})}">Edit</a> | 
 						<a th:href="@{/cancel{id}(id=${leave.id})}">Cancel</a>
 						</div>

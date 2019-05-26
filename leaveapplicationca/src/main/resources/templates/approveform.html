@@ -50,11 +50,6 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">home <span
-									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">search</a></li>
-							<li><a href="myShoppingcar.action">cart</a></li>
-							<li><a href="myOrders.action">my info</a></li>
 							<li><a href="/home">Apply for Leave</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
@@ -108,12 +103,44 @@
 	</div>
 </div>	
 
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta21">NAME</div>
+					<div class="ta31">STARTDATE</div>
+					<div class="ta41">ENDDATE</div>
+					<div class="ta51">STATUS</div>
+					<div class="ta61">ACCPET</div>
+					<div class="ta71">REJECT</div>
+				</div>
+				<div class="tal1"></div>
+				<div th:each="user : ${approve}">
+					
+					<div class="tal2">
+						<div class="ta12"
+							th:text="${user.id}">no
+							start date found</div>
+						<div class="ta32"
+							th:text="${user.startDate}">no
+							end date found</div>
+						<div class="ta42" th:text="${user.endDate}">no type found</div>
+						<div class="ta52" th:text="${user.status}">no status found</div>
+						<div class="ta62"> <a th:href="@{/manager/approve/{id}(id=${user.id})}">ACCEPT</a></div>
+						<div class="ta72"><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <table>
 	<tr th:each="user : ${approve}"> 
 			 <td th:text="${user.id}">Name</td>
-			 <td th:text="${user.startDate}">Name</td>
-			 <td th:text="${user.endDate}">Name</td>
-			 <td th:text="${user.status}">Name</td>
+			 <td th:text="${user.startDate}">startDate</td>
+			 <td th:text="${user.endDate}">endDate</td>
+			 <td th:text="${user.status}">status</td>
 			 <td><a th:href="@{/manager/approve/{id}(id=${user.id})}">Accept</a></td>
 			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>		
 		</tr>
