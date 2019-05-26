@@ -42,7 +42,7 @@
 	<div class="header-nav">
 		<div class="container">
 			<div class="logo">
-				<a href="index.jsp"><img src="images/logo.png" /></a>
+				<a href=""><img src="images/logo.png" /></a>
 			</div>
 			<div class="navigation">
 				<nav class="navbar navbar-default">
@@ -58,9 +58,9 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
+							<li><a href="/leavehistory">View Leave History</a></li>
 							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
-							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
-							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>							
+							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 						<div class="clearfix"></div>
@@ -112,6 +112,10 @@
 		</div>
 	</div>
 	<h3>Hello <span th:text="${user.employee.name}"></span>!</h3>
+	
+	<h5>Annual Leave Entitled: <!-- <span th:text=""></span>--></h5>
+	<h5>Annual Leave Balance: <!-- <span th:text=""></span>--></h5>
+	
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">
@@ -121,7 +125,7 @@
 					<div class="ta41">LEAVE TYPE</div>
 					<div class="ta51">LEAVE STATUS</div>
 					<div class="ta61">LEAVE REASON</div>
-					<div class="ta71">FUNCTION</div>
+					<div class="ta71">ACTION</div>
 				</div>
 				<div class="tal1"></div>
 				<div th:each="leave : ${leaveList}">
@@ -148,10 +152,10 @@
 	<br>
 	<br>
 	<br>
-
+<!--footer-starts-->
 	<div class="footer">
 		<div class="container">
-			<div class="footer-main">
+			<!--<div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something</h3>
 					<ul>
@@ -169,7 +173,7 @@
 								onBlur="if (this.value == '') {this.value = 'Search...';}"
 								name="search" /> <input type="submit" value="">
 						</form>
-					</div>
+					</div>-->
 				</div>
 				<div class="clearfix"></div>
 			</div>
