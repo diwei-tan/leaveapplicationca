@@ -26,9 +26,11 @@ import sg.edu.nus.leaveapplication.LeaveapplicationcaApplication;
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.Employee;
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
+import sg.edu.nus.leaveapplication.model.LeaveType;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.repo.LeaveRepository;
+import sg.edu.nus.leaveapplication.repo.LeaveTypeRepository;
 import sg.edu.nus.leaveapplication.util.LeaveServices;
 import sg.edu.nus.leaveapplication.util.NotificationService;
 
@@ -39,6 +41,7 @@ public class LeaveApplicationController {
 	private CredentialsRepository credRepo;
 	private EmployeeRepository employeeRepo;
 	private LeaveRepository leaveRepo;
+	private LeaveTypeRepository leaveTypeRepo;
 	
 	@Autowired
 	public void setLeaveRepo(LeaveRepository leaveRepo) {
@@ -53,6 +56,12 @@ public class LeaveApplicationController {
 		this.employeeRepo = employeeRepo;
 	}
 	
+	@Autowired
+	public void setLeaveTypeRepo(LeaveTypeRepository leaveTypeRepo) {
+		this.leaveTypeRepo = leaveTypeRepo;
+	}
+
+
 	@Autowired
 	private NotificationService notificationService;
 
@@ -70,6 +79,27 @@ public class LeaveApplicationController {
 		model.addAttribute("leaveList", leaveList);
 		return "home";
 	}
+	@GetMapping(path="/leavehistory")
+	public String leaveHistoryPage(Model model,Principal principal) {
+		//Should anyone be able to login, directed to this page to show the leave information of themselves
+		//should show approved list of leave application that are not yet past
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		Credentials user = credRepo.findByUsername(name);
+		model.addAttribute("user", user);
+		List<LeaveApplication>leaveList = leaveRepo.findByUserId(user.getUserId());
+		model.addAttribute("leaveList", leaveList);
+		return "leavehistory";
+	}
+	
+	@RequestMapping(path="/subleavehistory",method=RequestMethod.GET)
+	public String subleavehistory(@ModelAttribute("form") LeaveApplication form,Model model) {
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		Credentials user = credRepo.findByUsername(name);
+		model.addAttribute("user", user);
+		List<LeaveApplication>leaveList = leaveRepo.findSubLeaveHistory(user.getUserId());
+		model.addAttribute("leaveList", leaveList);
+		return "subleavehistory";
+	}
 	
 //	@RequestMapping(path="/home",method=RequestMethod.POST)
 //	public String returnMainPage(Model model)
@@ -81,6 +111,8 @@ public class LeaveApplicationController {
 	
 	@GetMapping(path="/create{id}")
 	public String loadMethod(@PathVariable("id") long id, Model model) {
+		List<LeaveType> lt = leaveTypeRepo.findAll();
+		model.addAttribute("leavetypes", lt);	
 		model.addAttribute("leaveApplication", new LeaveApplication());
 		return "leaveform";
 		
@@ -110,6 +142,8 @@ public class LeaveApplicationController {
 	@GetMapping("/leaveedit{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 	    LeaveApplication leaveApplication = leaveRepo.findById(id);
+	    List<LeaveType> lt = leaveTypeRepo.findAll();
+		model.addAttribute("leavetypes", lt);	
 		model.addAttribute("leaveApplication", leaveApplication);
 	    return "editleave";
 	}

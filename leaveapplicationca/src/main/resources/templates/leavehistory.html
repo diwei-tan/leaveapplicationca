@@ -59,7 +59,7 @@
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
-							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
+							<li><a th:if="${user.role == 'ROLE_STAFF'}" href="/home">Home</a></li>							
 							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>							
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
@@ -111,7 +111,7 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<h3>Hello <span th:text="${user.employee.name}"></span>!</h3>
+	<h3>Leave History!</h3>
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">

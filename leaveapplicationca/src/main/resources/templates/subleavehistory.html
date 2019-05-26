@@ -116,17 +116,20 @@
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
+					<div class="ta41">EMPLOYEE NAME</div>
 					<div class="ta21">LEAVE START DATE</div>
 					<div class="ta31">LEAVE END DATE</div>
 					<div class="ta41">LEAVE TYPE</div>
 					<div class="ta51">LEAVE STATUS</div>
-					<div class="ta61">LEAVE REASON</div>
-					<div class="ta71">FUNCTION</div>
+					<div class="ta61">LEAVE REASON</div>					
 				</div>
 				<div class="tal1"></div>
 				<div th:each="leave : ${leaveList}">
 					
 					<div class="tal2">
+						<div class="ta42"
+							th:text="${leave.employee.name}">no
+							start date found</div>
 						<div class="ta12"
 							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
 							start date found</div>
@@ -135,10 +138,7 @@
 							end date found</div>
 						<div class="ta42" th:text="${leave.type}">no type found</div>
 						<div class="ta52" th:text="${leave.status}">no status found</div>
-						<div class="ta62" th:text="${leave.reason}">no status found</div>
-						<div class="ta72"><a th:href="@{/leaveedit{id}(id=${leave.id})}">Edit</a> | 
-						<a th:href="@{/cancel{id}(id=${leave.id})}">Cancel</a>
-						</div>
+						<div class="ta62" th:text="${leave.reason}">no status found</div>						
 					</div>
 				</div>
 			</div>

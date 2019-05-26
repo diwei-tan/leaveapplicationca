@@ -51,7 +51,9 @@
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li><a href="/home">Apply for Leave</a></li>
-							<li><a href="/logout">Log Out</a></li>
+							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
+							<li><a th:href="@{/subleavehistory}">Subordinate Leave History</a></li>
+							<li><a href="@{/logout}">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
 			</div><!-- /.navbar-collapse -->

@@ -76,25 +76,7 @@ public class AdminController {
         userService.save(userForm);
         return "redirect:/adminhome";
     }
-	
-//	@GetMapping("/adduser")	
-//	public String showadduserform(Model model) {
-//		List<Employee> u = employeeRepo.findByRole(); 
-//		model.addAttribute("roles", u);
-//		model.addAttribute("form", new Employee());
-//		return "adduser";
-//	}
-//	
-//	@PostMapping("/adduser")
-//	public String addUser(@Valid Credentials user, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "adduser";
-//        }    
-//        credRepo.save(user);   
-//        model.addAttribute("users", credRepo.findAll());
-//        
-//        return "adminhome";
-//    }
+
 	
 	@RequestMapping(path="/adminhome" ,method = RequestMethod.GET)
 	public String listmethod(Model model) {		
