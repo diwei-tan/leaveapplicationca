@@ -58,6 +58,7 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
+							<li><a href="/subleavehistorydl">Download Team Leave History</a></li>
 							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
 							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
 							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>							

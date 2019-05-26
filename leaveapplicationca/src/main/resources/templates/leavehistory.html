@@ -58,6 +58,7 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
+							<li><a href="/leavehistorydl">Download Leave History</a></li>
 							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
 							<li><a th:if="${user.role == 'ROLE_STAFF'}" href="/home">Home</a></li>							
 							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>							
@@ -121,7 +122,7 @@
 					<div class="ta41">LEAVE TYPE</div>
 					<div class="ta51">LEAVE STATUS</div>
 					<div class="ta61">LEAVE REASON</div>
-					<div class="ta71">FUNCTION</div>
+	
 				</div>
 				<div class="tal1"></div>
 				<div th:each="leave : ${leaveList}">
@@ -136,8 +137,7 @@
 						<div class="ta42" th:text="${leave.type}">no type found</div>
 						<div class="ta52" th:text="${leave.status}">no status found</div>
 						<div class="ta62" th:text="${leave.reason}">no status found</div>
-						<div class="ta72"><a th:href="@{/leaveedit{id}(id=${leave.id})}">Edit</a> | 
-						<a th:href="@{/cancel{id}(id=${leave.id})}">Cancel</a>
+			
 						</div>
 					</div>
 				</div>
@@ -151,7 +151,7 @@
 
 	<div class="footer">
 		<div class="container">
-			<div class="footer-main">
+			<!-- <div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something</h3>
 					<ul>
@@ -169,7 +169,7 @@
 								onBlur="if (this.value == '') {this.value = 'Search...';}"
 								name="search" /> <input type="submit" value="">
 						</form>
-					</div>
+					</div> -->
 				</div>
 				<div class="clearfix"></div>
 			</div>
