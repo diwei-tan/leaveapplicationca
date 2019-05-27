@@ -33,10 +33,12 @@ public class AdminController {
 	private  EmployeeRepository employeeRepo;
 	private CredentialsRepository credRepo;
 	private LeaveTypeRepository leaveTypeRepo;
+	
 	@Autowired
 	public void setLeaveTypeRepo(LeaveTypeRepository leaveTypeRepo) {
 		this.leaveTypeRepo=leaveTypeRepo;
 	}
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -54,6 +56,7 @@ public class AdminController {
 	public void setEmployeeRepo(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
 	}
+
 	
     @GetMapping("/adduser")
     public String registration(Model model) {
@@ -63,7 +66,10 @@ public class AdminController {
         return "registration";
     }
 
-    @PostMapping("/adduser")
+    
+
+
+	@PostMapping("/adduser")
     public String addRegistration(@ModelAttribute("userForm") Credentials userForm, BindingResult bindingResult) {
     	userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -73,25 +79,7 @@ public class AdminController {
         userService.save(userForm);
         return "redirect:/adminhome";
     }
-	
-//	@GetMapping("/adduser")	
-//	public String showadduserform(Model model) {
-//		List<Employee> u = employeeRepo.findByRole(); 
-//		model.addAttribute("roles", u);
-//		model.addAttribute("form", new Employee());
-//		return "adduser";
-//	}
-//	
-//	@PostMapping("/adduser")
-//	public String addUser(@Valid Credentials user, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "adduser";
-//        }    
-//        credRepo.save(user);   
-//        model.addAttribute("users", credRepo.findAll());
-//        
-//        return "adminhome";
-//    }
+
 	
 	@RequestMapping(path="/adminhome" ,method = RequestMethod.GET)
 	public String listmethod(Model model) {		
@@ -189,6 +177,10 @@ public class AdminController {
         return "redirect:/leavetype";
     }
 	
-	
+	@GetMapping("/denyaccess")
+	public String denyAccess() {
+		
+		return "denyaccess";
+	}
 	
 }

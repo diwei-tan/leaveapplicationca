@@ -42,7 +42,7 @@
 	<div class="header-nav">
 		<div class="container">
 			<div class="logo">
-				<a href="index.jsp"><img src="images/logo.png" /></a>
+				<a href=""><img src="images/logo.png" /></a>
 			</div>
 			<div class="navigation">
 				<nav class="navbar navbar-default">
@@ -58,12 +58,8 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">home <span class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">search</a></li>
-							<li><a href="myShoppingcar.action">cart</a></li>
-							<li><a href="myOrders.action">my info</a></li>
-							<li><a href="myInformation.jsp">details</a></li>
-							<li><a href="about.jsp">about</a></li>
+							<li><a href="/adminhome">Admin Home </a></li>
+							<li><a href="/logout">Log Out</a></li>
 						</ul>
 						<div class="clearfix"></div>
 					</div>
@@ -130,12 +126,12 @@
 						<p th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}" style="color:red"></p>
 						<p>
-							Password: <input type="text" th:field="*{password}">
+							Password: <input type="password" th:field="*{password}">
 						</p>
 						<p th:if="${#fields.hasErrors('passwordConfirm')}"
 							th:errors="*{passwordConfirm}" style="color:red"></p>
 						<p>
-							Confirm Password: <input type="text"
+							Confirm Password: <input type="password"
 								th:field="*{passwordConfirm}">
 						</p>
 						<p th:if="${#fields.hasErrors('employee.name')}"
@@ -152,12 +148,13 @@
 							</select>
 						</div>
 						</p>
+						
 						<p>Admin Authority:
 						<div id="select">
 							<select th:field="*{role}">
-								<option th:value="ROLE_STAFF">STAFF</option>
-								<option th:value="ROLE_MANAGER">MANAGER</option>
-								<option th:value="ROLE_ADMIN">ADMIN</option>
+								<option th:value="ROLE_STAFF">USER RIGHTS ONLY</option>
+								<option th:value="ROLE_MANAGER">USER AND APPROVAL RIGHTS</option>
+								<option th:value="ROLE_ADMIN">ADMIN RIGHTS</option>
 							</select>
 						</div>
 						</p>
@@ -189,7 +186,7 @@
 						<p>Reports To:
 						<div id="select">
 							<select th:field="*{employee.reportsTo}">
-								<option th:value="0">Choose option</option>
+								<option th:value="0">System Default</option>
 								<option th:each="user : ${managers}" th:value="${user.id}"
 									th:text="${user.name}"></option>
 							</select>
@@ -203,10 +200,10 @@
 			</div>
 		</div>
 	</div>
-
+<!--footer-starts-->
 	<div class="footer">
 		<div class="container">
-			<div class="footer-main">
+			<!-- <div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something</h3>
 					<ul>
@@ -223,7 +220,7 @@
 								onBlur="if (this.value == '') {this.value = 'Search...';}"
 								name="search" /> <input type="submit" value="">
 						</form>
-					</div>
+					</div> -->
 				</div>
 				<div class="clearfix"></div>
 			</div>

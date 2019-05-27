@@ -35,7 +35,7 @@
 		<div class="header-nav">
 			<div class="container">
 				<div class="logo">
-					<a href="index.jsp"><img src="images/logo.png" /></a>
+					<a href=""><img src="images/logo.png" /></a>
 				</div>
 				<div class="navigation">
 					<nav class="navbar navbar-default">
@@ -50,13 +50,8 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">home <span
-									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=éã©å´">search</a></li>
-							<li><a href="myShoppingcar.action">cart</a></li>
-							<li><a href="myOrders.action">my info</a></li>
-							<li><a href="myInformation.jsp">details</a></li>
-							<li><a href="about.jsp">about</a></li>
+						<li><a href="/adminhome">Admin Home </a></li>
+						<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
 			</div><!-- /.navbar-collapse -->
@@ -140,7 +135,7 @@
     <p>Compensation Hours: <input type="number" th:field="*{employee.compensationhours}" /></p>
     <p> Reports To:<div id="select">
     <select th:field="*{employee.reportsTo}">
-    <!--  <option value=""> Choose option</option>--> 
+    <option th:value="0">System Default</option>
   	<option th:each="user : ${managers}" 
           th:value="${user.id}" 
           th:text="${user.name}"></option>
@@ -153,9 +148,11 @@
 </div>
 </div>
 </div>    
+
+<!--footer-starts-->
     <div class="footer">
 		<div class="container">
-			<div class="footer-main">
+			<!-- <div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something </h3>
 					<ul>
@@ -170,9 +167,9 @@
 					<form action="searchBook.action" method="post">
 						<input type="text" value="Search..." onFocus="this.value = '';"
 							onBlur="if (this.value == '') {this.value = 'Search...';}" name="search"/> 
-							<input type="submit" value="">
+	 						<input type="submit" value="">
 					</form>
-					</div>
+					</div> -->
 				</div>
 				<div class="clearfix"></div>
 			</div>

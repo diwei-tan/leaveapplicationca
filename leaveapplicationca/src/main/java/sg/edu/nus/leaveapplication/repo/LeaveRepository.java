@@ -23,4 +23,7 @@ public interface LeaveRepository extends JpaRepository<LeaveApplication, Long>{
 	@Query(value="select lt from LeaveApplication lt where lt.employee.id = ?1")
 	List<LeaveApplication> findByUserId(long id);
 
+	@Query(value="select  lt from Employee e join e.leaveList lt where e.reportsTo = ?1 ")
+	List<LeaveApplication> findSubLeaveHistory(long id);
+
 }

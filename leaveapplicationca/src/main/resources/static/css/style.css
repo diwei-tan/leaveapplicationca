@@ -46,8 +46,7 @@ ul {
 }
 
 .logo a img {
-	top: 25px;
-	width: 17%;
+	width: 10.27%;
 	z-index: 9999;
 	position: absolute;
 }
@@ -3661,7 +3660,7 @@ div#portfoliolist {
 
 .ta3 {
 	float: left;
-	width: 15%;
+	width: 10%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3670,7 +3669,7 @@ div#portfoliolist {
 
 .ta4 {
 	float: left;
-	width: 10%;
+	width: 15%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3679,7 +3678,7 @@ div#portfoliolist {
 
 .ta5 {
 	float: left;
-	width: 10%;
+	width: 15%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3688,7 +3687,7 @@ div#portfoliolist {
 
 .ta6 {
 	float: left;
-	width: 15%;
+	width: 10%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3715,7 +3714,7 @@ div#portfoliolist {
 
 .ta12 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3724,7 +3723,7 @@ div#portfoliolist {
 
 .ta32 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3733,7 +3732,7 @@ div#portfoliolist {
 
 .ta42 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3742,7 +3741,7 @@ div#portfoliolist {
 
 .ta52 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	text-align: center;
 	border: 1px solid #e4e8ea;
 	height: 100px;
@@ -3757,6 +3756,16 @@ div#portfoliolist {
 	height: 100px;
 	line-height: 100px;
 }
+
+.ta72 {
+	float: left;
+	width: 20%;
+	text-align: center;
+	border: 1px solid #e4e8ea;
+	height: 100px;
+	line-height: 100px;
+}
+
 .orderta6 {
 	float: left;
 	width: 15.7%;
@@ -3784,7 +3793,7 @@ div#portfoliolist {
 
 .ta44 {
 	float: left;
-	width: 15%;
+	width: 10%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3792,7 +3801,7 @@ div#portfoliolist {
 
 .ta55 {
 	float: left;
-	width: 10%;
+	width: 15%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3800,7 +3809,7 @@ div#portfoliolist {
 
 .ta66 {
 	float: left;
-	width: 10%;
+	width: 15%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3808,7 +3817,7 @@ div#portfoliolist {
 
 .ta77 {
 	float: left;
-	width: 15%;
+	width: 10%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3832,7 +3841,7 @@ div#portfoliolist {
 
 .ta21 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3840,7 +3849,7 @@ div#portfoliolist {
 
 .ta31 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3848,7 +3857,7 @@ div#portfoliolist {
 
 .ta41 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3856,7 +3865,7 @@ div#portfoliolist {
 
 .ta51 {
 	float: left;
-	width: 20%;
+	width: 15%;
 	overflow: hidden;
 	text-align: center;
 	line-height: 30px;
@@ -3870,6 +3879,13 @@ div#portfoliolist {
 	line-height: 30px;
 }
 
+.ta71 {
+	float: left;
+	width: 20%;
+	overflow: hidden;
+	text-align: center;
+	line-height: 30px;
+}
 .zh:hover {
 	background: #e4e8ea;
 	color: #339966;

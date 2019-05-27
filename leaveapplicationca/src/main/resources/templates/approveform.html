@@ -50,12 +50,9 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">home <span
-									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">search</a></li>
-							<li><a href="myShoppingcar.action">cart</a></li>
-							<li><a href="myOrders.action">my info</a></li>
 							<li><a href="/home">Apply for Leave</a></li>
+							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
+							<li><a th:href="@{/subleavehistory}">Subordinate Leave History</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
@@ -108,16 +105,76 @@
 	</div>
 </div>	
 
-<table>
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta21">NAME</div>
+					<div class="ta31">STARTDATE</div>
+					<div class="ta41">ENDDATE</div>
+					<div class="ta51">STATUS</div>
+					<div class="ta61">ACCPET</div>
+					<div class="ta71">REJECT</div>
+				</div>
+				<div class="tal1"></div>
+				<div th:each="user : ${approve}">
+					
+					<div class="tal2">
+						<div class="ta12"
+							th:text="${user.staffName}">no
+							start date found</div>
+						<div class="ta32"
+							th:text="${user.leaveApplication.startDate}">no
+							end date found</div>
+						<div class="ta42" th:text="${user.leaveApplication.endDate}">no type found</div>
+						<div class="ta52" th:text="${user.leaveApplication.status}">no status found</div>
+						<div class="ta62"> <a th:href="@{/manager/approve/{id}(id=${user.leaveApplication.id})}">ACCEPT</a></div>
+						<div class="ta72"><a th:href="@{/manager/reject/{id}(id=${user.leaveApplication.id})}">REJECT</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<!--  <table>
 	<tr th:each="user : ${approve}"> 
 			 <td th:text="${user.id}">Name</td>
-			 <td th:text="${user.startDate}">Name</td>
-			 <td th:text="${user.endDate}">Name</td>
-			 <td th:text="${user.status}">Name</td>
+			 <td th:text="${user.startDate}">startDate</td>
+			 <td th:text="${user.endDate}">endDate</td>
+			 <td th:text="${user.status}">status</td>
 			 <td><a th:href="@{/manager/approve/{id}(id=${user.id})}">Accept</a></td>
 			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>		
 		</tr>
-</table>
+</table>-->
+
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta21">EMPLOYEE NAME</div>
+					<div class="ta31">COMPENSATION HOURS FOR CLAIM</div>
+					<div class="ta41">ACCEPT</div>
+					<div class="ta51">REJECT</div>
+				</div>
+				<div class="tal1"></div>
+				<div th:each="claimcom : ${approveclaimcom}" th:if="${claimcom.claim.replied == false}" >
+					
+					<div class="tal2">
+						<div class="ta12"
+							th:text="${claimcom.employeeName}"></div>
+						<div class="ta32"
+							th:text="${claimcom.claim.compensationhours}"></div>
+						
+						<div class="ta62"><a th:href="@{/manager/approveclaim/{id}(id=${claimcom.claim.id})}">ACCEPT</a></div>
+						<div class="ta72"><a th:href="@{/manager/rejectclaim/{id}(id=${claimcom.claim.id})}">REJECT</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <!--footer-starts-->
 <div class="footer">
 		<div class="container">
