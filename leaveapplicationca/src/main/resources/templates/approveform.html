@@ -10,13 +10,14 @@
 <link href='http://fonts.useso.com/css?family=Metamorphous' rel='stylesheet' type='text/css'>
 <!--//fonts-->
 <script src="js/jquery.min.js"> </script>
+
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	<!-- js -->
-		 <script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.js"></script>
 	<!-- js -->
-	<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
 <link rel="stylesheet" type="text/css" href="css/style4.css" />
 <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 <script type="text/javascript" src="js/move-top.js"></script>
@@ -30,7 +31,14 @@
 				});
 			});
 </script>
+
+
 </head>
+<style>
+.hidden{
+display:none;
+}
+</style>
 <body>
 <div class="header-nav">
 			<div class="container">
@@ -105,31 +113,38 @@
 	</div>
 </div>	
 
+
 <div class="blog">
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta21">NAME</div>
-					<div class="ta31">STARTDATE</div>
-					<div class="ta41">ENDDATE</div>
-					<div class="ta51">STATUS</div>
-					<div class="ta61">ACCPET</div>
-					<div class="ta71">REJECT</div>
+					<div class="ta22">NAME</div>
+					<div class="ta55">STARTDATE</div>
+					<div class="ta66">ENDDATE</div>
+					<div class="ta33">STATUS</div>
+					<div class="ta44">TYPE</div>
+					<div class="ta99">REASON</div>
+					<div class="ta77">ACCEPT</div>
+					<div class="ta88">REJECT</div>
 				</div>
 				<div class="tal1"></div>
 				<div th:each="user : ${approve}">
 					
 					<div class="tal2">
-						<div class="ta12"
-							th:text="${user.staffName}">no
-							start date found</div>
-						<div class="ta32"
-							th:text="${user.leaveApplication.startDate}">no
-							end date found</div>
-						<div class="ta42" th:text="${user.leaveApplication.endDate}">no type found</div>
-						<div class="ta52" th:text="${user.leaveApplication.status}">no status found</div>
-						<div class="ta62"> <a th:href="@{/manager/approve/{id}(id=${user.leaveApplication.id})}">ACCEPT</a></div>
-						<div class="ta72"><a th:href="@{/manager/reject/{id}(id=${user.leaveApplication.id})}">REJECT</a>
+						<div class="ta1"
+							th:text="${user.staffName}">no start date found</div>
+						<div class="ta4"
+							th:text="${user.leaveApplication.startDate}">no end date found</div>
+						<div class="ta5" th:text="${user.leaveApplication.endDate}">no type found</div>
+						<div class="ta2" th:text="${user.leaveApplication.status}">no status found</div>
+						<div class="ta3" th:text="${user.leaveApplication.type}">no type found</div>
+						
+						<div class="ta8" th:text="${user.leaveApplication.reason}">
+						<div><button onclick="Show_1()">show reason details</button> </div>
+						   <div id="show1" style="display:none">
+						no status found</div></div>
+						<div class="ta6"> <a th:href="@{/manager/approve/{id}(id=${user.leaveApplication.id})}">ACCEPT</a></div>
+						<div class="ta7"><a th:href="@{/manager/reject/{id}(id=${user.leaveApplication.id})}">REJECT</a>
 						</div>
 					</div>
 				</div>
@@ -219,6 +234,9 @@
 </script>
 <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 <!----> 
+
+
 	</div>
+
 </body>
 </html>

@@ -13,16 +13,16 @@ import org.apache.commons.collections4.TransformerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import sg.edu.nus.leaveapplication.model.PublicHoliday;
-import sg.edu.nus.leaveapplication.repo.PublicHolidayRepository;
+import sg.edu.nus.leaveapplication.repo.PHRepository;
 
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 
 public class LeaveServices {
 	
-	private PublicHolidayRepository publicHolidayRepo;
+	private PHRepository publicHolidayRepo;
 
 	@Autowired
-	public void setPublicHolidayRepo(PublicHolidayRepository publicHolidayRepo) {
+	public void setPublicHolidayRepo(PHRepository publicHolidayRepo) {
 		this.publicHolidayRepo = publicHolidayRepo;
 	}
 
