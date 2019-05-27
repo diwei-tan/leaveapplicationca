@@ -45,7 +45,22 @@ display: inline-block;
 		text-overflow: ellipsis;			
 		}			
 span:hover{				
-overflow: visible;		
+overflow: visible;	
+content: attr(data-customer);
+          position: absolute;
+          background: #F2F2F2;
+          height: 400px;
+          width: 300px;
+          border: 1px solid #E5E5E5;
+          box-shadow: 0 20px 40px 0 rgba(56,62,71,0.10);
+          border-radius: 2px;
+          padding: 2px 6px;
+          font-size: 13px;
+          color: #202332;
+          top:300px; // 设置位置
+          max-width: 290%;
+          word-break: break-word;// 如果一个单词太长，则截断  CSS 属性 word-break 指定了怎样在单词内断行。
+          white-space: normal;// 	
 	}		
 	</style>
 
@@ -150,14 +165,14 @@ overflow: visible;
 						<div class="ta1"
 							th:text="${user.staffName}">no start date found</div>
 						<div class="ta4"
-              	th:text="${user.startDate}">no
+              	th:text="${user.leaveApplication.startDate}">no
 							end date found</div>
-						<div class="ta5" th:text="${user.endDate}">no type found</div>
-						<div class="ta2" th:text="${user.status}">no status found</div>
-						<div class="ta3" th:text="${user.type}">no type found</div>		
-						<div class="ta8" ><span th:text="${user.reason}"> no reason</span></div>
-						<div class="ta6"> <a th:href="@{/manager/approve/{id}(id=${user.id})}">ACCEPT</a></div>
-						<div class="ta7"><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a>
+						<div class="ta5" th:text="${user.leaveApplication.endDate}">no type found</div>
+						<div class="ta2" th:text="${user.leaveApplication.status}">no status found</div>
+						<div class="ta3" th:text="${user.leaveApplication.type}">no type found</div>		
+						<div class="ta8" ><span th:text="${user.leaveApplication.reason}"> no reason</span></div>
+						<div class="ta6"> <a th:href="@{/manager/approve/{id}(id=${user.leaveApplication.id})}">ACCEPT</a></div>
+						<div class="ta7"><a th:href="@{/manager/reject/{id}(id=${user.leaveApplication.id})}">REJECT</a>
 
 						</div>
 					</div>
