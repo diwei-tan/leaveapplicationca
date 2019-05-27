@@ -123,43 +123,8 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<h3>Leave History!</h3>
-	<div class="blog">
-		<div class="container">
-			<div class="reply heading">
-				<div class="lei">
-					<div class="ta21">LEAVE START DATE</div>
-					<div class="ta31">LEAVE END DATE</div>
-					<div class="ta41">LEAVE TYPE</div>
-					<div class="ta51">LEAVE STATUS</div>
-					<div class="ta61">LEAVE REASON</div>
-	
-				</div>
-				<div class="tal1"></div>
-				<div th:each="leave : ${leaveList}">
-					
-					<div class="tal2">
-						<div class="ta12"
-							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
-							start date found</div>
-						<div class="ta32"
-							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no
-							end date found</div>
-						<div class="ta42" th:text="${leave.type}">no type found</div>
-						<div class="ta52" th:text="${leave.status}">no status found</div>
-						<div class="ta62" th:text="${leave.reason}">no status found</div>
-			
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<br>
 	
-		<p>test</p>
-<!-- ** -->
-
  <!-- START PAGE CONTAINER -->
     <div class="container-fluid">
         <!-- START PAGE SIDEBAR -->
@@ -172,32 +137,33 @@
             </h2>
         </div>
         <!-- END PAGE TITLE -->
-        <div class="row">
-            <table class="table datatable">
-                <thead>
-                    <tr>
-                        <th>Leave Start Date</th>
-                        <th>Leave End Date</th>
-                        <th>Leave Type</th>
-                        <th>Reason</th>
-                        <th>Status</th>
-                       
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="list : ${list}">
-                        <td th:text="${#temporals.format(list.startDate, 'd-MMM-yyyy')}">Text ...</td>
-                        <td th:text="${#temporals.format(list.endDate, 'd-MMM-yyyy')}">Text ...</td>
-                        <td th:text="${list.type}">Text ...</td>
-                        <td th:text="${list.reason}">Text ...</td>
-                        <td th:text="${list.status}">Text ...</td>
+        <div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta21">LEAVE START DATE</div>
+					<div class="ta31">LEAVE END DATE</div>
+					<div class="ta41">LEAVE TYPE</div>
+					<div class="ta51">LEAVE STATUS</div>
+					<div class="ta61">LEAVE REASON</div>
+	
+				</div>
+				<div class="tal1"></div>			
+                    <div th:each="list : ${list}">
+                    <div class="tal2">
+                        <div class="ta12" th:text="${#temporals.format(list.startDate, 'd-MMM-yyyy')}">Text ...</div>
+                        <div class="ta32" th:text="${#temporals.format(list.endDate, 'd-MMM-yyyy')}">Text ...</div>
+                        <div class="ta42" th:text="${list.type}">Text ...</div>
+                        <div class="ta52" th:text="${list.status}">Text ...</div>
+                        <div class="ta62" th:text="${list.reason}">Text ...</div>
                         <!--  <td a href="@{/leaveedit{id}(id=${leave.id})}">Edit</a> | 
 						<a th:href="@{/cancel{id}(id=${leave.id})}">Cancel</a>>Text ...</td> -->
-                    </tr>
-                </tbody>
-            </table>
-            <div class="row">
+						</div>
+                   </div>
+         		</div>
+			</div>
+		</div>	   
+        <div class="container">
                 <div class="form-group col-md-1">
                     <select class="form-control pagination" id="pageSizeSelect">
                         <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
@@ -236,7 +202,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+   
         <!-- END PAGE CONTENT -->
         <!-- END PAGE CONTAINER -->
     </div>

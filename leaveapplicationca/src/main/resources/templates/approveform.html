@@ -136,17 +136,6 @@
 			</div>
 		</div>
 	</div>
-
-<table>
-	<tr th:each="user : ${approve}"> 
-			 <td th:text="${user.id}">Name</td>
-			 <td th:text="${user.startDate}">startDate</td>
-			 <td th:text="${user.endDate}">endDate</td>
-			 <td th:text="${user.status}">status</td>
-			 <td><a th:href="@{/manager/approve/{id}(id=${user.id})}">Accept</a></td>
-			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>		
-		</tr>
-</table>
 <!--footer-starts-->
 <div class="footer">
 		<div class="container">

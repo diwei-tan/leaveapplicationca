@@ -38,7 +38,13 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
   $( function() {
-    $( "#datepicker" ).datepicker();
+    $( "#startDate" ).datepicker();
+
+  } );
+  </script>
+   <script>
+  $( function() {
+    $( "#endDate" ).datepicker();
 
   } );
   </script>
@@ -123,24 +129,23 @@
 	<form th:attr="action=@{/leaveapplication/submit{id}(id=${id})}" th:object= "${leaveApplication}" method="post">
 		<fieldset>
 
-			<!--  <input type="text" th:field="*{userId}"/>-->
-			<!-- date picker <p>Start Date <input type="text" id="datepicker"></p>
-			<p>  <input type="radio" name="size" value="1"> AM</input>      <input type="radio" name="size" value="2"> PM</input>
-			<p>End Date <input type="text" id="datepicker"></p>
-			<p>  <input type="radio" name="size" value="1"> AM</input>      <input type="radio" name="size" value="2"> PM</input>-->
-			<p>Start Date<input type="datetime-local" th:id="startDate" th:name="startDate"/></p> 
-			<p>End Date<input type="datetime-local" th:id="endDate" th:name="endDate"/></p>
-			 <p>Leave Type
-		<!-- 			<select th:field="*{type}"> -->
-
-<!--   				<option th:value="Annualleave">Annual Leave</option> -->
-<!--   				<option th:value="Medicinalleave">Medical Leave</option> -->
-<!--   				<option th:value="Compensationleave">Compensation Leave</option> -->
-<!-- 			</select> -->
-				<select th:field="*{type}">
-								<option th:each="LeaveType : ${leavetypes}" th:value="${LeaveType.name}"
+		 <input type="text" th:field="*{userId}"/>-->
+          <p>Start Date <input type="text" th:id="startDate" th:name="startDate"></p>
+		    <p>End Date <input type="text" th:id="endDate" th:name="endDate"></p>
+		
+			
+			
+		<!--  <p>Start Date<input type="datetime-local" th:id="startDate" th:name="startDate"/></p> 
+			 <p>End Date<input type="datetime-local" th:id="endDate" th:name="endDate"/></p>-->
+		 <p>Leave Type<select th:field="*{type}">
+             <option th:value="Annualleave">Annual Leave</option>
+             <option th:value="Medicinalleave">Medical Leave</option>
+ 	    		<option th:value="Compensationleave">Compensation Leave</option> 
+              </select>
+				<!--  <select th:field="*{type}">
+				<option th:each="LeaveType : ${leavetypes}" th:value="${LeaveType.name}"
 									th:text="${LeaveType.name}"></option>
-							</select>
+							</select>-->
 			</p>
 			<p>Reason
 				<textarea rows="4" cols="20" th:field="*{reason}" placeholder="Type your reasons, duties that need to be fulfilled durng your absence, and who will replace you to complete your work here."></textarea>
