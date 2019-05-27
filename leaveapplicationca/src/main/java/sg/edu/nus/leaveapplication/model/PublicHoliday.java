@@ -9,12 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 	@Entity
 	@Table(name = "publicholiday")
 	public class PublicHoliday {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		private long id;
+		@DateTimeFormat(pattern = "yyyy-MM-dd")
 		private LocalDate date;
 		private String description;
 		public PublicHoliday() {
@@ -25,6 +28,14 @@ import javax.persistence.Table;
 			super();
 			this.date = date;
 			this.description = description;
+		}
+		
+		
+		public long getId() {
+			return id;
+		}
+		public void setId(long id) {
+			this.id = id;
 		}
 		public LocalDate getDate() {
 			return date;

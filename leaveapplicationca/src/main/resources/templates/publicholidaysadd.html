@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>admin home</title>
+<meta charset="UTF-8">
+<title>Create an account</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!--fonts-->
@@ -58,7 +58,7 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="/publicholidaysadd">Add Public Holiday</a></li>
+							<li><a href="/adminhome">Admin Home </a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 						<div class="clearfix"></div>
@@ -111,101 +111,80 @@
 		</div>
 	</div>
 
-	<ul class="nav">
-
-	</ul>
-
+	<!-- register -->
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">
-				<div class="lei">
-					<div class="ta22">DATE</div>
-					<div class="ta33">DESCRIPTION</div>
-				</div>
-				<div class="tal1"></div>
-				<div class="lai" th:if="${holidays.empty}">no holidays</div>
-				<div th:each="holiday : ${holidays}">
-					<div class="tal2">
-						<div class="ta1" th:text="${holiday.date}">no leave type
-							found</div>
-						<div class="ta1" th:text="${holiday.description}">no leave
-							type found</div>
-						<div class="ta2">
-							<a th:href="@{/publicholidayedit{id}(id=${holiday.id})}">Edit</a>
-							<a th:href="@{/publicholidaydelete{id}(id=${holiday.id})}">Delete</a>
-						</div>
-					</div>
+				<h3>Please Add Leave Type</h3>
+				<div class="contact-form">
+
+					<form action="#" th:action="@{/publicholidaysadd}" th:object="${form}" method="post">
+						<p>
+								<input type="hidden" th:field="*{id}">
+						</p>
+						
+						<p>
+							New Public Holiday: <input type="date" th:field="*{date}"> 
+						</p>
+						<p>
+							Description: <input type="text" th:field="*{description}"> 
+						</p>
+						<p>
+							<input type="submit" value="Save" />
+						</p>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
-	<!--  <table>       -->
-	<!--       <tr th:if="${users.empty}"> -->
-	<!--             <td colspan="2"> No Users Available </td> -->
-	<!--         </tr> -->
-	<!--         <tr th:each="user : ${users}">         -->
-	<!--         <td th:text="${user.name}">Name</td> -->
-	<!--         <td th:text="${user.role}">Role</td> -->
-	<!--         <td th:text="${user.leaveEntitled}">Leave</td> -->
-	<!--         <td th:text="${user.contact}">Contact</td> -->
-	<!--         <td th:text="${user.email}">email</td> -->
-	<!--         <td th:text="${user.compensationhours}">comphours</td> -->
-	<!--         <td th:text="${user.reportsTo}">rt</td> -->
-	<!--          <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a></td> -->
-	<!--          <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a></td> -->
-	<!--       </tr> -->
-	<!--     </table> -->
-
-
-	<!--footer-starts-->
+<!--footer-starts-->
 	<div class="footer">
 		<div class="container">
-			<div class="footer-main">
-				<!--<div class="col-md-3 footet-left">
-					  <h3>something </h3>
+			<!-- <div class="footer-main">
+				<div class="col-md-3 footet-left">
+					<h3>something</h3>
 					<ul>
 						<li><a href="myShoppingcar.action">shopping cart</a></li>
 						<li><a href="myOrders.action">my orders</a></li>
-						<li><a href="myInformation.jsp">differnt things</a></li>
+						<li><a href="myInformation.jsp">different things</a></li>
 					</ul>
-				</div>	
+				</div>
 				<div class="col-md-3 footet-left">
 					<h3>Search</h3>
 					<div class="sub-text">
-					<form action="saearchBook.action" method="post">
-						<input type="text" value="Search..." onFocus="this.value = '';"
-							onBlur="if (this.value == '') {this.value = 'Search...';}" name="search"/> 
-							<input type="submit" value="">
-					</form>
-					</div>-->
+						<form action="searchBook.action" method="post">
+							<input type="text" value="Search..." onFocus="this.value = '';"
+								onBlur="if (this.value == '') {this.value = 'Search...';}"
+								name="search" /> <input type="submit" value="">
+						</form>
+					</div> -->
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
+			<div class="copy-rights">
+				<p>Copyright &copy; 2019 white star</p>
+			</div>
 		</div>
-		<div class="copy-rights">
-			<p>Copyright &copy; 2019 white star</p>
-		</div>
-	</div>
-	<!---->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			/*
-			var defaults = {
-			containerID: 'toTop', // fading element id
-			containerHoverID: 'toTopHover', // fading element hover id
-			scrollSpeed: 1200,
-			easingType: 'linear' 
-			};
-			 */
-			$().UItoTop({
-				easingType : 'easeOutQuart'
+		<!---->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+				 */
+				$().UItoTop({
+					easingType : 'easeOutQuart'
+				});
 			});
-		});
-	</script>
-	<a href="#to-top" id="toTop" style="display: block;"> <span
-		id="toTopHover" style="opacity: 1;"> </span></a>
-	<!---->
+		</script>
+		<a href="#to-top" id="toTop" style="display: block;"> <span
+			id="toTopHover" style="opacity: 1;"> </span></a>
+		<!---->
 	</div>
 </body>
 </html>
+
