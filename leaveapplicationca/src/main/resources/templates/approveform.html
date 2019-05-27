@@ -10,13 +10,14 @@
 <link href='http://fonts.useso.com/css?family=Metamorphous' rel='stylesheet' type='text/css'>
 <!--//fonts-->
 <script src="js/jquery.min.js"> </script>
+
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	<!-- js -->
-		 <script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.js"></script>
 	<!-- js -->
-	<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
 <link rel="stylesheet" type="text/css" href="css/style4.css" />
 <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 <script type="text/javascript" src="js/move-top.js"></script>
@@ -30,7 +31,25 @@
 				});
 			});
 </script>
+
+<script type="text/javascript">
+ function Show_1(){
+  var mychar = document.getElementById("show1");
+     if(mychar.style.display=="block"){
+        mychar.style.display='none';
+    }else{
+        mychar.style.display='block';
+    } 
+}
+</script>
+
+
 </head>
+<style>
+.hidden{
+display:none;
+}
+</style>
 <body>
 <div class="header-nav">
 			<div class="container">
@@ -105,31 +124,46 @@
 	</div>
 </div>	
 
+  <div><button onclick="Show_1()">快件查询</button> </div>
+   <!--  <div id="show1" style="display:none">
+         <a href="#"><img src="img/2.png" class="img1">按快件号查询</a><br/>
+            <a href="#"><img src="img/2.png" class="img1">按姓名查询</a><br/>
+            <a href="#"><img src="img/2.png" class="img1">按电话号查询</a>  
+       </div>-->
+
 <div class="blog">
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta21">NAME</div>
-					<div class="ta31">STARTDATE</div>
-					<div class="ta41">ENDDATE</div>
-					<div class="ta51">STATUS</div>
-					<div class="ta61">ACCPET</div>
-					<div class="ta71">REJECT</div>
+					<div class="ta22">NAME</div>
+					<div class="ta55">STARTDATE</div>
+					<div class="ta66">ENDDATE</div>
+					<div class="ta33">STATUS</div>
+					<div class="ta44">TYPE</div>
+					<div class="ta99">REASON</div>
+					<div class="ta77">ACCEPT</div>
+					<div class="ta88">REJECT</div>
 				</div>
 				<div class="tal1"></div>
 				<div th:each="user : ${approve}">
 					
 					<div class="tal2">
-						<div class="ta12"
+						<div class="ta1"
 							th:text="${user.id}">no
 							start date found</div>
-						<div class="ta32"
+						<div class="ta4"
 							th:text="${user.startDate}">no
 							end date found</div>
-						<div class="ta42" th:text="${user.endDate}">no type found</div>
-						<div class="ta52" th:text="${user.status}">no status found</div>
-						<div class="ta62"> <a th:href="@{/manager/approve/{id}(id=${user.id})}">ACCEPT</a></div>
-						<div class="ta72"><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a>
+						<div class="ta5" th:text="${user.endDate}">no type found</div>
+						<div class="ta2" th:text="${user.status}">no status found</div>
+						<div class="ta3" th:text="${user.type}">no type found</div>
+						
+						<div class="ta8" th:text="${user.reason}">
+						<div><button onclick="Show_1()">show reason details</button> </div>
+						   <div id="show1" style="display:none">
+						no status found</div></div>
+						<div class="ta6"> <a th:href="@{/manager/approve/{id}(id=${user.id})}">ACCEPT</a></div>
+						<div class="ta7"><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a>
 						</div>
 					</div>
 				</div>
@@ -148,32 +182,6 @@
 			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>		
 		</tr>
 </table>-->
-
-<div class="blog">
-		<div class="container">
-			<div class="reply heading">
-				<div class="lei">
-					<div class="ta21">EMPLOYEE ID</div>
-					<div class="ta31">COMPENSATION HOURS FOR CLAIM</div>
-					<div class="ta41">ACCEPT</div>
-					<div class="ta51">REJECT</div>
-				</div>
-				<div class="tal1"></div>
-				<div th:each="claimcom : ${approveclaimcom}" th:if="${claimcom.replied == false}" >
-					
-					<div class="tal2">
-						<div class="ta12"
-							th:text="${claimcom.employeeId}"></div>
-						<div class="ta32"
-							th:text="${claimcom.compensationhours}"></div>
-						
-						<div class="ta62"><a th:href="@{/manager/approveclaim/{id}(id=${claimcom.id})}">ACCEPT</a></div>
-						<div class="ta72"><a th:href="@{/manager/rejectclaim/{id}(id=${claimcom.id})}">REJECT</a></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 <!--footer-starts-->
 <div class="footer">
@@ -219,6 +227,9 @@
 </script>
 <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 <!----> 
+
+
 	</div>
+
 </body>
 </html>
