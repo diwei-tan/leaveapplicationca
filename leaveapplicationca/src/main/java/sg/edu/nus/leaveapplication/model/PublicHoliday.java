@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 	@Entity
-	@Table(name = "publicholiday")
 	public class PublicHoliday {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)

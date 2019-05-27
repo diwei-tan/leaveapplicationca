@@ -11,18 +11,19 @@ import sg.edu.nus.leaveapplication.model.Employee;
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 
 @Repository
-public interface LeaveRepository extends JpaRepository<LeaveApplication, Integer>{
+public interface LeaveRepository extends JpaRepository<LeaveApplication, Long>{
 	List<LeaveApplication> findByEmployee(Employee e);
 	
-	@Query(value="select  lt from Employee e join e.leaveList lt where e.reportsTo = ?1 and lt.status= 'Applied'")
+	@Query(value="select lt from Employee e join e.leaveList lt where e.reportsTo = ?1 and lt.status= 'Applied'")
 	List<LeaveApplication> findByManagerId(long id);
 
 
 	LeaveApplication findById(long id);
 	
-	@Query(value="select  lt from LeaveApplication lt where lt.employee.id = ?1")
+	@Query(value="select lt from LeaveApplication lt where lt.employee.id = ?1")
 	List<LeaveApplication> findByUserId(long id);
-	
+
 	@Query(value="select  lt from Employee e join e.leaveList lt where e.reportsTo = ?1 ")
 	List<LeaveApplication> findSubLeaveHistory(long id);
+
 }

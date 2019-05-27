@@ -1,6 +1,7 @@
 package sg.edu.nus.leaveapplication.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.leaveapplication.LeaveapplicationcaApplication;
 import sg.edu.nus.leaveapplication.model.ClaimCompensation;
+import sg.edu.nus.leaveapplication.model.ComClaimStaffInfo;
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.Employee;
+import sg.edu.nus.leaveapplication.model.LeaveAppStaffInfo;
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 import sg.edu.nus.leaveapplication.model.LeaveType;
 import sg.edu.nus.leaveapplication.model.PagerModel;
@@ -36,6 +39,7 @@ import sg.edu.nus.leaveapplication.repo.ClaimCompensationRepository;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.repo.LeaveRepository;
+import sg.edu.nus.leaveapplication.util.LeaveFormValidator;
 import sg.edu.nus.leaveapplication.repo.LeaveTypeRepository;
 import sg.edu.nus.leaveapplication.util.LeaveServices;
 import sg.edu.nus.leaveapplication.util.NotificationService;
@@ -49,6 +53,9 @@ public class LeaveApplicationController {
 	private LeaveRepository leaveRepo;
 	private LeaveTypeRepository leaveTypeRepo;
 	private ClaimCompensationRepository claimComRepo;
+	
+	@Autowired
+	LeaveFormValidator leaveValidator;
 	
 	@Autowired
 	public void setLeaveRepo(LeaveRepository leaveRepo) {
@@ -156,27 +163,43 @@ public class LeaveApplicationController {
 	
 	@GetMapping(path="/create{id}")
 	public String loadMethod(@PathVariable("id") long id, Model model) {
+
+		model.addAttribute("form", new LeaveApplication());
+
 		List<LeaveType> lt = leaveTypeRepo.findAll();
 		model.addAttribute("leavetypes", lt);	
-		model.addAttribute("leaveApplication", new LeaveApplication());
+
 		return "leaveform";
 		
 	}
 
 
-	@PostMapping(path="/leaveapplication/submit{id}")
-	public String processStupidForm(@PathVariable("id") long id, @ModelAttribute("form") LeaveApplication form) {
+	@PostMapping(path="/create{id}")
+	public String processStupidForm(@PathVariable("id") long id, @ModelAttribute("form") LeaveApplication form, 
+			BindingResult bindingresult,Model model) {
 		Employee emp = employeeRepo.findById(id).orElse(null);
+		form.setEmployee(emp);
 		LeaveServices service = new LeaveServices();
-		LeaveApplication leaveApplication = form;
 		try {
-			leaveApplication.setNumDays(service.calculateNumOfLeaveDays(leaveApplication.getStartDate(), leaveApplication.getEndDate()));
+			form.setNumDays(service.calculateNumOfLeaveDays(form.getStartDate(), form.getEndDate()));
 		}
 		catch(Exception e) {
 			LOG.info(e.getMessage());
 		}
-		leaveApplication.setEmployee(emp);
-		leaveRepo.save(leaveApplication);
+		//if validation error, return to registration will info and errors
+		leaveValidator.validate(form, bindingresult);
+		if(bindingresult.hasErrors()) {
+			model.addAttribute("form", form);
+			List<LeaveType> lt = leaveTypeRepo.findAll();
+			model.addAttribute("leavetypes", lt);	
+			return "leaveform";
+		}
+		leaveRepo.save(form);
+		//if compensation leave, delete compensation hours from staff
+		if(form.getType().equals("Compensationleave")) {
+			emp.setCompensationhours((long)(emp.getCompensationhours()-(form.getNumDays()*2*4)));
+			employeeRepo.save(emp);
+		}
 		long managerid = emp.getReportsTo();
 		Employee emp1 = employeeRepo.findById(managerid).orElse(null);
 		String manageremail = emp1.getEmail();
@@ -221,6 +244,11 @@ public class LeaveApplicationController {
 		LeaveApplication leave = leaveRepo.findById(id);
 		leave.setStatus("Cancelled");
 		leaveRepo.save(leave);
+		Employee emp = employeeRepo.findById(leave.getEmployee().getId()).orElse(null);
+		if(leave.getType().equals("Compensationleave")) {
+			emp.setCompensationhours((long)(emp.getCompensationhours()+(leave.getNumDays()*2*4)));
+			employeeRepo.save(emp);
+		}
         return "redirect:/home";
     }
 	
@@ -228,12 +256,21 @@ public class LeaveApplicationController {
 	public String approveleave(@ModelAttribute("form") LeaveApplication form,Model model) {
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		Credentials user = credRepo.findByUsername(name);
-		List<LeaveApplication> l = leaveRepo.findByManagerId(user.getUserId());
+		List<Employee> employeeList = employeeRepo.findAll();
+		List<LeaveApplication> leaveApp = leaveRepo.findByManagerId(user.getUserId());
+		List<LeaveAppStaffInfo> l = new ArrayList<LeaveAppStaffInfo>();
+		for(LeaveApplication la : leaveApp) {
+			Employee e = employeeList.stream().filter(x->x.getId()==la.getEmployee().getId()).findFirst().orElse(null);
+			l.add(new LeaveAppStaffInfo(la, e.getName()));
+		}
 		model.addAttribute("approve", l);
-		
+		List<ComClaimStaffInfo> claims = new ArrayList<>();
 		List<ClaimCompensation> cc = claimComRepo.findAll();
-		model.addAttribute("approveclaimcom", cc);
-		
+		for(ClaimCompensation claim : cc) {
+			Employee e = employeeList.stream().filter(x->x.getId()==claim.getEmployeeId()).findFirst().orElse(null);
+			claims.add(new ComClaimStaffInfo(claim, e.getName()));
+		}
+		model.addAttribute("approveclaimcom", claims);
 		return"approveform";
 	}
 	
@@ -243,16 +280,22 @@ public class LeaveApplicationController {
 	leaveApplication.setStatus("Approved");
 	leaveRepo.save(leaveApplication);
 	notificationService.sendNotification(leaveApplication);
-		return"redirect:/home";
+		return"redirect:/managerhome";
 	}
 	
 	@RequestMapping(path="/manager/reject/{id}",method=RequestMethod.GET)
 	public String rejectleave(@PathVariable(name = "id") long id,LeaveApplication leaveApplication) {
 	 leaveApplication = leaveRepo.findById(id);	
 	leaveApplication.setStatus("Rejected");
-	leaveRepo.save(leaveApplication);		
+	leaveRepo.save(leaveApplication);
+	//refund if compensation leave
+	if(leaveApplication.getType().equals("Compensationleave")) {
+		Employee emp = employeeRepo.findById(leaveApplication.getEmployee().getId()).orElse(null);
+		emp.setCompensationhours((long)(emp.getCompensationhours()+(leaveApplication.getNumDays()*2*4)));
+		employeeRepo.save(emp);
+	}
 	notificationService.sendRejectNotification(leaveApplication);
-	return"redirect:/home";
+	return"redirect:/managerhome";
 	}
 	
 	//here onwards is for claim compensation ...
