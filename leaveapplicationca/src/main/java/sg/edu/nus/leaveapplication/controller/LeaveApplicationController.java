@@ -115,7 +115,11 @@ public class LeaveApplicationController {
         // prevent exception), return initial size. Otherwise, return value of param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
         // print repo      
-        Page<LeaveApplication> list1 = leaveRepo.findAll(new PageRequest(evalPage, evalPageSize));
+        
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Credentials user = credRepo.findByUsername(name);
+        modelAndView.addObject("user", user);
+        Page<LeaveApplication> list1 = leaveRepo.findByUserId(user.getUserId(), new PageRequest(evalPage, evalPageSize));
         PagerModel pager = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
         // add clientmodel
         modelAndView.addObject("list",list1);
@@ -142,16 +146,41 @@ public class LeaveApplicationController {
 	//	return "leavehistory";
 	//}
 	
-	
-	@RequestMapping(path="/subleavehistory",method=RequestMethod.GET)
-	public String subleavehistory(@ModelAttribute("form") LeaveApplication form,Model model) {
-		String name = SecurityContextHolder.getContext().getAuthentication().getName();
-		Credentials user = credRepo.findByUsername(name);
-		model.addAttribute("user", user);
-		List<LeaveApplication>leaveList = leaveRepo.findSubLeaveHistory(user.getUserId());
-		model.addAttribute("leaveList", leaveList);
-		return "subleavehistory";
+	@GetMapping(path="/subleavehistory")
+    public ModelAndView subhomepage(@RequestParam("pageSize") Optional<Integer> pageSize, @RequestParam("page") Optional<Integer> page) {
+        ModelAndView modelAndView = new ModelAndView();
+        // Evaluate page size. If requested parameter is null, return initial
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo      
+        
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+    	Credentials user = credRepo.findByUsername(name);
+        modelAndView.addObject("user", user);
+        Page<LeaveApplication> list1 = leaveRepo.findByManagerId(user.getUserId(), new PageRequest(evalPage, evalPageSize));
+        PagerModel pager = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
+        // add clientmodel
+        modelAndView.addObject("list",list1);
+        // evaluate page size
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        // add page sizes
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        // add pager
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
 	}
+	
+//	@RequestMapping(path="/subleavehistory",method=RequestMethod.GET)
+//	public String subleavehistory(@ModelAttribute("form") LeaveApplication form,Model model) {
+//		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+//		Credentials user = credRepo.findByUsername(name);
+//		model.addAttribute("user", user);
+//		List<LeaveApplication>leaveList = leaveRepo.findSubLeaveHistory(user.getUserId());
+//		model.addAttribute("leaveList", leaveList);
+//		return "subleavehistory";
+//	}
 	
 //	@RequestMapping(path="/home",method=RequestMethod.POST)
 //	public String returnMainPage(Model model)

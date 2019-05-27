@@ -5,6 +5,11 @@
 <title>leave application</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- CSS for pagination -->
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous"></link>
 <!--fonts-->
 <link
 	href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400'
@@ -58,10 +63,16 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="/subleavehistorydl">Download Team Leave History</a></li>
-							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
-							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
-							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>							
+							<li><a href="//subleavehistorydl">Download</a></li>
+							<!--  <li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>-->
+							<li><a href="/home">Apply Leave</a></li>							
+							<li><a th:if="${user.role=='ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>							
+						
+						
+						
+							<!--  <li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
+							<li><a th:if="${user.role == 'ROLE_STAFF'}" href="/home">Home</a></li>							
+							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>	-->						
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 						<div class="clearfix"></div>
@@ -112,47 +123,119 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<h3>Hello <span th:text="${user.employee.name}"></span>!</h3>
-	<div class="blog">
+	<br>
+	
+ <!-- START PAGE CONTAINER -->
+    <div class="container-fluid">
+        <!-- START PAGE SIDEBAR -->
+        <!-- commented out     <div th:replace="fragments/header :: header"> </div> -->
+        <!-- END PAGE SIDEBAR -->
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h2>
+                <span class="fa fa-arrow-circle-o-left"></span> Leave Application History
+            </h2>
+        </div>
+        <!-- END PAGE TITLE -->
+        <div class="blog">
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta41">EMPLOYEE NAME</div>
 					<div class="ta21">LEAVE START DATE</div>
 					<div class="ta31">LEAVE END DATE</div>
 					<div class="ta41">LEAVE TYPE</div>
 					<div class="ta51">LEAVE STATUS</div>
-					<div class="ta61">LEAVE REASON</div>					
+					<div class="ta61">LEAVE REASON</div>
+	
 				</div>
-				<div class="tal1"></div>
-				<div th:each="leave : ${leaveList}">
-					
-					<div class="tal2">
-						<div class="ta42"
-							th:text="${leave.employee.name}">no
-							start date found</div>
-						<div class="ta12"
-							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
-							start date found</div>
-						<div class="ta32"
-							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no
-							end date found</div>
-						<div class="ta42" th:text="${leave.type}">no type found</div>
-						<div class="ta52" th:text="${leave.status}">no status found</div>
-						<div class="ta62" th:text="${leave.reason}">no status found</div>						
-					</div>
-				</div>
+				<div class="tal1"></div>			
+                    <div th:each="list : ${list}">
+                    <div class="tal2">
+                        <div class="ta12" th:text="${#temporals.format(list.startDate, 'd-MMM-yyyy')}">Text ...</div>
+                        <div class="ta32" th:text="${#temporals.format(list.endDate, 'd-MMM-yyyy')}">Text ...</div>
+                        <div class="ta42" th:text="${list.type}">Text ...</div>
+                        <div class="ta52" th:text="${list.status}">Text ...</div>
+                        <div class="ta62" th:text="${list.reason}">Text ...</div>
+                        <!--  <td a href="@{/leaveedit{id}(id=${leave.id})}">Edit</a> | 
+						<a th:href="@{/cancel{id}(id=${leave.id})}">Cancel</a>>Text ...</td> -->
+						</div>
+                   </div>
+         		</div>
 			</div>
-		</div>
-	</div>
+		</div>	   
+        <div class="container">
+                <div class="form-group col-md-1">
+                    <select class="form-control pagination" id="pageSizeSelect">
+                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                            th:value="${pageSize}"
+                            th:selected="${pageSize} == ${selectedPageSize}"></option>
+                    </select>
+                </div>
+                <div th:if="${list.totalPages != 1}"
+                    class="form-group col-md-11 pagination-centered">
+                    <ul class="pagination">
+                        <li th:class="${list.number == 0} ? disabled"><a
+                            class="pageLink"
+                            th:href="@{/leavehistory(pageSize=${selectedPageSize}, page=1)}">«</a>
+                        </li>
+                        <li th:class="${list.number == 0} ? disabled"><a
+                            class="pageLink"
+                            th:href="@{/subleavehistory(pageSize=${selectedPageSize}, page=${list.number})}">←</a>
+                        </li>
+                        <li
+                            th:class="${list.number == (page - 1)} ? 'active pointer-disabled'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                            <a class="pageLink"
+                            th:href="@{/subleavehistory(pageSize=${selectedPageSize}, page=${page})}"
+                            th:text="${page}"></a>
+                        </li>
+                        <li
+                            th:class="${list.number + 1 == list.totalPages} ? disabled">
+                            <a class="pageLink"
+                            th:href="@{/subleavehistory(pageSize=${selectedPageSize}, page=${list.number + 2})}">→</a>
+                        </li>
+                        <li
+                            th:class="${list.number + 1 == list.totalPages} ? disabled">
+                            <a class="pageLink"
+                            th:href="@{/subleavehistory(pageSize=${selectedPageSize}, page=${list.totalPages})}">»</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+   
+        <!-- END PAGE CONTENT -->
+        <!-- END PAGE CONTAINER -->
+    </div>
+        <script
+  			src="https://code.jquery.com/jquery-1.11.1.min.js"
+  			integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE="
+ 			 crossorigin="anonymous"></script>
+    <script
+    	    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    	    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    	    crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+    changePageAndSize();
+});
+function changePageAndSize() {
+    $('#pageSizeSelect').change(function(evt) {
+        window.location.replace("/leavehistory?pageSize=" + this.value + "&page=1");
+    });
+}
+        /*]]>*/
+    </script>
+<!-- Pagination Test Ends -->
 	<br>
+	
 	<br>
 	<br>
 	<br>
 
 	<div class="footer">
 		<div class="container">
-			<div class="footer-main">
+			<!-- <div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something</h3>
 					<ul>
@@ -170,7 +253,7 @@
 								onBlur="if (this.value == '') {this.value = 'Search...';}"
 								name="search" /> <input type="submit" value="">
 						</form>
-					</div>
+					</div> -->
 				</div>
 				<div class="clearfix"></div>
 			</div>
