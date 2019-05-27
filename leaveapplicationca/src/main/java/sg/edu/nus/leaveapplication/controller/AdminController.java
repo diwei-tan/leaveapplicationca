@@ -174,6 +174,10 @@ public class AdminController {
         return "redirect:/leavetype";
     }
 	
-	
+	@GetMapping("/denyaccess")
+	public String denyAccess() {
+		
+		return "denyaccess";
+	}
 	
 }
