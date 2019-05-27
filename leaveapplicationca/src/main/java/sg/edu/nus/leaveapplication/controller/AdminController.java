@@ -35,7 +35,14 @@ public class AdminController {
 	private  EmployeeRepository employeeRepo;
 	private CredentialsRepository credRepo;
 	private LeaveTypeRepository leaveTypeRepo;
+	
+	@Autowired
+	public void setLeaveTypeRepo(LeaveTypeRepository leaveTypeRepo) {
+		this.leaveTypeRepo=leaveTypeRepo;
+	}
+
 	private PHRepository phRepo;
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -59,10 +66,7 @@ public class AdminController {
 	public void setEmployeeRepo(EmployeeRepository employeeRepo) {
 		this.employeeRepo = employeeRepo;
 	}
-	@Autowired
-	public void setLeaveTypeRepo(LeaveTypeRepository leaveTypeRepo) {
-		this.leaveTypeRepo = leaveTypeRepo;
-	}
+
 	
     @GetMapping("/adduser")
     public String registration(Model model) {

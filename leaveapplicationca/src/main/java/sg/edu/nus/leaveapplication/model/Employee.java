@@ -33,7 +33,7 @@ public class Employee {
 	private int leaveEntitled;	
 	private long contact;	
 	private String email;
-	private long compensationhours;	
+	private long compensationhours;
 	private long reportsTo;
 	@OneToMany(mappedBy="employee")
 	List<LeaveApplication> leaveList;

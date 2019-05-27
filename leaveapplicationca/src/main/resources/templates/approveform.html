@@ -72,7 +72,7 @@ overflow: visible;
 							<li><a href="/home">Apply for Leave</a></li>
 							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
 							<li><a th:href="@{/subleavehistory}">Subordinate Leave History</a></li>
-							<li><a href="@{/logout}">Log Out</a></li>
+							<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
 			</div><!-- /.navbar-collapse -->
@@ -124,8 +124,8 @@ overflow: visible;
 	</div>
 </div>	
 
-<span>
 
+<span>
 				欢迎光临本寒舍啊哈哈哈哈啊哈哈哈
 
 			</span>
@@ -148,10 +148,9 @@ overflow: visible;
 					
 					<div class="tal2">
 						<div class="ta1"
-							th:text="${user.id}">no
-							start date found</div>
+							th:text="${user.staffName}">no start date found</div>
 						<div class="ta4"
-							th:text="${user.startDate}">no
+              	th:text="${user.startDate}">no
 							end date found</div>
 						<div class="ta5" th:text="${user.endDate}">no type found</div>
 						<div class="ta2" th:text="${user.status}">no status found</div>
@@ -159,6 +158,7 @@ overflow: visible;
 						<div class="ta8" ><span th:text="${user.reason}"> no reason</span></div>
 						<div class="ta6"> <a th:href="@{/manager/approve/{id}(id=${user.id})}">ACCEPT</a></div>
 						<div class="ta7"><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a>
+
 						</div>
 					</div>
 				</div>
@@ -176,6 +176,32 @@ overflow: visible;
 			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>		
 		</tr>
 </table>-->
+
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta21">EMPLOYEE NAME</div>
+					<div class="ta31">COMPENSATION HOURS FOR CLAIM</div>
+					<div class="ta41">ACCEPT</div>
+					<div class="ta51">REJECT</div>
+				</div>
+				<div class="tal1"></div>
+				<div th:each="claimcom : ${approveclaimcom}" th:if="${claimcom.claim.replied == false}" >
+					
+					<div class="tal2">
+						<div class="ta12"
+							th:text="${claimcom.employeeName}"></div>
+						<div class="ta32"
+							th:text="${claimcom.claim.compensationhours}"></div>
+						
+						<div class="ta62"><a th:href="@{/manager/approveclaim/{id}(id=${claimcom.claim.id})}">ACCEPT</a></div>
+						<div class="ta72"><a th:href="@{/manager/rejectclaim/{id}(id=${claimcom.claim.id})}">REJECT</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <!--footer-starts-->
 <div class="footer">

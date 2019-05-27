@@ -18,12 +18,12 @@ import sg.edu.nus.leaveapplication.repo.PHRepository;
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 
 public class LeaveServices {
-
-	private PHRepository phRepo;
+	
+	private PHRepository publicHolidayRepo;
 
 	@Autowired
-	public void setPhRepo(PHRepository phRepo) {
-		this.phRepo = phRepo;
+	public void setPublicHolidayRepo(PHRepository publicHolidayRepo) {
+		this.publicHolidayRepo = publicHolidayRepo;
 	}
 
 	public LeaveServices() {
@@ -37,8 +37,6 @@ public class LeaveServices {
 			throw new Exception("start date and/or end date cannot be null.");
 		if (endDate.isBefore(startDate))
 			throw new Exception("start date must be before the end date");
-		if (startDate.isBefore(LocalDateTime.now()))
-			throw new Exception("leave cannot begin from a date before today.");
 
 		LocalDateTime checkDate = startDate;
 		// check total days between. NOTE: each date means one day of leave. As such,
@@ -48,32 +46,33 @@ public class LeaveServices {
 
 		// if daysBetween is more than 14 days, than all days are counted. skip checks
 		// below
-		if (days > 14) {
-			if (hasHalfDay(startDate, endDate)) {
-				return days + 0.5;
+		// iterate from start(using checkdate) to end date, adding days/half day that
+		// are not weekends or public holidays
+		while (!checkDate.isAfter(endDate)) {
+			if (days > 14) {
+				if (isHalfDay(checkDate, endDate)) {
+					 numOfDays += 0.5;
+				} else {
+					numOfDays += 1;
+				}
 			} else {
-				return days + 1;
-			}
-		} else {
-			// iterate from start(using checkdate) to end date, adding days/half day that
-			// are not weekends or public holidays
-			while (!checkDate.isAfter(endDate)) {
 				// if not more than 14, exclude weekends and public holidays
 				if (checkDate.getDayOfWeek() != DayOfWeek.SATURDAY && checkDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
 					// add nested if condition for public holidays
-
-					// check if is half day. If so, this is last (half) day so return num of days
-					// plus 0.5.
-					// if not numOfDays++
-					if (hasHalfDay(checkDate, endDate)) {
-						return numOfDays + 0.5;
-					} else {
-						numOfDays++;
-					}
+					//if (!isPH(checkDate)) {
+						// check if is half day. If so, this is last (half) day so return num of days
+						// plus 0.5.
+						// if not numOfDays++
+						if (isHalfDay(checkDate, endDate)) {
+							numOfDays += 0.5;
+						} else {
+							numOfDays++;
+						}
+					//}
+					// shift startdate by 1, continue until it is past enddate	
 				}
-				// shift startdate by 1, continue until it is past enddate
-				checkDate = checkDate.plusDays(1);
 			}
+			checkDate = checkDate.plusDays(1);
 		}
 		// after loop, number of
 		return numOfDays;
@@ -100,11 +99,12 @@ public class LeaveServices {
 		return endDate;
 	}
 
-	public boolean hasHalfDay(LocalDateTime startDate, LocalDateTime endDate) {
+	public boolean isHalfDay(LocalDateTime startDate, LocalDateTime endDate) {
 
 		// for half day, startDate and endDate date is same but one time is am and
 		// another pm.
-		if (startDate.getHour() == 12 || endDate.getHour() == 12)
+		if (startDate.toLocalDate().equals(endDate.toLocalDate())
+				&& (startDate.getHour() == 12 || endDate.getHour() == 12))
 			return true;
 		else
 			return false;
@@ -118,28 +118,23 @@ public class LeaveServices {
 	}
 
 	// method to count num of PH days to be excluded from total count of leave dates
-	public int excludePH(LocalDate startDate, LocalDate endDate) {
-		//generate list based on start/end dates
-		Collection<LocalDate> listLeave = new ArrayList<>();
-		while (!startDate.isAfter(endDate)) {
-			listLeave.add(startDate);
-			startDate = startDate.plusDays(1);
-		}
-		//extract from repo
-		ArrayList<PublicHoliday> phList = phRepo.findAll();
-		//extract only dates from repo
-		Collection<LocalDate> phDates = CollectionUtils.collect(phList, TransformerUtils.invokerTransformer("getDate"));
-		//add common dates (excluding weekends) to new templist
-		Collection<LocalDate> tempList = new ArrayList<>();
-		for (LocalDate date : phDates) {
-			if (listLeave.contains(date)) {
-				if (date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY) {
-					tempList.add(date);
-				}
-			}
-		}
-		// count size of new list 
-		return tempList.size();
-
-	}
+//	public boolean isPH(LocalDateTime checkDate) {
+//		// generate list based on start/end dates
+//		// extract from repo
+//		if (publicHolidayRepo.findAll().isEmpty()) {
+//			return false;
+//		} else {
+//			List<PublicHoliday> phList = publicHolidayRepo.findAll();
+//			// extract only dates from repo
+//			Collection<LocalDate> phDates = CollectionUtils.collect(phList,
+//					TransformerUtils.invokerTransformer("getDate"));
+//			// add common dates (excluding weekends) to new templist
+//			for (LocalDate date : phDates) {
+//				if (checkDate.toLocalDate().equals(date)) {
+//					return true;
+//				}
+//			}
+//			return false;
+//		}
+//	}
 }

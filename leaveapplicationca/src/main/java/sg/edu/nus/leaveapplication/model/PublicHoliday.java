@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 	@Entity
-	@Table(name = "publicholiday")
 	public class PublicHoliday {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
