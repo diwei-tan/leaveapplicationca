@@ -23,6 +23,8 @@
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <!--/script-->
+
+
 <script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event){		
@@ -32,24 +34,22 @@
 			});
 </script>
 
-<script type="text/javascript">
- function Show_1(){
-  var mychar = document.getElementById("show1");
-     if(mychar.style.display=="block"){
-        mychar.style.display='none';
-    }else{
-        mychar.style.display='block';
-    } 
-}
-</script>
-
-
 </head>
-<style>
-.hidden{
-display:none;
-}
-</style>
+
+<style type="text/css">			
+span{				
+display: inline-block;		
+		width:60px;				
+		word-break: keep-all;				
+		overflow: hidden;				
+		text-overflow: ellipsis;			
+		}			
+span:hover{				
+overflow: visible;		
+	}		
+	</style>
+
+
 <body>
 <div class="header-nav">
 			<div class="container">
@@ -124,13 +124,12 @@ display:none;
 	</div>
 </div>	
 
-  <div><button onclick="Show_1()">快件查询</button> </div>
-   <!--  <div id="show1" style="display:none">
-         <a href="#"><img src="img/2.png" class="img1">按快件号查询</a><br/>
-            <a href="#"><img src="img/2.png" class="img1">按姓名查询</a><br/>
-            <a href="#"><img src="img/2.png" class="img1">按电话号查询</a>  
-       </div>-->
+<span>
 
+				欢迎光临本寒舍啊哈哈哈哈啊哈哈哈
+
+			</span>
+			
 <div class="blog">
 		<div class="container">
 			<div class="reply heading">
@@ -156,12 +155,8 @@ display:none;
 							end date found</div>
 						<div class="ta5" th:text="${user.endDate}">no type found</div>
 						<div class="ta2" th:text="${user.status}">no status found</div>
-						<div class="ta3" th:text="${user.type}">no type found</div>
-						
-						<div class="ta8" th:text="${user.reason}">
-						<div><button onclick="Show_1()">show reason details</button> </div>
-						   <div id="show1" style="display:none">
-						no status found</div></div>
+						<div class="ta3" th:text="${user.type}">no type found</div>		
+						<div class="ta8" ><span th:text="${user.reason}"> no reason</span></div>
 						<div class="ta6"> <a th:href="@{/manager/approve/{id}(id=${user.id})}">ACCEPT</a></div>
 						<div class="ta7"><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a>
 						</div>
@@ -169,8 +164,7 @@ display:none;
 				</div>
 			</div>
 		</div>
-	</div>
-
+		</div>
 
 <!--  <table>
 	<tr th:each="user : ${approve}"> 
