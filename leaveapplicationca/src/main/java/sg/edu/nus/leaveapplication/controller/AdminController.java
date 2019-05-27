@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.Employee;
 import sg.edu.nus.leaveapplication.model.LeaveType;
+import sg.edu.nus.leaveapplication.model.PublicHoliday;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.repo.LeaveTypeRepository;
+import sg.edu.nus.leaveapplication.repo.PHRepository;
 import sg.edu.nus.leaveapplication.util.SecurityService;
 import sg.edu.nus.leaveapplication.util.UserService;
 import sg.edu.nus.leaveapplication.util.UserValidator;
@@ -33,6 +35,7 @@ public class AdminController {
 	private  EmployeeRepository employeeRepo;
 	private CredentialsRepository credRepo;
 	private LeaveTypeRepository leaveTypeRepo;
+	private PHRepository phRepo;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -40,6 +43,12 @@ public class AdminController {
 	@Autowired
 	private UserValidator userValidator;
 	
+	@Autowired
+	public void setPhRepo(PHRepository phRepo) {
+		this.phRepo = phRepo;
+	}
+
+
 	@Autowired
 	public void setCredRepo(CredentialsRepository credRepo) {
 		this.credRepo = credRepo;
@@ -173,6 +182,14 @@ public class AdminController {
 		leaveTypeRepo.delete(leaveTypeRepo.findById(id).orElse(null));
         return "redirect:/leavetype";
     }
+	
+	@GetMapping("/publicholidays")
+	public String showAllPublicHoliday(Model model) {
+		List<PublicHoliday> ph = phRepo.findAll();
+		model.addAttribute("holidays", ph);		
+		return "publicholidays";
+	}
+	
 	
 	
 	
