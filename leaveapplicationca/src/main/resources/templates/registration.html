@@ -121,30 +121,28 @@
 			<div class="reply heading">
 				<h3>Please input your info</h3>
 				<div class="contact-form">
-
 					<form th:object="${userForm}" th:action="@{/adduser}" method="post">
+						<p th:if="${#fields.hasErrors('username')}"
+							th:errors="*{username}" style="color:red;"></p>
 						<p>
 							Username: <input type="text" th:field="*{username}">
 						</p>
-						<p th:if="${#fields.hasErrors('username')}"
-							th:errors="*{username}"></p>
-
+						<p th:if="${#fields.hasErrors('password')}"
+							th:errors="*{password}" style="color:red"></p>
 						<p>
 							Password: <input type="text" th:field="*{password}">
 						</p>
-						<p th:if="${#fields.hasErrors('password')}"
-							th:errors="*{password}"></p>
+						<p th:if="${#fields.hasErrors('passwordConfirm')}"
+							th:errors="*{passwordConfirm}" style="color:red"></p>
 						<p>
 							Confirm Password: <input type="text"
 								th:field="*{passwordConfirm}">
 						</p>
-						<p th:if="${#fields.hasErrors('passwordConfirm')}"
-							th:errors="*{passwordConfirm}"></p>
-
+						<p th:if="${#fields.hasErrors('employee.name')}"
+							th:errors="*{employee.name}" style="color:red"></p>
 						<p>
 							Name: <input type="text" th:field="*{employee.name}">
 						</p>
-
 						<p>Designation:
 						<div id=select>
 							<select th:field="*{employee.designation}">
@@ -153,7 +151,6 @@
 								<option th:value="Admin">Admin</option>
 							</select>
 						</div>
-						
 						</p>
 						<p>Admin Authority:
 						<div id="select">
@@ -164,22 +161,27 @@
 							</select>
 						</div>
 						</p>
-
+						<p th:if="${#fields.hasErrors('employee.leaveEntitled')}"
+							th:errors="*{employee.leaveEntitled}" style="color:red"></p>
 						<p>Leave Entitled:
 						<div id="number">
 							<input type="number" th:field="*{employee.leaveEntitled}">
 						</div>
 						</p>
+						<p th:if="${#fields.hasErrors('employee.compensationhours')}"
+							th:errors="*{employee.compensationhours}" style="color:red"></p>
 						<p>Current Compensation Leave:
 						<div id="number">
 							<input type="number" th:field="*{employee.compensationhours}">
 						</div>
 						</p>
-
+						<p th:if="${#fields.hasErrors('employee.contact')}"
+							th:errors="*{employee.contact}" style="color:red"></p>
 						<p>
 							Contact Number: <input type="text" th:field="*{employee.contact}">
 						</p>
-
+						<p th:if="${#fields.hasErrors('employee.email')}"
+							th:errors="*{employee.email}" style="color:red"></p>
 						<p>
 							Email: <input type="text" th:field="*{employee.email}">
 						</p>
@@ -192,11 +194,6 @@
 									th:text="${user.name}"></option>
 							</select>
 						</div>
-						</p>
-
-						<p>
-							<input type="hidden" value="0" name="employee.compensationhours"
-								id="compensationhours" />
 						</p>
 						<p>
 							<input type="submit" value="Save" />

@@ -21,22 +21,41 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         Credentials user = (Credentials) o;
-        
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
+        //validation on username
+        if(user.getUsername().isEmpty()) {
+        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+        } else if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
             errors.rejectValue("username", "Size.userForm.username");
-        }
-        if (userService.findByUsername(user.getUsername()) != null) {
+        } else if (userService.findByUsername(user.getUsername()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+        //validation on password
+        if(user.getPassword().isEmpty()) {
+        	ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+        }else if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
-
+        //validation that confirm password is same as password
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
+        //validation for employee name
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "employee.name", "NotEmpty");
+        //validation for leaveEntitled
+        if(user.getEmployee().getLeaveEntitled()<0 || user.getEmployee().getLeaveEntitled()%1!=0) {
+        	errors.rejectValue("employee.leaveEntitled", "CannotBeNegativeOrDecimal");
+        }
+        //validation for compensation hours
+        if(user.getEmployee().getCompensationhours()<0 || user.getEmployee().getCompensationhours()%1!=0) {
+        	errors.rejectValue("employee.compensationhours", "CannotBeNegativeOrDecimal");
+        }
+        //validation for phone number
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "employee.contact", "NotEmpty");
+        //validation for email
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        if(!user.getEmployee().getEmail().matches(regex)) {
+        	errors.rejectValue("employee.email", "InvalidEmail");
+        }
+        
     }
 }

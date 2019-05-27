@@ -133,10 +133,10 @@
 					
 					<div class="tal2">
 						<div class="ta32"
-							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
+							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy a')}">no
 							start date found</div>
 						<div class="ta42"
-							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no
+							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy a')}">no
 							end date found</div>
 						<div class="ta52" th:text="${leave.type}">no type found</div>
 						<div class="ta62" th:text="${leave.status}">no status found</div>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" >
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<table>      
+      <tr th:if="${leavetypes.empty}">
+            <td colspan="2"> No Leave Types Available </td>
+        </tr>
+        <tr th:each="LeaveType : ${leavetypes}">        
+        <td th:text="${LeaveType.name}">Name</td>
+<!--         <td th:text="${user.role}">Role</td> -->
+<!--         <td th:text="${user.leaveEntitled}">Leave</td> -->
+<!--         <td th:text="${user.contact}">Contact</td> -->
+<!--         <td th:text="${user.email}">email</td> -->
+<!--         <td th:text="${user.compensationhours}">comphours</td> -->
+<!--         <td th:text="${user.reportsTo}">rt</td> -->
+         <td><a th:href="@{/leavetypeedit{id}(id=${LeaveType.id})}">Edit</a></td>
+         <td><a th:href="@{/leavetypedelete{id}(id=${LeaveType.id})}">Delete</a></td>
+      </tr>
+      <td><a th:href="@{/addleavetype}">Add Leave Type</a></td>
+    </table>
+
+</body>
+</html>

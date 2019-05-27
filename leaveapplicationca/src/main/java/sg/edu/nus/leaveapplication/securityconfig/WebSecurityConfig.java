@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.and()
         	.authorizeRequests().antMatchers("/manager**").hasRole("MANAGER")
         	.and()
-        	.authorizeRequests().antMatchers("/adminhome", "/edit**", "/delete**", "/update**", "/adduser**").hasRole("ADMIN")
+        	.authorizeRequests().antMatchers("/adminhome", "/edit**", "/delete**", "/update**","/leavetype**", "/adduser").hasRole("ADMIN")
         	.and()
         	.formLogin()
         	.loginProcessingUrl("/j_spring_security_check")

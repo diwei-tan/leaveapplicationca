@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.Employee;
+import sg.edu.nus.leaveapplication.model.LeaveType;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
+import sg.edu.nus.leaveapplication.repo.LeaveTypeRepository;
 import sg.edu.nus.leaveapplication.util.SecurityService;
 import sg.edu.nus.leaveapplication.util.UserService;
 import sg.edu.nus.leaveapplication.util.UserValidator;
@@ -30,6 +32,11 @@ public class AdminController {
 	
 	private  EmployeeRepository employeeRepo;
 	private CredentialsRepository credRepo;
+	private LeaveTypeRepository leaveTypeRepo;
+	@Autowired
+	public void setLeaveTypeRepo(LeaveTypeRepository leaveTypeRepo) {
+		this.leaveTypeRepo=leaveTypeRepo;
+	}
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -128,6 +135,58 @@ public class AdminController {
     public String deleteProduct(@PathVariable(name = "id") long id) {
 		credRepo.delete(credRepo.findById(id).orElse(null));
         return "redirect:/adminhome";
+    }
+	
+	@GetMapping("/leavetype")
+	public String showLeaveType(Model model) {
+		List<LeaveType> lt = leaveTypeRepo.findAll();
+		model.addAttribute("leavetypes", lt);		
+		return "leavetypes";
+	}
+	
+	@GetMapping("/addleavetype")
+	public String addLeaveType(Model model) {
+		
+		model.addAttribute("form",new LeaveType());
+		
+		return "addleavetype";
+	}
+	
+	@PostMapping("/addleavetype")
+	public String addLeaveTypes(@ModelAttribute("form") LeaveType form, Model model) {
+		
+		leaveTypeRepo.save(form);
+		
+		return "redirect:/leavetype";
+	}
+	
+	@GetMapping("/leavetypeedit{id}")
+	public String editleavetype(@PathVariable("id") long id, Model model) {
+	    LeaveType lt = leaveTypeRepo.findById(id)
+	      .orElseThrow(() -> new IllegalArgumentException("Invalid Leave Type Id:" + id));	    
+	    model.addAttribute("user", lt);
+	    return "editleavetype";
+	}
+	@PostMapping("/leavetypeedit{id}")
+	public String updateUser(@ModelAttribute("updateUser") LeaveType updateLeaveType, @PathVariable("id") long id, @Valid Credentials user, 
+	  BindingResult result, Model model) {
+	    if (result.hasErrors()) {
+	        user.setUserId(id);
+	        return "editleavetype";
+	    } else {
+	    	LeaveType oldLeaveType = leaveTypeRepo.findById(id)
+	    			.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	    	
+	    	oldLeaveType.setName(updateLeaveType.getName());
+	    	leaveTypeRepo.save(oldLeaveType);
+	    }
+	    return "redirect:/leavetype";
+	}
+	
+	@RequestMapping(path = "/leavetypedelete{id}", method = RequestMethod.GET)
+    public String deleteleavetype(@PathVariable(name = "id") long id) {
+		leaveTypeRepo.delete(leaveTypeRepo.findById(id).orElse(null));
+        return "redirect:/leavetype";
     }
 	
 	

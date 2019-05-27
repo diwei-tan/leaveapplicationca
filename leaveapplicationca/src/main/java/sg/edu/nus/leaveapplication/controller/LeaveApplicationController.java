@@ -27,6 +27,7 @@ import sg.edu.nus.leaveapplication.model.LeaveApplication;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.repo.LeaveRepository;
+import sg.edu.nus.leaveapplication.util.LeaveFormValidator;
 import sg.edu.nus.leaveapplication.util.LeaveServices;
 
 @Controller
@@ -36,6 +37,9 @@ public class LeaveApplicationController {
 	private CredentialsRepository credRepo;
 	private EmployeeRepository employeeRepo;
 	private LeaveRepository leaveRepo;
+	
+	@Autowired
+	LeaveFormValidator leaveValidator;
 	
 	@Autowired
 	public void setLeaveRepo(LeaveRepository leaveRepo) {
@@ -76,25 +80,30 @@ public class LeaveApplicationController {
 	
 	@GetMapping(path="/create{id}")
 	public String loadMethod(@PathVariable("id") long id, Model model) {
-		model.addAttribute("leaveApplication", new LeaveApplication());
+		model.addAttribute("form", new LeaveApplication());
 		return "leaveform";
 		
 	}
 
 
-	@PostMapping(path="/leaveapplication/submit{id}")
-	public String processStupidForm(@PathVariable("id") long id, @ModelAttribute("form") LeaveApplication form) {
+	@PostMapping(path="/create{id}")
+	public String processStupidForm(@PathVariable("id") long id, @ModelAttribute("form") LeaveApplication form, 
+			BindingResult bindingresult,Model model) {
 		Employee emp = employeeRepo.findById(id).orElse(null);
+		form.setEmployee(emp);
 		LeaveServices service = new LeaveServices();
-		LeaveApplication leaveApplication = form;
 		try {
-			leaveApplication.setNumDays(service.calculateNumOfLeaveDays(leaveApplication.getStartDate(), leaveApplication.getEndDate()));
+			form.setNumDays(service.calculateNumOfLeaveDays(form.getStartDate(), form.getEndDate()));
 		}
 		catch(Exception e) {
 			LOG.info(e.getMessage());
 		}
-		leaveApplication.setEmployee(emp);
-		leaveRepo.save(leaveApplication);
+		leaveValidator.validate(form, bindingresult);
+		if(bindingresult.hasErrors()) {
+			model.addAttribute("form", form);
+			return "leaveform";
+		}
+		leaveRepo.save(form);
 		
 		return "redirect:/home";
 		

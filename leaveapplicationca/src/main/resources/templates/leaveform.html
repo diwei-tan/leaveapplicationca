@@ -112,20 +112,26 @@
 			<div class="reply heading">
 				<h3>Please Apply For Your Leave</h3>
 				<div class="contact-form">
-	<form th:attr="action=@{/leaveapplication/submit{id}(id=${id})}" th:object= "${leaveApplication}" method="post">
+	<form th:attr="action=@{/create{id}(id=${id})}" th:object= "${form}" method="post">
 		<fieldset>
 
 			<!--  <input type="text" th:field="*{userId}"/>-->
+			<p th:if="${#fields.hasErrors('startDate')}"
+							th:errors="*{startDate}" style="color:red"></p>
 			<p>Start Date<input type="datetime-local" th:id="startDate" th:name="startDate"/></p> 
+			<p th:if="${#fields.hasErrors('endDate')}"
+				th:errors="*{endDate}" style="color:red"></p>
 			<p>End Date<input type="datetime-local" th:id="endDate" th:name="endDate"/></p>
 			 <p>Leave Type
 			<select th:field="*{type}">
 
   				<option th:value="Annualleave">Annual Leave</option>
-  				<option th:value="Medicinalleave">Medical Leave</option>
+  				<option th:value="Medicalleave">Medical Leave</option>
   				<option th:value="Compensationleave">Compensation Leave</option>
 			</select>
 			</p>
+			<p th:if="${#fields.hasErrors('reason')}"
+				th:errors="*{reason}" style="color:red"></p>
 			<p>Reason
 				<textarea rows="4" cols="20" th:field="*{reason}" placeholder="Type your reasons, duties that need to be fulfilled durng your absence, and who will replace you to complete your work here."></textarea>
 			</p>
