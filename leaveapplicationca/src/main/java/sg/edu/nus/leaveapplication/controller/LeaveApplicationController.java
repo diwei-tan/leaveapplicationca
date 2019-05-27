@@ -2,6 +2,7 @@ package sg.edu.nus.leaveapplication.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -9,6 +10,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +22,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.leaveapplication.LeaveapplicationcaApplication;
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.Employee;
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 import sg.edu.nus.leaveapplication.model.LeaveType;
+import sg.edu.nus.leaveapplication.model.PagerModel;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.repo.LeaveRepository;
@@ -79,17 +83,50 @@ public class LeaveApplicationController {
 		model.addAttribute("leaveList", leaveList);
 		return "home";
 	}
+	//edited with pagination//
+	
+	//test pagination using /home1//
+		private static final int BUTTONS_TO_SHOW = 3;
+	    private static final int INITIAL_PAGE = 0;
+	    private static final int INITIAL_PAGE_SIZE = 5;
+	    private static final int[] PAGE_SIZES = { 5, 10};
+	    
 	@GetMapping(path="/leavehistory")
-	public String leaveHistoryPage(Model model,Principal principal) {
+    public ModelAndView homepage(@RequestParam("pageSize") Optional<Integer> pageSize, @RequestParam("page") Optional<Integer> page) {
+        ModelAndView modelAndView = new ModelAndView();
+        // Evaluate page size. If requested parameter is null, return initial
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        // print repo      
+        Page<LeaveApplication> list1 = leaveRepo.findAll(new PageRequest(evalPage, evalPageSize));
+        PagerModel pager = new PagerModel(list1.getTotalPages(),list1.getNumber(),BUTTONS_TO_SHOW);
+        // add clientmodel
+        modelAndView.addObject("list",list1);
+        // evaluate page size
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        // add page sizes
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        // add pager
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
+	}
+	
+	
+	//original code//
+	//@GetMapping(path="/leavehistory")
+	//public String leaveHistoryPage(Model model,Principal principal) {
 		//Should anyone be able to login, directed to this page to show the leave information of themselves
 		//should show approved list of leave application that are not yet past
-		String name = SecurityContextHolder.getContext().getAuthentication().getName();
-		Credentials user = credRepo.findByUsername(name);
-		model.addAttribute("user", user);
-		List<LeaveApplication>leaveList = leaveRepo.findByUserId(user.getUserId());
-		model.addAttribute("leaveList", leaveList);
-		return "leavehistory";
-	}
+	//	String name = SecurityContextHolder.getContext().getAuthentication().getName();
+	//	Credentials user = credRepo.findByUsername(name);
+	//	model.addAttribute("user", user);
+	//	List<LeaveApplication>leaveList = leaveRepo.findByUserId(user.getUserId());
+	//	model.addAttribute("leaveList", leaveList);
+	//	return "leavehistory";
+	//}
+	
 	
 	@RequestMapping(path="/subleavehistory",method=RequestMethod.GET)
 	public String subleavehistory(@ModelAttribute("form") LeaveApplication form,Model model) {
