@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.leaveapplication.LeaveapplicationcaApplication;
+import sg.edu.nus.leaveapplication.model.ClaimCompensation;
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.Employee;
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 import sg.edu.nus.leaveapplication.model.LeaveType;
 import sg.edu.nus.leaveapplication.model.PagerModel;
+import sg.edu.nus.leaveapplication.repo.ClaimCompensationRepository;
 import sg.edu.nus.leaveapplication.repo.CredentialsRepository;
 import sg.edu.nus.leaveapplication.repo.EmployeeRepository;
 import sg.edu.nus.leaveapplication.repo.LeaveRepository;
@@ -46,6 +48,7 @@ public class LeaveApplicationController {
 	private EmployeeRepository employeeRepo;
 	private LeaveRepository leaveRepo;
 	private LeaveTypeRepository leaveTypeRepo;
+	private ClaimCompensationRepository claimComRepo;
 	
 	@Autowired
 	public void setLeaveRepo(LeaveRepository leaveRepo) {
@@ -63,6 +66,11 @@ public class LeaveApplicationController {
 	@Autowired
 	public void setLeaveTypeRepo(LeaveTypeRepository leaveTypeRepo) {
 		this.leaveTypeRepo = leaveTypeRepo;
+	}
+	
+	@Autowired
+	public void setClaimComRepo(ClaimCompensationRepository claimComRepo) {
+		this.claimComRepo = claimComRepo;
 	}
 
 
@@ -222,6 +230,10 @@ public class LeaveApplicationController {
 		Credentials user = credRepo.findByUsername(name);
 		List<LeaveApplication> l = leaveRepo.findByManagerId(user.getUserId());
 		model.addAttribute("approve", l);
+		
+		List<ClaimCompensation> cc = claimComRepo.findAll();
+		model.addAttribute("approveclaimcom", cc);
+		
 		return"approveform";
 	}
 	
@@ -242,4 +254,64 @@ public class LeaveApplicationController {
 	notificationService.sendRejectNotification(leaveApplication);
 	return"redirect:/home";
 	}
+	
+	//here onwards is for claim compensation ...
+	
+	@GetMapping(path="/claimform{id}")
+	public String claimCompensation(@PathVariable("id") long id, Model model) {
+				
+		ClaimCompensation claimcom = new ClaimCompensation();
+		claimcom.setEmployeeId(id);
+		model.addAttribute("claimcom", claimcom);
+		
+		return "claimform";
+		
+	}
+	
+	@PostMapping(path="/leaveapplication/claim{id}")
+	public String submitClaimCom(@PathVariable("id") long id, @ModelAttribute("claimcom") ClaimCompensation claimcom) {
+		
+		ClaimCompensation claimCom = new ClaimCompensation();
+		claimCom.setEmployeeId(id);
+		claimCom.setCompensationhours(claimcom.getCompensationhours());
+		claimCom.setReplied(false);
+		claimComRepo.save(claimCom);
+		
+		return "redirect:/home";
+	}
+	
+	@RequestMapping(path="/manager/approveclaim/{id}",method=RequestMethod.GET)
+	public String acceptleave(@PathVariable(name = "id") long id,ClaimCompensation cc) {
+		
+		ClaimCompensation ccom = claimComRepo.findById(id).get();
+		ccom.setStatus("Approved");
+		ccom.setReplied(true);
+		claimComRepo.save(ccom);
+		
+		Employee emp = employeeRepo.findById(ccom.getEmployeeId()).get();
+		Long num = emp.getCompensationhours();
+		Long num1 = ccom.getCompensationhours();
+		Long totalnum = num + num1;
+		emp.setCompensationhours(totalnum);
+		employeeRepo.save(emp);
+		
+		return "redirect:/managerhome";		
+
+	}
+	
+	@RequestMapping(path="/manager/rejectclaim/{id}",method=RequestMethod.GET)
+	public String rejectleave(@PathVariable(name = "id") long id) {
+	
+		ClaimCompensation cCom = claimComRepo.findById(id).get();
+		cCom.setStatus("Rejected");
+		cCom.setReplied(true);
+		claimComRepo.save(cCom);		
+	
+		return"redirect:/managerhome";
+	
+	}
+	
+	//...this is the end of the 4 methods for claim compensation
+	
+	
 }
