@@ -183,6 +183,7 @@ public class AdminController {
         return "redirect:/leavetype";
     }
 	
+
 	@GetMapping("/publicholidays")
 	public String showAllPublicHoliday(Model model) {
 		List<PublicHoliday> ph = phRepo.findAll();
@@ -192,5 +193,12 @@ public class AdminController {
 	
 	
 	
+
+	@GetMapping("/denyaccess")
+	public String denyAccess() {
+		
+		return "denyaccess";
+	}
+
 	
 }

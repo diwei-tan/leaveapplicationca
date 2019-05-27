@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>leave application</title>
+<title>Deny Access To you!</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!--fonts-->
@@ -12,7 +12,7 @@
 <link href='http://fonts.useso.com/css?family=Metamorphous'
 	rel='stylesheet' type='text/css'>
 <!--//fonts-->
-<script src="js/jquery.min.js">
+<script src="js/jquery.min.js"> 
 	
 </script>
 <!-- Bootstrap core JavaScript
@@ -58,10 +58,7 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="/subleavehistorydl">Download Team Leave History</a></li>
-							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
-							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
-							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>							
+							
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 						<div class="clearfix"></div>
@@ -112,36 +109,14 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<h3>Hello <span th:text="${user.employee.name}"></span>!</h3>
+	<h1>YOU ARE DENIED ACCESS!</h1>
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta41">EMPLOYEE NAME</div>
-					<div class="ta21">LEAVE START DATE</div>
-					<div class="ta31">LEAVE END DATE</div>
-					<div class="ta41">LEAVE TYPE</div>
-					<div class="ta51">LEAVE STATUS</div>
-					<div class="ta61">LEAVE REASON</div>					
-				</div>
-				<div class="tal1"></div>
-				<div th:each="leave : ${leaveList}">
-					
-					<div class="tal2">
-						<div class="ta42"
-							th:text="${leave.employee.name}">no
-							start date found</div>
-						<div class="ta12"
-							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
-							start date found</div>
-						<div class="ta32"
-							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no
-							end date found</div>
-						<div class="ta42" th:text="${leave.type}">no type found</div>
-						<div class="ta52" th:text="${leave.status}">no status found</div>
-						<div class="ta62" th:text="${leave.reason}">no status found</div>						
-					</div>
-				</div>
+					<div><a href="/logout">CLICK HERE TO EXIT IMMEDIATELY RIGHT NOW!</a>
+					</div>		
+				</div>					
 			</div>
 		</div>
 	</div>

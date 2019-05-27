@@ -137,7 +137,8 @@
 		</div>
 	</div>
 
-<table>
+
+<!--  <table>
 	<tr th:each="user : ${approve}"> 
 			 <td th:text="${user.id}">Name</td>
 			 <td th:text="${user.startDate}">startDate</td>
@@ -146,7 +147,34 @@
 			 <td><a th:href="@{/manager/approve/{id}(id=${user.id})}">Accept</a></td>
 			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>		
 		</tr>
-</table>
+</table>-->
+
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta21">EMPLOYEE ID</div>
+					<div class="ta31">COMPENSATION HOURS FOR CLAIM</div>
+					<div class="ta41">ACCEPT</div>
+					<div class="ta51">REJECT</div>
+				</div>
+				<div class="tal1"></div>
+				<div th:each="claimcom : ${approveclaimcom}" th:if="${claimcom.replied == false}" >
+					
+					<div class="tal2">
+						<div class="ta12"
+							th:text="${claimcom.employeeId}"></div>
+						<div class="ta32"
+							th:text="${claimcom.compensationhours}"></div>
+						
+						<div class="ta62"><a th:href="@{/manager/approveclaim/{id}(id=${claimcom.id})}">ACCEPT</a></div>
+						<div class="ta72"><a th:href="@{/manager/rejectclaim/{id}(id=${claimcom.id})}">REJECT</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <!--footer-starts-->
 <div class="footer">
 		<div class="container">

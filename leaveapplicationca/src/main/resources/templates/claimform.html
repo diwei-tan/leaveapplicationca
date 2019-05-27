@@ -2,9 +2,9 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Leave Application Form</title>
 <link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
 <!--fonts-->
 <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
 <link href='http://fonts.useso.com/css?family=Metamorphous' rel='stylesheet' type='text/css'>
@@ -16,7 +16,7 @@
 	<!-- js -->
 		 <script src="js/bootstrap.js"></script>
 	<!-- js -->
-	<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
 <link rel="stylesheet" type="text/css" href="css/style4.css" />
 <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 <script type="text/javascript" src="js/move-top.js"></script>
@@ -31,11 +31,11 @@
 			});
 </script>
 </head>
-<body>   
-   <div class="header-nav">
+<body>
+<div class="header-nav">
 			<div class="container">
 				<div class="logo">
-					<a href=""><img src="images/logo.png" /></a>
+					<a href="index.jsp"><img src="images/logo.png" /></a>
 				</div>
 				<div class="navigation">
 					<nav class="navbar navbar-default">
@@ -50,13 +50,7 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">home <span
-									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">search</a></li>
-							<li><a href="myShoppingcar.action">cart</a></li>
-							<li><a href="myOrders.action">my info</a></li>
-							<li><a href="myInformation.jsp">details</a></li>
-							<li><a href="about.jsp">about</a></li>
+							<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
 			</div><!-- /.navbar-collapse -->
@@ -64,8 +58,7 @@
 	</div>
 	</div>
 	</div>
-			  <!-- script-for-menu -->
-		 <script>
+	<script>
 				$("span.menu").click(function(){
 					$(".top-nav ul").slideToggle("slow" , function(){
 					});
@@ -106,27 +99,32 @@
 		</div>
 		<div class="clearfix"> </div>
 	</div>
-</div>	 
-     <table>      
-      <tr th:if="${users.empty}">
-            <td colspan="2"> No Users Available </td>
-        </tr>
-        <tr th:each="user : ${users}">        
-        <td th:text="${user.name}">Name</td>
-        <td th:text="${user.role}">Role</td>
-        <td th:text="${user.leaveEntitled}">Leave</td>
-        <td th:text="${user.contact}">Contact</td>
-        <td th:text="${user.email}">email</td>
-        <td th:text="${user.compensationhours}">comphours</td>
-        <td th:text="${user.reportsTo}">rt</td>
-         <td><a th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a></td>
-         <td><a th:href="@{/users/delete/{id}(id=${user.id})}">Delete</a></td>
-      </tr>
-    </table>
-    <!--footer-starts-->
-<div class="footer">
+</div>	
+
+<div class="blog">
 		<div class="container">
-			<!-- <div class="footer-main">
+			<div class="reply heading">
+				<h3>Please fill in the claim form below</h3>
+				<div class="contact-form">
+	<form th:attr="action=@{/leaveapplication/claim{id}(id=*{employeeId})}" th:object= "${claimcom}" method="post">
+		<fieldset>
+			<P>ID No: </P> 
+			<p th:text="*{employeeId}"/></p> <br/><br/>
+			<p>No. of hours: <input type="text" th:field="*{compensationhours}" /></p> 			 			
+			<input type="submit" value="Submit"/>
+  				
+		</fieldset>
+	</form>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	<br><br><br><br>
+	
+	<div class="footer">
+		<div class="container">
+			<div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something </h3>
 					<ul>
@@ -143,7 +141,7 @@
 							onBlur="if (this.value == '') {this.value = 'Search...';}" name="search"/> 
 							<input type="submit" value="">
 					</form>
-					</div> -->
+					</div>
 				</div>
 				<div class="clearfix"></div>
 			</div>

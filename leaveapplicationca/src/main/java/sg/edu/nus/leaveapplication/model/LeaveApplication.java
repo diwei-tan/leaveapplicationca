@@ -24,9 +24,11 @@ public class LeaveApplication {
 	@JoinColumn
 	Employee employee;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="START_DATE")
 	private LocalDateTime startDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="END_DATE")
 	private LocalDateTime endDate;
 	@Column(name="TYPE")

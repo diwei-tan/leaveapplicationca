@@ -5,6 +5,8 @@
 <title>Leave Application Form</title>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <!--fonts-->
 <link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
 <link href='http://fonts.useso.com/css?family=Metamorphous' rel='stylesheet' type='text/css'>
@@ -30,12 +32,28 @@
 				});
 			});
 </script>
+
+<!-- script for date picker -->
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#startDate" ).datepicker();
+
+  } );
+  </script>
+   <script>
+  $( function() {
+    $( "#endDate" ).datepicker();
+
+  } );
+  </script>
 </head>
 <body>
 <div class="header-nav">
 			<div class="container">
 				<div class="logo">
-					<a href="index.jsp"><img src="images/logo.png" /></a>
+					<a href=""><img src="images/logo.png" /></a>
 				</div>
 				<div class="navigation">
 					<nav class="navbar navbar-default">
@@ -50,7 +68,8 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<!-- <li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>-->
+							<!--  <li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>-->
+							<li><a href="/home">Home</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
@@ -110,20 +129,23 @@
 	<form th:attr="action=@{/leaveapplication/submit{id}(id=${id})}" th:object= "${leaveApplication}" method="post">
 		<fieldset>
 
-			<!--  <input type="text" th:field="*{userId}"/>-->
-			<p>Start Date<input type="datetime-local" th:id="startDate" th:name="startDate"/></p> 
-			<p>End Date<input type="datetime-local" th:id="endDate" th:name="endDate"/></p>
-			 <p>Leave Type
-<!-- 			<select th:field="*{type}"> -->
-
-<!--   				<option th:value="Annualleave">Annual Leave</option> -->
-<!--   				<option th:value="Medicinalleave">Medical Leave</option> -->
-<!--   				<option th:value="Compensationleave">Compensation Leave</option> -->
-<!-- 			</select> -->
-				<select th:field="*{type}">
-								<option th:each="LeaveType : ${leavetypes}" th:value="${LeaveType.name}"
+		 <input type="text" th:field="*{userId}"/>-->
+          <p>Start Date <input type="text" th:id="startDate" th:name="startDate"></p>
+		    <p>End Date <input type="text" th:id="endDate" th:name="endDate"></p>
+		
+			
+			
+		<!--  <p>Start Date<input type="datetime-local" th:id="startDate" th:name="startDate"/></p> 
+			 <p>End Date<input type="datetime-local" th:id="endDate" th:name="endDate"/></p>-->
+		 <p>Leave Type<select th:field="*{type}">
+             <option th:value="Annualleave">Annual Leave</option>
+             <option th:value="Medicinalleave">Medical Leave</option>
+ 	    		<option th:value="Compensationleave">Compensation Leave</option> 
+              </select>
+				<!--  <select th:field="*{type}">
+				<option th:each="LeaveType : ${leavetypes}" th:value="${LeaveType.name}"
 									th:text="${LeaveType.name}"></option>
-							</select>
+							</select>-->
 			</p>
 			<p>Reason
 				<textarea rows="4" cols="20" th:field="*{reason}" placeholder="Type your reasons, duties that need to be fulfilled durng your absence, and who will replace you to complete your work here."></textarea>
@@ -140,10 +162,10 @@
 	</div>
 	
 	<br><br><br><br>
-	
+<!--footer-starts-->
 	<div class="footer">
 		<div class="container">
-			<div class="footer-main">
+			<!-- <div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something </h3>
 					<ul>
@@ -160,7 +182,7 @@
 							onBlur="if (this.value == '') {this.value = 'Search...';}" name="search"/> 
 							<input type="submit" value="">
 					</form>
-					</div>
+					</div> -->
 				</div>
 				<div class="clearfix"></div>
 			</div>
