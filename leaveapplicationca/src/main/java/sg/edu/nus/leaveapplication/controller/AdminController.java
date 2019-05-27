@@ -1,15 +1,20 @@
 package sg.edu.nus.leaveapplication.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,6 +72,8 @@ public class AdminController {
 		this.employeeRepo = employeeRepo;
 	}
 
+	
+	
 	
     @GetMapping("/adduser")
     public String registration(Model model) {
@@ -189,13 +196,54 @@ public class AdminController {
 	
 
 	@GetMapping("/publicholidays")
-	public String showAllPublicHoliday(Model model) {
+	public String showAllPublicHolidays(Model model) {
 		List<PublicHoliday> ph = phRepo.findAll();
 		model.addAttribute("holidays", ph);		
 		return "publicholidays";
 	}
 	
+	@GetMapping("/publicholidaysadd")
+	public String addPublicHolidays(Model model) {
+		
+		model.addAttribute("form",new PublicHoliday());
+		
+		return "publicholidaysadd";
+	}
 	
+	@PostMapping("/publicholidaysadd")
+	public String addPublicHolidayss(@ModelAttribute("form") PublicHoliday form, Model model) {
+		
+		phRepo.save(form);
+		
+		return "redirect:/publicholidays";
+	}
+	
+	@GetMapping("/publicholidayedit{id}")
+	public String editholiday(@PathVariable("id") long id, Model model) {
+	    PublicHoliday ph = phRepo.findById(id);	       
+	    model.addAttribute("holiday", ph);
+	    return "publicholidayedit";
+	}
+	@PostMapping("/publicholidayedit{id}")
+	public String updateholiday(@ModelAttribute("updateUser") PublicHoliday updateholiday, @PathVariable("id") long id,  
+	  BindingResult result, Model model) {
+	    if (result.hasErrors()) {
+	       
+	        return "publicholidayedit";
+	    } else {
+	    	PublicHoliday oldpublicholiday = phRepo.findById(id);    	
+	    	oldpublicholiday.setDate(updateholiday.getDate());
+	    	oldpublicholiday.setDescription(updateholiday.getDescription());
+	    	phRepo.save(oldpublicholiday);
+	    }
+	    return "redirect:/publicholidays";
+	}
+	
+	@RequestMapping(path = "/publicholidaydelete{id}", method = RequestMethod.GET)
+    public String deletepublicholiday(@PathVariable(name = "id") long id) {
+		phRepo.delete(phRepo.findById(id));
+        return "redirect:/publicholidays";
+    }
 	
 
 	@GetMapping("/denyaccess")
