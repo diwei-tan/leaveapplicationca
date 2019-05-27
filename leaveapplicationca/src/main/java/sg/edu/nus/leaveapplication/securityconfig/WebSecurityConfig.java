@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()
         	.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
         	.and()
-        	.authorizeRequests().antMatchers("/home","/create**","/leaveedit**").hasAnyRole("STAFF,MANAGER")
+        	.authorizeRequests().antMatchers("/home","/create**","/leaveedit**", "/leavehistory").hasAnyRole("STAFF,MANAGER")
         	.and()
         	.authorizeRequests().antMatchers("/manager**").hasRole("MANAGER")
         	.and()
@@ -89,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.logout().invalidateHttpSession(true).clearAuthentication(true)
         	.logoutSuccessUrl("/login?logout=true")
         	.permitAll()
-        	.and().exceptionHandling().accessDeniedPage("/denyaccess");
+        	.and().exceptionHandling().accessDeniedPage("/Access_Denied");
     }
 
     @Bean
