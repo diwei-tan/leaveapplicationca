@@ -42,7 +42,7 @@
 	<div class="header-nav">
 		<div class="container">
 			<div class="logo">
-				<a href="index.jsp"><img src="images/logo.png" /></a>
+				<a href=""><img src="images/logo.png" /></a>
 			</div>
 			<div class="navigation">
 				<nav class="navbar navbar-default">
@@ -58,10 +58,9 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">one <span class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">two</a></li>
-							<li><a href="myShoppingcar.action">three</a></li>
-							<li class="active"><a href="myOrders.action">four</a></li>
+							<li><a th:href="@{/claimform{id}(id=${user.userId})}">Claim Compensation</a></li>
+							<li><a href="/leavehistory">View Leave History</a></li>
+							<li><a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a></li>
 							<li><a th:if="${user.role == 'ROLE_MANAGER'}" href="/managerhome">Approve/Reject Leave</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
@@ -114,32 +113,33 @@
 		</div>
 	</div>
 	<h3>Hello <span th:text="${user.employee.name}"></span>!</h3>
-	<br>
-	<br>
-	<p>
-	<a th:href="@{/create{id}(id=${user.userId})}">Create New Leave Application</a>
-	</p>
+	
+	<h5>Annual Leave Entitled: <!-- <span th:text=""></span>--></h5>
+	<h5>Annual Leave Balance: <!-- <span th:text=""></span>--></h5>
+	
 	<div class="blog">
 		<div class="container">
 			<div class="reply heading">
 				<div class="lei">
-					<div class="ta31">LEAVE START DATE</div>
-					<div class="ta41">LEAVE END DATE</div>
-					<div class="ta51">LEAVE TYPE</div>
-					<div class="ta61">LEAVE STATUS</div>
+					<div class="ta21">LEAVE START DATE</div>
+					<div class="ta31">LEAVE END DATE</div>
+					<div class="ta41">LEAVE TYPE</div>
+					<div class="ta51">LEAVE STATUS</div>
+					<div class="ta61">LEAVE REASON</div>
+					<div class="ta71">ACTION</div>
 				</div>
 				<div class="tal1"></div>
 				<div th:each="leave : ${leaveList}">
 					
 					<div class="tal2">
+						<div class="ta12"
+							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy a')}">no</div>
 						<div class="ta32"
-							th:text="${#temporals.format(leave.startDate, 'd-MMM-yyyy')}">no
-							start date found</div>
-						<div class="ta42"
-							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy')}">no
-							end date found</div>
-						<div class="ta52" th:text="${leave.type}">no type found</div>
-						<div class="ta62" th:text="${leave.status}">no status found</div>
+							th:text="${#temporals.format(leave.endDate, 'd-MMM-yyyy a')}">no</div>
+							
+						<div class="ta42" th:text="${leave.type}">no type found</div>
+						<div class="ta52" th:text="${leave.status}">no status found</div>
+						<div class="ta62" th:text="${leave.reason}">no status found</div>
 						<div class="ta72"><a th:href="@{/leaveedit{id}(id=${leave.id})}">Edit</a> | 
 						<a th:href="@{/cancel{id}(id=${leave.id})}">Cancel</a>
 						</div>
@@ -152,10 +152,10 @@
 	<br>
 	<br>
 	<br>
-
+<!--footer-starts-->
 	<div class="footer">
 		<div class="container">
-			<div class="footer-main">
+			<!--<div class="footer-main">
 				<div class="col-md-3 footet-left">
 					<h3>something</h3>
 					<ul>
@@ -173,7 +173,7 @@
 								onBlur="if (this.value == '') {this.value = 'Search...';}"
 								name="search" /> <input type="submit" value="">
 						</form>
-					</div>
+					</div>-->
 				</div>
 				<div class="clearfix"></div>
 			</div>

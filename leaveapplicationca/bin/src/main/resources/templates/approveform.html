@@ -10,18 +10,21 @@
 <link href='http://fonts.useso.com/css?family=Metamorphous' rel='stylesheet' type='text/css'>
 <!--//fonts-->
 <script src="js/jquery.min.js"> </script>
+
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	<!-- js -->
-		 <script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.js"></script>
 	<!-- js -->
-	<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
 <link rel="stylesheet" type="text/css" href="css/style4.css" />
 <script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <!--/script-->
+
+
 <script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event){		
@@ -30,7 +33,43 @@
 				});
 			});
 </script>
+
 </head>
+
+<style type="text/css">			
+span{				
+display: inline-block;		
+		width:60px;
+		margin:none;
+		padding:none;				
+		word-break: keep-all;				
+		overflow: hidden;				
+		text-overflow: ellipsis;			
+		}			
+span:hover{				
+overflow: visible;	
+content: attr(data-customer);
+          position: absolute;
+          background: #F2F2F2;
+          height: 300px;
+          width: 300px;
+          line-height: 1;
+          border: 1px solid #E5E5E5;
+          box-shadow: 0 20px 40px 0 rgba(56,62,71,0.10);
+          border-radius: 2px;
+          padding: 10px;
+          margin:10px;
+          vertical-align:text-top;
+          font-size: 13px;
+          color: #202332;
+          top: auto; // 设置位置
+          max-width: 290%;
+          word-break: break-word;// 如果一个单词太长，则截断  CSS 属性 word-break 指定了怎样在单词内断行。
+          white-space: normal;// 	
+	}		
+	</style>
+
+
 <body>
 <div class="header-nav">
 			<div class="container">
@@ -50,12 +89,9 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">home <span
-									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">search</a></li>
-							<li><a href="myShoppingcar.action">cart</a></li>
-							<li><a href="myOrders.action">my info</a></li>
 							<li><a href="/home">Apply for Leave</a></li>
+							<li><a th:href="@{/leavehistory}">View Leave History</a></li>
+							<li><a th:href="@{/subleavehistory}">Subordinate Leave History</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
@@ -107,17 +143,80 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>	
+			
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta22">NAME</div>
+					<div class="ta55">STARTDATE</div>
+					<div class="ta66">ENDDATE</div>
+					<div class="ta33">STATUS</div>
+					<div class="ta44">TYPE</div>
+					<div class="ta99">REASON</div>
+					<div class="ta77">ACCEPT</div>
+					<div class="ta88">REJECT</div>
+				</div>
+				<div class="tal1"></div>
+				<div th:each="user : ${approve}">
+					
+					<div class="tal2">
+						<div class="ta1"
+							th:text="${user.staffName}">no start date found</div>
+						<div class="ta4"
+              	th:text="${user.leaveApplication.startDate}">no
+							end date found</div>
+						<div class="ta5" th:text="${user.leaveApplication.endDate}">no type found</div>
+						<div class="ta2" th:text="${user.leaveApplication.status}">no status found</div>
+						<div class="ta3" th:text="${user.leaveApplication.type}">no type found</div>		
+						<div class="ta8" ><span th:text="${user.leaveApplication.reason}"> no reason</span></div>
+						<div class="ta6"> <a th:href="@{/manager/approve/{id}(id=${user.leaveApplication.id})}">ACCEPT</a></div>
+						<div class="ta7"><a th:href="@{/manager/reject/{id}(id=${user.leaveApplication.id})}">REJECT</a>
 
-<table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+<!--  <table>
 	<tr th:each="user : ${approve}"> 
 			 <td th:text="${user.id}">Name</td>
-			 <td th:text="${user.startDate}">Name</td>
-			 <td th:text="${user.endDate}">Name</td>
-			 <td th:text="${user.status}">Name</td>
+			 <td th:text="${user.startDate}">startDate</td>
+			 <td th:text="${user.endDate}">endDate</td>
+			 <td th:text="${user.status}">status</td>
 			 <td><a th:href="@{/manager/approve/{id}(id=${user.id})}">Accept</a></td>
 			 <td><a th:href="@{/manager/reject/{id}(id=${user.id})}">Reject</a></td>		
 		</tr>
-</table>
+</table>-->
+
+<div class="blog">
+		<div class="container">
+			<div class="reply heading">
+				<div class="lei">
+					<div class="ta21">EMPLOYEE NAME</div>
+					<div class="ta31">COMPENSATION HOURS FOR CLAIM</div>
+					<div class="ta41">ACCEPT</div>
+					<div class="ta51">REJECT</div>
+				</div>
+				<div class="tal1"></div>
+				<div th:each="claimcom : ${approveclaimcom}" th:if="${claimcom.claim.replied == false}" >
+					
+					<div class="tal2">
+						<div class="ta12"
+							th:text="${claimcom.employeeName}"></div>
+						<div class="ta32"
+							th:text="${claimcom.claim.compensationhours}"></div>
+						
+						<div class="ta62"><a th:href="@{/manager/approveclaim/{id}(id=${claimcom.claim.id})}">ACCEPT</a></div>
+						<div class="ta72"><a th:href="@{/manager/rejectclaim/{id}(id=${claimcom.claim.id})}">REJECT</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <!--footer-starts-->
 <div class="footer">
 		<div class="container">
@@ -162,6 +261,9 @@
 </script>
 <a href="#to-top" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 <!----> 
+
+
 	</div>
+
 </body>
 </html>

@@ -35,7 +35,7 @@
 		<div class="header-nav">
 			<div class="container">
 				<div class="logo">
-					<a href="index.jsp"><img src="images/logo.png" /></a>
+					<a href=""><img src="images/logo.png" /></a>
 				</div>
 				<div class="navigation">
 					<nav class="navbar navbar-default">
@@ -50,12 +50,8 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="index.jsp">home <span
-									class="sr-only">(current)</span></a></li>
-							<li><a href="findByType.action?type=鍏ㄩ儴">search</a></li>
-							<li><a href="myShoppingcar.action">cart</a></li>
-							<li><a href="myOrders.action">my info</a></li>
-							<li><a href="myInformation.jsp">details</a></li>
+						<li> <a href="/adduser">Add user</a></li>
+						<li><a href="/leavetype">Maintain Leave Type</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
@@ -109,10 +105,7 @@
 </div>	
 
 <ul class="nav">
-<li>
-<a href="/adduser">Add user</a></li>
-<li>
-<a href="/csv">Downlod the Details</a></li>
+<li><a href="/csv">Download the Details</a></li>
 </ul>
 
 <div class="blog">
@@ -124,27 +117,22 @@
 					<div class="ta44">LEAVE Entitled</div>
 					<div class="ta55">Contact</div>
 					<div class="ta66">Email</div>
-					<div class="ta77">Compensationhours</div>
-					<div class="ta88">Reports to</div>
-					<div class="ta99">Something</div>
+					<div class="ta77">Compensation Hours</div>
+					<div class="ta88">Reports To</div>
+					<div class="ta99">Action</div>
 				</div>
 				<div class="tal1"></div>
 				<div class="lai" th:if="${users.empty}"> no users</div>
 				<div th:each="user : ${users}">	
 					<div class="tal2">
 						<div class="ta1" th:text="${user.employee.name}">no ID found</div>
-						<div class="ta2"
-							th:text="${user.employee.designation}">no
-							start date found</div>
-						<div class="ta3"
-							th:text="${user.employee.leaveEntitled}">no
-							end date found</div>
-
+						<div class="ta2" th:text="${user.employee.designation}">no start date found</div>
+						<div class="ta3"th:text="${user.employee.leaveEntitled}">no	end date found</div>
 						<div class="ta4" th:text="${user.employee.contact}">no type found</div>
 						<div class="ta5" th:text="${user.employee.email}">no status found</div>
 						<div class="ta6" th:text="${user.employee.compensationhours}">no status found</div>
 						<div class="ta7" th:text="${user.employee.reportsTo}">no status found</div>
-						<div class="ta8" ><a th:href="@{/edit{id}(id=${user.userId})}">Edit</a>
+						<div class="ta8" ><a th:href="@{/edit{id}(id=${user.userId})}">Edit</a>  /  
      					<a th:href="@{/delete/{id}(id=${user.userId})}">Delete</a>
 
 						
@@ -177,8 +165,8 @@
 <div class="footer">
 		<div class="container">
 			<div class="footer-main">
-				<div class="col-md-3 footet-left">
-					<h3>something </h3>
+				<!--<div class="col-md-3 footet-left">
+					  <h3>something </h3>
 					<ul>
 						<li><a href="myShoppingcar.action">shopping cart</a></li>
 						<li><a href="myOrders.action">my orders</a></li>
@@ -188,12 +176,12 @@
 				<div class="col-md-3 footet-left">
 					<h3>Search</h3>
 					<div class="sub-text">
-					<form action="searchBook.action" method="post">
+					<form action="saearchBook.action" method="post">
 						<input type="text" value="Search..." onFocus="this.value = '';"
 							onBlur="if (this.value == '') {this.value = 'Search...';}" name="search"/> 
 							<input type="submit" value="">
 					</form>
-					</div>
+					</div>-->
 				</div>
 				<div class="clearfix"></div>
 			</div>

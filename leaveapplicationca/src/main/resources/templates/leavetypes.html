@@ -51,6 +51,7 @@
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 						<li><a href="/addleavetype">Add Leave Type</a></li>
+						<li><a href="/publicholidays">Maintain Public Holiday</a></li>
 						<li><a href="/adminhome">Maintain User</a></li>
 							<li><a href="/logout">Log Out</a></li>
 						</ul>
@@ -121,9 +122,8 @@
 					<div class="tal2">
 						 <div class="ta1" th:text="${leavetype.name}">no leave type found</div>
 						
-						<div class="ta2" ><a th:href="@{/leavetypeedit{id}(id=${leavetype.Id})}">Edit</a>   
-     					<a th:href="@{/leavetypedelete{id}(id=${leavetype.Id})}">Delete</a>
-
+						<div class="ta2" ><a th:href="@{/leavetypeedit{id}(id=${leavetype.Id})}">Edit</a>  |    
+				<a th:href="@{/leavetypedelete{id}(id=${leavetype.Id})}" onclick="return confirm('Are you sure you want to Delete?')">Delete</a>
 						
 					</div>
 				</div>
