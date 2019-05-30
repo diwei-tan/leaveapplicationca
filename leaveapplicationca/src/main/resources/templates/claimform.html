@@ -50,7 +50,9 @@
 					<div class="collapse navbar-collapse nav-wil"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a href="/logout">Log Out</a></li>
+						<li><a href="/leavehistory">View Leave History</a></li>
+							
+						<li><a href="/logout">Log Out</a></li>
 						</ul>
 			  <div class="clearfix"> </div>
 			</div><!-- /.navbar-collapse -->
@@ -108,8 +110,8 @@
 				<div class="contact-form">
 	<form th:attr="action=@{/leaveapplication/claim{id}(id=*{employeeId})}" th:object= "${claimcom}" method="post">
 		<fieldset>
-			<P>ID No: </P> 
-			<p th:text="*{employeeId}"/></p> <br/><br/>
+			<!-- <P>ID No: </P> 
+			<p th:text="*{employeeId}"/></p> <br/><br/> -->
 			<p>No. of hours: <input type="text" th:field="*{compensationhours}" /></p> 			 			
 			<input type="submit" value="Submit"/>
   				
@@ -125,7 +127,7 @@
 	<div class="footer">
 		<div class="container">
 			<div class="footer-main">
-				<div class="col-md-3 footet-left">
+				<!-- <div class="col-md-3 footet-left">
 					<h3>something </h3>
 					<ul>
 						<li><a href="myShoppingcar.action">shopping cart</a></li>
@@ -141,7 +143,7 @@
 							onBlur="if (this.value == '') {this.value = 'Search...';}" name="search"/> 
 							<input type="submit" value="">
 					</form>
-					</div>
+					</div> -->
 				</div>
 				<div class="clearfix"></div>
 			</div>

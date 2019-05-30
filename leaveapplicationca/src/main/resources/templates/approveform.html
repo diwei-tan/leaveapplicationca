@@ -164,9 +164,9 @@ content: attr(data-customer);
 						<div class="ta1"
 							th:text="${user.staffName}">no start date found</div>
 						<div class="ta4"
-              	th:text="${user.leaveApplication.startDate}">no
+              	th:text="${#temporals.format(user.leaveApplication.startDate, 'd-MMM-yyyy')}">no
 							end date found</div>
-						<div class="ta5" th:text="${user.leaveApplication.endDate}">no type found</div>
+						<div class="ta5" th:text="${#temporals.format(user.leaveApplication.endDate, 'd-MMM-yyyy')}">no type found</div>
 						<div class="ta2" th:text="${user.leaveApplication.status}">no status found</div>
 						<div class="ta3" th:text="${user.leaveApplication.type}">no type found</div>		
 						<div class="ta8" ><span th:text="${user.leaveApplication.reason}"> no reason</span></div>

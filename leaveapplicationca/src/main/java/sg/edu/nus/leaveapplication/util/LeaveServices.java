@@ -11,12 +11,14 @@ import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.TransformerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import sg.edu.nus.leaveapplication.model.PublicHoliday;
 import sg.edu.nus.leaveapplication.repo.PHRepository;
 
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 
+@Service
 public class LeaveServices {
 	
 	private PHRepository publicHolidayRepo;
@@ -57,7 +59,8 @@ public class LeaveServices {
 				}
 			} else {
 				// if not more than 14, exclude weekends and public holidays
-				if (checkDate.getDayOfWeek() != DayOfWeek.SATURDAY && checkDate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+				if (checkDate.getDayOfWeek() != DayOfWeek.SATURDAY && checkDate.getDayOfWeek() != DayOfWeek.SUNDAY
+						&& !isPH(checkDate)) {
 					// add nested if condition for public holidays
 					//if (!isPH(checkDate)) {
 						// check if is half day. If so, this is last (half) day so return num of days
@@ -103,8 +106,9 @@ public class LeaveServices {
 
 		// for half day, startDate and endDate date is same but one time is am and
 		// another pm.
-		if (startDate.toLocalDate().equals(endDate.toLocalDate())
-				&& (startDate.getHour() == 12 || endDate.getHour() == 12))
+		if ((startDate.toLocalDate().equals(endDate.toLocalDate())
+				&& (startDate.getHour() == 12 || endDate.getHour() == 12)) &&
+				!(startDate.getHour()==12 && endDate.getHour()==12))
 			return true;
 		else
 			return false;
@@ -118,23 +122,21 @@ public class LeaveServices {
 	}
 
 	// method to count num of PH days to be excluded from total count of leave dates
-//	public boolean isPH(LocalDateTime checkDate) {
-//		// generate list based on start/end dates
-//		// extract from repo
-//		if (publicHolidayRepo.findAll().isEmpty()) {
-//			return false;
-//		} else {
-//			List<PublicHoliday> phList = publicHolidayRepo.findAll();
-//			// extract only dates from repo
-//			Collection<LocalDate> phDates = CollectionUtils.collect(phList,
-//					TransformerUtils.invokerTransformer("getDate"));
-//			// add common dates (excluding weekends) to new templist
-//			for (LocalDate date : phDates) {
-//				if (checkDate.toLocalDate().equals(date)) {
-//					return true;
-//				}
-//			}
-//			return false;
-//		}
-//	}
+	public boolean isPH(LocalDateTime checkDate) {
+		// generate list based on start/end dates
+		// extract from repo
+
+			List<PublicHoliday> phList = publicHolidayRepo.findAllHolidays();
+			// extract only dates from repo
+			Collection<LocalDate> phDates = CollectionUtils.collect(phList,
+					TransformerUtils.invokerTransformer("getDate"));
+			// add common dates (excluding weekends) to new templist
+			for (LocalDate date : phDates) {
+				if (checkDate.toLocalDate().equals(date)) {
+					return true;
+				}
+			}
+			return false;
+		
+	}
 }

@@ -36,7 +36,7 @@ public class Employee {
 	private long compensationhours;
 	private long reportsTo;
 	@OneToMany(mappedBy="employee")
-	List<LeaveApplication> leaveList;
+	private List<LeaveApplication> leaveList;
 	
 
 	public Employee() {

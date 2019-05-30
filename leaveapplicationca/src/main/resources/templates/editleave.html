@@ -113,7 +113,11 @@
    <fieldset>
 
 			<!--  <input type="text" th:field="*{userId}"/>-->
-			<p>Start Date<input type="datetime-local" th:field="*{startDate}"/></p> 
+			<p th:if="${#fields.hasErrors('startDate')}"
+							th:errors="*{startDate}" style="color:red"></p>
+			<p>Start Date<input type="datetime-local" th:field="*{startDate}"/></p>
+			<p th:if="${#fields.hasErrors('endDate')}"
+							th:errors="*{endDate}" style="color:red"></p> 
 			<p>End Date<input type="datetime-local" th:field="*{endDate}"/></p>
 			 <p>Leave Type
 	<!-- 			<select th:field="*{type}"> -->
@@ -127,6 +131,8 @@
 									th:text="${LeaveType.name}"></option>
 							</select>
 			</p>
+			<p th:if="${#fields.hasErrors('reason')}"
+							th:errors="*{reason}" style="color:red"></p>
 			<p>Reason
 				<textarea rows="4" cols="20" th:field="*{reason}" placeholder="Type your reasons, duties that need to be fulfilled durng your absence, and who will replace you to complete your work here."></textarea>
 			</p>

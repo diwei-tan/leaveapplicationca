@@ -12,6 +12,7 @@ public class ClaimCompensation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
 	private long employeeId;
 	private long compensationhours;
 	private String status;

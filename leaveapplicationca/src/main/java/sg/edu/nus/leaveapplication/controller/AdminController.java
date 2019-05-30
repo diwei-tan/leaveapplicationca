@@ -213,6 +213,7 @@ public class AdminController {
 	@PostMapping("/publicholidaysadd")
 	public String addPublicHolidayss(@ModelAttribute("form") PublicHoliday form, Model model) {
 		
+		form.setDate(form.getDate().plusDays(1));
 		phRepo.save(form);
 		
 		return "redirect:/publicholidays";

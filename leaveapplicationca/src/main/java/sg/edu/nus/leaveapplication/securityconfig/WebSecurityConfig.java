@@ -72,11 +72,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.authorizeRequests()
         	.antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
         	.and()
-        	.authorizeRequests().antMatchers("/home","/create**","/leaveedit**", "/leavehistory").hasAnyRole("STAFF,MANAGER")
+        	.authorizeRequests().antMatchers("/home","/create**","/leaveedit**", "/leavehistory**"
+        			, "/leaveupdate**","/cancel**", "/claim**", "/leaveapplicaiton**").hasAnyRole("STAFF,MANAGER")
         	.and()
-        	.authorizeRequests().antMatchers("/manager**").hasRole("MANAGER")
+        	.authorizeRequests().antMatchers("/manager**", "/subleavehistory**").hasRole("MANAGER")
         	.and()
-        	.authorizeRequests().antMatchers("/adminhome", "/edit**", "/delete**", "/update**","/leavetype**", "/adduser").hasRole("ADMIN")
+        	.authorizeRequests().antMatchers("/adminhome", "/edit**", "/delete**", "/update**","/leavetype**", "/adduser"
+        			,"/addleavetype**","/leavetype**","/publicholiday**","/emplist").hasRole("ADMIN")
         	.and()
         	.formLogin()
         	.loginProcessingUrl("/j_spring_security_check")
@@ -89,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.logout().invalidateHttpSession(true).clearAuthentication(true)
         	.logoutSuccessUrl("/login?logout=true")
         	.permitAll()
-        	.and().exceptionHandling().accessDeniedPage("/Access_Denied");
+        	.and().exceptionHandling().accessDeniedPage("/denyaccess");
     }
 
     @Bean

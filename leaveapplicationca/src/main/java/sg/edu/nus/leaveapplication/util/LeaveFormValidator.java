@@ -13,17 +13,24 @@ import org.springframework.validation.Validator;
 import sg.edu.nus.leaveapplication.model.Credentials;
 import sg.edu.nus.leaveapplication.model.LeaveApplication;
 import sg.edu.nus.leaveapplication.repo.LeaveRepository;
+import sg.edu.nus.leaveapplication.repo.PHRepository;
 
 @Component
 public class LeaveFormValidator implements Validator {
 	
 	private LeaveRepository leaveRepo;
+	private PHRepository phrepo;
 	@Autowired
 	public void setLeaveRepo(LeaveRepository leaveRepo) {
 		this.leaveRepo = leaveRepo;
 	}
+	@Autowired
+	public void setPhrepo(PHRepository phrepo) {
+		this.phrepo=phrepo;
+	}
 	
-	LeaveServices leaveServices = new LeaveServices();
+	@Autowired
+	LeaveServices leaveServices;
 
 	@Override
 	public boolean supports(Class<?> aClass) {
@@ -58,7 +65,8 @@ public class LeaveFormValidator implements Validator {
 			}
 			
 			if (request.getStartDate().getDayOfWeek() == DayOfWeek.SATURDAY
-					|| request.getStartDate().getDayOfWeek() == DayOfWeek.SUNDAY) {
+					|| request.getStartDate().getDayOfWeek() == DayOfWeek.SUNDAY
+					|| leaveServices.isPH(request.getStartDate())) {
 				errors.rejectValue("startDate", "IsPHOrWeekend");
 				doPhaseTwo = false;
 				doPhaseThree = false;
@@ -87,7 +95,8 @@ public class LeaveFormValidator implements Validator {
 				doPhaseThree=false;
 			}
 			if (request.getEndDate().getDayOfWeek() == DayOfWeek.SATURDAY
-					|| request.getEndDate().getDayOfWeek() == DayOfWeek.SUNDAY) {
+					|| request.getEndDate().getDayOfWeek() == DayOfWeek.SUNDAY
+					|| leaveServices.isPH(request.getEndDate())) {
 				errors.rejectValue("endDate", "IsPHOrWeekend");
 				doPhaseTwo = false;
 				doPhaseThree = false;
@@ -97,7 +106,8 @@ public class LeaveFormValidator implements Validator {
 			// things.
 			// first, warn if a half day used when not compensation leave
 			if ((request.getStartDate().getHour() == 12 || request.getEndDate().getHour() == 12)) {
-				if (!request.getType().equals("Compensationleave")) {
+				if (!(request.getStartDate().getHour() == 12 && request.getEndDate().getHour() == 12) &&
+						!request.getType().equals("Compensationleave")) {
 					errors.rejectValue("startDate", "HalfDayButNotCompLeave");
 					doPhaseTwo = false;
 					doPhaseThree = false;
